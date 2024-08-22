@@ -5,13 +5,13 @@ import hiflix from "../assets/icons/hiflix.svg"
 import FacebookSmall from "../assets/icons/FacebookSmall.svg"
 import InstaSmall from "../assets/icons/InstaSmall.svg"
 import TwitterSmall from "../assets/icons/TwitterSmall.svg"
-import YoutubeSmall from "../assets/icons/YoutubeSmall.svg"
+import YoutubeSmall from "../assets/icons/Youtube.svg"
 
 
 function Footer() {
   return (
     <footer className="flex flex-col items-start px-20 pt-24 pb-12 mt-7 w-full tracking-wide bg-white max-md:px-5 max-md:max-w-full">
-      <div className="flex flex-col w-full max-w-[1029px] max-md:max-w-full">
+      <div className="flex flex-col w-full justify-center  max-md:max-w-full">
         <div className="flex flex-wrap gap-5 justify-between items-start text-base text-slate-500 max-md:max-w-full">
           <div className="flex flex-col tracking-wider leading-8">
             <img loading="lazy" src={Logo} alt="Tickitz Logo" className="object-contain max-w-full aspect-[2.59] w-[184px]" />

@@ -4,7 +4,7 @@ import AuthButtons from './AuthButtons';
 
 function Header() {
   return (
-    <header className="flex flex-wrap gap-10 justify-between items-center px-32 w-full text-sm text-center border-b border-neutral-200 min-h-[104px] max-md:px-5 max-md:max-w-full">
+    <header className="flex flex-wrap gap-5 justify-between items-center px-4 sm:px-8 lg:px-32 w-full text-sm text-center border-b border-neutral-200 min-h-[104px]">
       <Logo />
       <NavLinks />
       <AuthButtons />
