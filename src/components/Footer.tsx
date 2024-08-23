@@ -10,7 +10,7 @@ import YoutubeSmall from "../assets/icons/Youtube.svg"
 
 function Footer() {
   return (
-    <footer className="flex flex-col items-start px-20 pt-24 pb-12 mt-7 w-full tracking-wide bg-white max-md:px-5 max-md:max-w-full">
+    <footer className="flex flex-col items-start px-20  pb-12 mt-7 w-full tracking-wide bg-white max-md:px-5 max-md:max-w-full bottom-0">
       <div className="flex flex-col w-full justify-center  max-md:max-w-full">
         <div className="flex flex-wrap gap-5 justify-between items-start text-base text-slate-500 max-md:max-w-full">
           <div className="flex flex-col tracking-wider leading-8">

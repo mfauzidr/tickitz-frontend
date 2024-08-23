@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminIndex from "./pages/AdminIndex";
 import AdminMovie from "./pages/AdminMovie";
+import MovieTicketBooking from "./pages/MovieDetails";
 
 function Error() {
   return <div>Error</div>;
@@ -16,82 +17,6 @@ function NotFound() {
 
 const routerWithChildren = createBrowserRouter([
   {
-    path: "/",
-    element: <Index />,
-    errorElement: <Error />,
-    children: [
-      {
-        path: "home",
-        element: <Home />,
-      },
-      //   {
-      //     path: "product",
-      //     element: <Product />
-      //   },
-      //   {
-      //     path: "checkoutproduct",
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <CheckoutProduct />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'orderdetails',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <OrderDetails />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'detailsproduct',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <DetailProduct />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: '/detailsproduct/:id',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <DetailProduct />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: '/ordersdetail/:id',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <OrderDetails />
-      //       </PrivateRoute>
-      //     ),
-      //   }
-      //   ,
-      //   {
-      //     path: 'historyorder',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <HistoryOrder />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'profile',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <Profile />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'axios',
-      //     element: <AxiosTry/>
-      //   },
-    ],
-  },
-  {
     path: "/admin",
     element: <AdminIndex />,
     errorElement: <Error />,
@@ -101,9 +26,85 @@ const routerWithChildren = createBrowserRouter([
         element: <AdminMovie />,
       },
       //   {
-      //     path: "product",
-      //     element: <Product />
+      //     path: "checkoutproduct",
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <CheckoutProduct />
+      //       </PrivateRoute>
+      //     ),
       //   },
+      //   {
+      //     path: 'orderdetails',
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <OrderDetails />
+      //       </PrivateRoute>
+      //     ),
+      //   },
+      //   {
+      //     path: 'detailsproduct',
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <DetailProduct />
+      //       </PrivateRoute>
+      //     ),
+      //   },
+      //   {
+      //     path: '/detailsproduct/:id',
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <DetailProduct />
+      //       </PrivateRoute>
+      //     ),
+      //   },
+      //   {
+      //     path: '/ordersdetail/:id',
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <OrderDetails />
+      //       </PrivateRoute>
+      //     ),
+      //   }
+      //   ,
+      //   {
+      //     path: 'historyorder',
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <HistoryOrder />
+      //       </PrivateRoute>
+      //     ),
+      //   },
+      //   {
+      //     path: 'profile',
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <Profile />
+      //       </PrivateRoute>
+      //     ),
+      //   },
+      //   {
+      //     path: 'axios',
+      //     element: <AxiosTry/>
+      //   },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <Index />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "home",
+        element: <Home />,
+      },
+      {
+        path: "Details",
+        element: <MovieTicketBooking />,
+      },
       //   {
       //     path: "checkoutproduct",
       //     element: (
@@ -165,6 +166,10 @@ const routerWithChildren = createBrowserRouter([
       //     path: 'axios',
       //     element: <AxiosTry/>
       //   },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
     ],
   },
   {
@@ -175,10 +180,20 @@ const routerWithChildren = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
-  {
-    path: "*",
-    element: <NotFound />,
-  },
+  //   {
+  //     path: '/forgot',
+  //     element: <ForgotPass/>
+  //   },
+  //   {
+  //     path: "*",
+  //     element: <NotFound />,
+  //   },
+  //   {
+  //     path: "/admin-toko-kopi",
+  //     element: <AdminDashboard />,
+  //     errorElement: <Error />,
+  //     children: []
+  //   }
 ]);
 
 export default routerWithChildren;
