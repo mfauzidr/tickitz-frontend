@@ -27,8 +27,8 @@ const MovieBannerAndDetails: React.FC<MovieBannerAndDetailsProps> = ({ movie }) 
         />
         <div className="flex relative w-full rounded-md bg-black bg-opacity-40 min-h-[415px] max-md:max-w-full" />
       </div>
-      <div className="flex relative z-[3] flex-col items-center self-center -mt-44 w-full max-w-[1123px] max-md:max-w-full top-0 ">
-        <div className="max-w-full w-[888px]">
+      <div className="flex relative z-[3] flex-col items-center self-center -mt-64 md:-mt-44 w-full max-w-[1123px] max-md:max-w-full top-0 ">
+        <div className="max-w-full w-[888px] px-16">
           <div className="flex gap-5 max-md:flex-col">
             <div className="flex flex-col w-[30%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow text-xl font-semibold tracking-wide leading-9 text-black whitespace-nowrap max-md:mt-4">
@@ -43,14 +43,14 @@ const MovieBannerAndDetails: React.FC<MovieBannerAndDetailsProps> = ({ movie }) 
                 </h1>
                 <div className="flex gap-2 items-start mt-6 max-w-full text-base tracking-wider leading-8 text-center whitespace-nowrap text-black w-[205px]">
                   {movie.genres.map((genre, index) => (
-                    <span key={index} className="gap-2 self-stretch px-5 rounded-3xl bg-white bg-opacity-10 h-[31px]">
+                    <span key={index} className="gap-2.5 self-stretch px-3 sm:px-5 rounded-3xl bg-slate-400 bg-opacity-10 h-[31px]">
                       {genre}
                     </span>
                   ))}
                 </div>
                 <div className="self-stretch mt-3 max-md:max-w-full">
                   <div className="flex gap-5 max-md:flex-col">
-                    <div className="flex flex-col w-[29%] max-md:ml-0 max-md:w-full">
+                    <div className="flex flex-row md:flex-row w-full gap-4 max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col grow items-start text-sm tracking-wider leading-6 text-black max-md:mt-10">
                         <div>Release date</div>
                         <div className="text-base leading-8 text-black">
@@ -61,8 +61,6 @@ const MovieBannerAndDetails: React.FC<MovieBannerAndDetailsProps> = ({ movie }) 
                           {movie.duration}
                         </div>
                       </div>
-                    </div>
-                    <div className="flex flex-col ml-5 w-[71%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col grow items-start text-sm tracking-wider leading-6 text-black max-md:mt-10">
                         <div>Directed by</div>
                         <div className="text-base leading-8 text-black">
@@ -80,7 +78,7 @@ const MovieBannerAndDetails: React.FC<MovieBannerAndDetailsProps> = ({ movie }) 
             </div>
           </div>
         </div>
-        <p className="mt-1 text-base tracking-wider leading-8 text-black w-[821px] max-md:max-w-full ">
+        <p className="mt-1 text-base tracking-wider leading-8 text-black w-[821px] px-8 max-md:max-w-full ">
           {movie.synopsis}
         </p>
       </div>

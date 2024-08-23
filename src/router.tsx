@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Desktop";
 import Index from "./pages/Index";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import MovieTicketBooking from "./pages/MovieDetails"
 
 function Error() {
@@ -91,15 +93,15 @@ const routerWithChildren = createBrowserRouter([
         element: <NotFound />,
       },
     ],
-  }
-//   {
-//     path: '/login',
-//     element: <Login/>,
-//   },
-//   {
-//     path: '/register',
-//     element: <Register/>,
-//   },
+  },
+  {
+    path: '/login',
+    element: <Login/>,
+  },
+  {
+    path: '/register',
+    element: <Register/>,
+  },
 //   {
 //     path: '/forgot',
 //     element: <ForgotPass/>

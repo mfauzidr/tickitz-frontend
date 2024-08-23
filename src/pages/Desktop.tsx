@@ -128,6 +128,11 @@ function Home() {
         <h3 className="self-center mt-3.5 text-3xl tracking-wider leading-10 text-center text-neutral-900">Exciting Movies That Should Be Watched Today</h3>
       </div>
         <MovieCard props={movies} />
+        {/* <Pagination
+              currentPage={currentPage}
+              totalPages={Math.ceil(movieData.cinemas.length / 4)}
+              onPageChange={handlePageChange}
+            /> */}
         <Newsletter/>
     </div>
   );
