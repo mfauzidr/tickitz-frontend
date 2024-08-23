@@ -3,8 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import ThreeDots from "../assets/icons/SidebarIcon.svg";
 import searchLight from "../assets/icons/SearchLight.svg";
 
-function AdminHamburger() {
-  const links = ["Dashboard", "Movie"];
+function Hamburger() {
+  const links = ["Home", "Movie", "Buy Ticket"];
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -63,11 +63,15 @@ function AdminHamburger() {
         </div>
         <div className="flex gap-4 py-3 px-4 tbt:px-10 bg-white rounded text-slate-400 w-full">
           <img loading="lazy" src={searchLight} alt="" className="object-contain shrink-0 w-6 aspect-square" />
-          <input type="text" className="flex-auto px-4 py-2" placeholder="Search" />
+          <input type="text" className="flex-auto px-4 py-2" placeholder="Search Movie" />
+        </div>
+        <div className="flex gap-5 items-center p-4 justify-center self-stretch my-auto tracking-wider leading-6">
+          <button className="gap-1.5 self-stretch px-5 py-3 text-blue-700 hover:bg-blue-700 whitespace-nowrap rounded-md border border-blue-700 hover:text-slate-50 border-solid">SignIn</button>
+          <button className="gap-1.5 self-stretch px-5 py-3 text-blue-700 hover:bg-blue-700 rounded-md whitespace-nowrap border-blue-700 hover:text-slate-50 border-solid border">Sign Up</button>
         </div>
       </div>
     </div>
   );
 }
 
-export default AdminHamburger;
+export default Hamburger;
