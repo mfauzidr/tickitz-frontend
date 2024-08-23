@@ -3,6 +3,8 @@ import Home from "./pages/Desktop";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import AdminIndex from "./pages/AdminIndex";
+import AdminMovie from "./pages/AdminMovie";
 
 function Error() {
   return <div>Error</div>;
@@ -21,6 +23,82 @@ const routerWithChildren = createBrowserRouter([
       {
         path: "home",
         element: <Home />,
+      },
+      //   {
+      //     path: "product",
+      //     element: <Product />
+      //   },
+      //   {
+      //     path: "checkoutproduct",
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <CheckoutProduct />
+      //       </PrivateRoute>
+      //     ),
+      //   },
+      //   {
+      //     path: 'orderdetails',
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <OrderDetails />
+      //       </PrivateRoute>
+      //     ),
+      //   },
+      //   {
+      //     path: 'detailsproduct',
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <DetailProduct />
+      //       </PrivateRoute>
+      //     ),
+      //   },
+      //   {
+      //     path: '/detailsproduct/:id',
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <DetailProduct />
+      //       </PrivateRoute>
+      //     ),
+      //   },
+      //   {
+      //     path: '/ordersdetail/:id',
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <OrderDetails />
+      //       </PrivateRoute>
+      //     ),
+      //   }
+      //   ,
+      //   {
+      //     path: 'historyorder',
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <HistoryOrder />
+      //       </PrivateRoute>
+      //     ),
+      //   },
+      //   {
+      //     path: 'profile',
+      //     element: (
+      //       <PrivateRoute to={"/login"}>
+      //         <Profile />
+      //       </PrivateRoute>
+      //     ),
+      //   },
+      //   {
+      //     path: 'axios',
+      //     element: <AxiosTry/>
+      //   },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminIndex />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "movie",
+        element: <AdminMovie />,
       },
       //   {
       //     path: "product",

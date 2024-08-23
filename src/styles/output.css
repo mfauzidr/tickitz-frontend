@@ -1041,6 +1041,10 @@ video {
   border-radius: 0.75rem;
 }
 
+.rounded-full{
+  border-radius: 9999px;
+}
+
 .border{
   border-width: 1px;
 }
@@ -1684,6 +1688,10 @@ video {
     display: flex;
   }
 
+  .md\:hidden{
+    display: none;
+  }
+
   .md\:h-full{
     height: 100%;
   }
@@ -1737,6 +1745,11 @@ video {
   .md\:px-12{
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+
+  .md\:px-8{
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .md\:text-2xl{
