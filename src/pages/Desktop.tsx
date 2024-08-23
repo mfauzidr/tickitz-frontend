@@ -9,7 +9,7 @@ interface genresType {
 }
 
 function Home() {
-  const movies = [
+  const movies = [ // dummy data
     {
       title: 'The Witches',
       genres: ['Comedy', 'Adventure'],
@@ -60,7 +60,8 @@ function Home() {
 
   return (
     <div>
-      <section className="flex relative flex-col items-start px-4 sm:px-8 lg:px-20 pt-16 sm:pt-28 pb-7 w-full min-h-[462px]">
+      {/* hero desktop MD */}
+      <section className="hidden md:flex relative flex-col items-start px-4 sm:px-8 lg:px-20 pt-16 sm:pt-28 pb-7 w-full min-h-[462px]"> 
         <img
           loading="lazy"
           src={HeroImage}
@@ -81,12 +82,14 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="flex flex-row self-center mt-10 sm:mt-20 w-full px-4 sm:px-8 gap-8">
+
+      {/* Filter Desktop */}
+      <section className="flex flex-row self-center mt-10 sm:mt-20 w-full px-4 sm:px-8 gap-8 hidden md:flex">
         <div>
           <div className="flex gap-5 justify-between ml-0 sm:ml-3 max-w-full text-base font-semibold text-gray-600 w-full sm:w-[398px]">
             <div>Cari Event</div>
           </div>
-          <div className="flex flex-wrap gap-5 mt-3 ml-0 sm:ml-3 max-w-full w-full  justify-between	">
+          <div className=" flex-wrap gap-5 mt-3 ml-0 sm:ml-3 max-w-full w-full  justify-between	">
             <div className="flex flex-auto gap-4 px-3 sm:px-5 py-3 sm:py-5 text-base tracking-wider bg-white rounded border border-solid border-neutral-200 text-slate-400">
               <img
                 loading="lazy"
@@ -94,7 +97,7 @@ function Home() {
                 alt=""
                 className="object-contain shrink-0 w-6 aspect-square"
               />
-              <div className="flex-auto">New Born Expert</div>
+              <input type="text" className="flex-auto" placeholder="New Born Expert"/>
             </div>
           </div>
         </div>
@@ -119,8 +122,11 @@ function Home() {
             </div>
           </div>
         </div>
-
       </section>
+      <div className="p-4 md:hidden">
+        <h2 className="self-center text-3xl font-bold tracking-wider leading-9 text-center text-blue-700">MOVIES</h2>
+        <h3 className="self-center mt-3.5 text-3xl tracking-wider leading-10 text-center text-neutral-900">Exciting Movies That Should Be Watched Today</h3>
+      </div>
         <MovieCard props={movies} />
         <Newsletter/>
     </div>

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Desktop";
 import Index from "./pages/Index";
+import MovieTicketBooking from "./pages/MovieDetails"
 
 function Error() {
   return <div>Error</div>;
@@ -20,10 +21,10 @@ const routerWithChildren = createBrowserRouter([
         path: "home",
         element: <Home />,
       },
-    //   {
-    //     path: "product",
-    //     element: <Product />
-    //   },
+      {
+        path: "Details",
+        element: <MovieTicketBooking />
+      },
     //   {
     //     path: "checkoutproduct",
     //     element: (

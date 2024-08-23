@@ -1,12 +1,12 @@
 
 function Newsletter() {
   return (
-    <section className="flex relative flex-col justify-center items-center p-20 mt-16 w-full text-white bg-[#2563EB] min-h-[318px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
-      <div className="flex relative flex-col max-w-full w-[702px] rounded ">
+    <section className="flex relative flex-col justify-center items-center p-20 mt-16 w-full text-white bg-[#2563EB] min-h-[318px] border border-solid rounded-3xl max-md:px-5 max-md:mt-10 max-md:max-w-full">
+      <div className="flex relative flex-col max-w-full md:w-[702px] rounded ">
         <h2 className="self-center text-5xl tracking-wider leading-none text-center max-md:max-w-full max-md:text-4xl">
           Subscribe to our newsletter
         </h2>
-        <form className="flex flex-wrap gap-3 mt-12 text-base leading-loose max-md:mt-10 max-md:max-w-full">
+        <form className="flex md:flex-row flex-col gap-3 mt-12 text-base leading-loose max-md:mt-10 max-md:max-w-full">
           <div className="flex flex-col flex-1 justify-center rounded-lg min-h-[60px]">
             <label htmlFor="firstName" className="sr-only">First name</label>
             <input

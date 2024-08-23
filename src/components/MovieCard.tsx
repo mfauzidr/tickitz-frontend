@@ -14,7 +14,7 @@ function MovieCard({ props }: { props: ImagesBody[] }) {
         <section className="mt-10 sm:mt-14 px-4 sm:px-8">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5 px-2 sm:px-0 md:px-0">
                 {props.map((movie, index) => (
-                    <div key={index} className="flex flex-col w-full">
+                    <div key={index} className="flex flex-col w-full pb-2">
                         <div className="flex flex-col items-start w-full tracking-wider">
                             <div className="relative w-full pb-[152%] rounded-md overflow-hidden"
                                 onMouseEnter={() => Sethover(index)}
@@ -40,7 +40,7 @@ function MovieCard({ props }: { props: ImagesBody[] }) {
                             <h3 className="mt-5 text-xl sm:text-2xl font-bold tracking-wider leading-none text-slate-900">
                                 {movie.title}
                             </h3>
-                            <div className="flex flex-wrap gap-2 items-start mt-3 sm:mt-5 text-sm sm:text-base leading-8 text-center whitespace-nowrap text-slate-400">
+                            <div className="flex flex-wrap gap-2 items-start mt-3 sm:mt-5 text-sm sm:text-base leading-8 text-center whitespace-nowrap text-slate-700">
                                 {movie.genres.map((genre, index) => (
                                     <span
                                         key={index}
