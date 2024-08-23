@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import AdminIndex from "./pages/AdminIndex";
 import AdminMovie from "./pages/AdminMovie";
 import MovieTicketBooking from "./pages/MovieDetails";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function Error() {
   return <div>Error</div>;
@@ -24,6 +25,10 @@ const routerWithChildren = createBrowserRouter([
       {
         path: "movie",
         element: <AdminMovie />,
+      },
+      {
+        path: "dashboard",
+        element: <AdminDashboard />,
       },
       //   {
       //     path: "checkoutproduct",
