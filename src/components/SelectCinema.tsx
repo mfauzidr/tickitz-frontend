@@ -19,7 +19,7 @@ const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSe
           {cinemas.length} Result{cinemas.length !== 1 && 's'}
         </span>
       </div>
-      <div className="flex gap-5 max-md:flex-col">
+      <div className="flex gap-5 flex-row max-md:flex-col">
         {cinemas.map((cinema) => (
           <div key={cinema.id} className="flex flex-col w-3/12 max-md:w-full">
             <button

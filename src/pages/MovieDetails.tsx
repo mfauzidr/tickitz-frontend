@@ -6,6 +6,7 @@ import cine1 from "../assets/icons/Ebu_Id.svg";
 import cine2 from "../assets/icons/cineone21.svg";
 import cine3 from "../assets/icons/hiflix.svg";
 import banner from "../assets/images/Rectangle 613.jpg";
+import BookingForm from '../components/ChooseDateDetailsMovies';
 
 // Define interfaces for movie, cinema, and booking details
 interface Movie {
@@ -110,9 +111,10 @@ const MovieTicketBooking = () => {
       <div className=''>
       {movie && <MovieBannerAndDetails movie={movie} />}
       </div>
-      <div className="flex z-10 flex-col  self-center content-end w-full max-w-[1123px] max-md:max-w-full">
+      <div className="flex z-10 flex-col p-8 self-center content-end w-full max-w-[1123px] max-md:max-w-full">
         {movieData.cinemas.length > 0 && (
           <>
+            <BookingForm/>
             <CinemaSelection
               cinemas={movieData.cinemas}
               selectedCinemaId={selectedCinemaId}
