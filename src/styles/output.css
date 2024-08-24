@@ -1708,11 +1708,6 @@ video {
     width: 24rem;
   }
 
-  .tbt\:px-32{
-    padding-left: 8rem;
-    padding-right: 8rem;
-  }
-
   .tbt\:px-10{
     padding-left: 2.5rem;
     padding-right: 2.5rem;
@@ -1875,11 +1870,6 @@ video {
   .md\:px-12{
     padding-left: 3rem;
     padding-right: 3rem;
-  }
-
-  .md\:px-32{
-    padding-left: 8rem;
-    padding-right: 8rem;
   }
 }
 

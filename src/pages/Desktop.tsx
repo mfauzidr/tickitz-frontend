@@ -86,7 +86,7 @@ function Home() {
       {/* Filter Desktop */}
       <section className="flex flex-row self-center mt-10 sm:mt-20 w-full px-4 sm:px-8 gap-8 hidden md:flex">
         <div>
-          <div className="flex gap-5 justify-between ml-0 sm:ml-3 max-w-full text-base font-semibold text-gray-600 w-full sm:w-[398px]">
+          <div className="flex px-3 sm:px-6 py-2 sm:py-2.5 font-bold gap-5 justify-between ml-0 sm:ml-3 max-w-full text-base font-semibold text-gray-600 w-full sm:w-[398px]">
             <div>Cari Event</div>
           </div>
           <div className=" flex-wrap gap-5 mt-3 ml-0 sm:ml-3 max-w-full w-full  justify-between	">
@@ -102,7 +102,7 @@ function Home() {
           </div>
         </div>
         <div>
-          <div className="flex gap-5 justify-between ml-0 sm:ml-3 max-w-full text-base font-semibold text-gray-600 w-full sm:w-[398px]">
+          <div className="flex px-3 sm:px-6 py-2 sm:py-2.5 font-bold gap-5 justify-between ml-0 sm:ml-3 max-w-full text-base font-semibold text-gray-600 w-full sm:w-[398px]">
             <div>Filter</div>
           </div>
           <div className="flex flex-wrap gap-5 mt-3 ml-0 sm:ml-3 max-w-full w-full ">
