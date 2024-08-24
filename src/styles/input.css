@@ -5,4 +5,10 @@
 @tailwind utilities;
 
 @layer components {
+  .navbar-nav-detail {
+    @apply right-[-150%];
+  }
+  .navbar-nav-detail.active {
+    @apply right-0;
+  }
 }
