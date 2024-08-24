@@ -66,9 +66,9 @@ function Home() {
       <div className="hidden md:flex relative flex-col items-start pt-16 sm:pt-28 pb-7 w-full min-h-[462px]">
         <img loading="lazy" src={HeroImage} alt="" className="object-cover absolute inset-0 size-full" />
         <div className="flex relative flex-col max-w-full w-full">
-          <div className="flex flex-col text-white pl-4 tbt:pl-10 lg:pl-32">
-            <h2 className="self-start text-base sm:text-lg font-bold tracking-wider leading-9 text-center">LIST MOVIE OF THE WEEK</h2>
-            <h1 className="mt-2.5 text-3xl sm:text-5xl font-medium tracking-wider leading-tight sm:leading-[70px] md:w-[700px]">Experience the Magic of Cinema: Book Your Tickets Today</h1>
+          <div className="text-white pl-4 tbt:pl-10 lg:pl-32">
+            <h2 className="font-bold">LIST MOVIE OF THE WEEK</h2>
+            <h1 className="mt-2.5 text-5xl sm:leading-[70px] md:w-[700px]">Experience the Magic of Cinema: Book Your Tickets Today</h1>
           </div>
           <div className="flex gap-3 justify-center items-center mt-8 sm:mt-16">
             <div className="flex my-auto bg-blue-700 rounded-3xl min-h-[6px] w-[43px]" />
@@ -79,9 +79,7 @@ function Home() {
       {/* Filter Desktop */}
       <div className="hidden md:flex flex-row self-center mt-10 w-full gap-10 px-4 tbt:px-10 lg:px-32">
         <div>
-          <div className="flex px-3 sm:px-6 py-2 sm:py-2.5 font-bold gap-5 justify-between ml-0 sm:ml-3 max-w-full text-base font-semibold text-gray-600 w-full sm:w-[398px]">
-            <div>Cari Event</div>
-          </div>
+          <div className="text-gray-600">Cari Event</div>
           <div className=" flex-wrap gap-5 mt-3">
             <div className="flex gap-4 p-3 tracking-wider bg-white rounded border border-solid border-neutral-200 text-slate-400">
               <img loading="lazy" src={searchLight} alt="" className="object-contain shrink-0 w-6 aspect-square" />
@@ -90,9 +88,7 @@ function Home() {
           </div>
         </div>
         <div>
-          <div className="flex px-3 sm:px-6 py-2 sm:py-2.5 font-bold gap-5 justify-between ml-0 sm:ml-3 max-w-full text-base font-semibold text-gray-600 w-full sm:w-[398px]">
-            <div>Filter</div>
-          </div>
+          <div className="font-semibold">Filter</div>
           <div className="flex flex-wrap mt-3 max-w-full w-full ">
             <div className="flex flex-wrap flex-auto gap-3 items-center my-auto text-xs font-medium leading-none text-gray-600 whitespace-nowrap">
               {genreListes.map((genre, index) => (
