@@ -1,8 +1,18 @@
+import { useState } from "react";
+import dropdown from "../assets/icons/DropdownArrow.svg"
+
 interface Cinema {
   id: string;
   logo: string;
   name: string;
+  Category: {
+    [categoryName: string]: {
+      times: string[];
+    };
+  };
 }
+
+
 
 interface CinemaSelectionProps {
   cinemas: Cinema[];
@@ -11,6 +21,17 @@ interface CinemaSelectionProps {
 }
 
 const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSelectionProps) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState("");
+
+  const openDropdown = (name: string, id: string) => {
+    if (isDropdownOpen === name) {
+      setIsDropdownOpen("");
+    } else {
+      setIsDropdownOpen(name);
+      onCinemaSelect(id);
+    }
+  };
+
   return (
     <section className="mt-10 max-md:max-w-full">
       <div className="flex gap-9 mb-10">
@@ -21,12 +42,10 @@ const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSe
       </div>
       <div className="flex gap-5 flex-row max-md:flex-col">
         {cinemas.map((cinema) => (
-          <div key={cinema.id} className="flex flex-col w-3/12 max-md:w-full">
+          <div key={cinema.id} className= {` flex flex-col w-3/12 max-md:w-full ${cinema.id === selectedCinemaId ? 'border-2 rounded-lg border-solid border-neutral-200' : '' } `}>
             <button
               onClick={() => onCinemaSelect(cinema.id)}
-              className={`flex flex-col grow justify-center px-8 py-9 rounded-lg ${
-                cinema.id === selectedCinemaId ? 'bg-blue-700 text-white' : 'border-2 border-solid border-neutral-200'
-              } max-md:px-5 max-md:mt-4`}
+              className={`hidden md:flex flex-col grow justify-center px-8 py-9 rounded-lg items-center border-2 border-solid border-neutral-200 max-md:px-5 max-md:mt-4`}
             >
               <img
                 loading="lazy"
@@ -35,6 +54,38 @@ const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSe
                 className="object-contain w-full"
               />
             </button>
+            <button
+              onClick={() => openDropdown( cinema.name,cinema.id)}
+              className={`flex flex-row md:flex-col grow justify-center px-8 py-9 rounded-lg items-center md:hidden ${cinema.id === selectedCinemaId ? '' : 'border-2 rounded-lg border-solid border-neutral-200' }
+                 max-md:px-5 max-md:mt-4`}
+            >
+              <img
+                loading="lazy"
+                src={cinema.logo}
+                alt={cinema.name}
+                className="object-contain w-full"
+              />
+              <img
+                loading="lazy"
+                src={dropdown}
+                alt={cinema.name + " drpodown arrow "}
+                className="object-contain w-20 md:hidden "
+              />
+            </button>
+            {/* isi dropdown */}
+            <div className="">
+              {Object.entries(cinema.Category).map(([categoryName, categoryData]) => (
+                <div className={` flex flex-col p-4 gap-4 ${isDropdownOpen === cinema.name ? "" : "hidden"} `} key={categoryName}>
+                  <h3 className="flex flex-wrap gap-4 text-lg font-semibold">{categoryName}</h3>
+                  {categoryData.times.map((time, index) => (
+                    <div className="gap-2.5 self-stretch px-3 sm:px-5 rounded-3xl bg-slate-400 bg-opacity-10 h-[31px] w-fit p-2" key={index}>
+                      {time}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+            {/* akhir isi dropdown */}
           </div>
         ))}
       </div>

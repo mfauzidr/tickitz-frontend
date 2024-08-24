@@ -27,6 +27,11 @@ interface Cinema {
   id: string;
   logo: string;
   name: string;
+  Category: {
+    [categoryName: string]: {
+      times: string[];
+    };
+  };
 }
 
 interface HeaderData {
@@ -55,45 +60,87 @@ const movie: Movie = {
   synopsis: " A thrilling adventure of a group of explorers who embark on a journey to the unknown A thrilling adventure of a group of explorers who embark on a journey to the unknown A thrilling adventure of a group of explorers who embark on a journey to the unknown A thrilling adventure of a group of explorers who embark on a journey to the unknown A thrilling adventure of a group of explorers who embark on a journey to the unknown A thrilling adventure of a group of explorers who embark on a journey to the unknownA thrilling adventure of a group of explorers who embark on a journey to the unknownA thrilling adventure of a group of explorers who embark on a journey to the unknown."
 };
 
+
+// dummy data cinemas studio
 const movieData = {
   cinemas: [
     {
       id: "cinema1",
       logo: cine1,
-      name: "Cinema One"
+      name: "Cinema One",
+      Category: {
+        primary: {
+          times: ["06:00 PM", "08:00 PM", "10:00 PM"],
+        },
+        luxury: {
+          times: ["07:00 PM", "09:00 PM"],
+        },
+      },
     },
     {
       id: "cinema2",
       logo: cine2,
-      name: "Cinema Two"
+      name: "Cinema Two",
+      Category: {
+        standard: {
+          times: ["05:00 PM", "07:00 PM", "09:00 PM"],
+        },
+        premium: {
+          times: ["06:30 PM", "08:30 PM", "10:30 PM"],
+        },
+      },
     },
     {
       id: "cinema3",
       logo: cine3,
-      name: "Cinema Three"
+      name: "Cinema Three",
+      Category: {
+        basic: {
+          times: ["04:00 PM", "06:00 PM", "08:00 PM"],
+        },
+        deluxe: {
+          times: ["07:00 PM", "09:00 PM", "11:00 PM"],
+        },
+      },
     },
     {
       id: "cinema4",
       logo: cine1,
-      name: "Cinema Four"
+      name: "Cinema Four",
+      Category: {
+        economy: {
+          times: ["03:00 PM", "05:00 PM", "07:00 PM"],
+        },
+        VIP: {
+          times: ["06:00 PM", "08:00 PM", "10:00 PM"],
+        },
+      },
     },
     {
       id: "cinema5",
-      logo: cine2,
-      name: "Cinema Five"
-    }
+      logo: "cine2.png",
+      name: "Cinema Five",
+      Category: {
+        regular: {
+          times: ["01:00 PM", "03:00 PM", "05:00 PM"],
+        },
+        exclusive: {
+          times: ["06:00 PM", "08:00 PM"],
+        },
+      },
+    },
   ] as Cinema[],
   headerData: {
     title: "Book Your Tickets Now!",
-    subtitle: "Choose your favorite cinema and movie time"
+    subtitle: "Choose your favorite cinema and movie time",
   } as HeaderData,
   footerData: {
     contact: "contact@example.com",
     socialMedia: {
       facebook: "https://facebook.com/example",
-      twitter: "https://twitter.com/example"
-    }
-  } as FooterData
+      twitter: "https://twitter.com/example",
+    },
+  } as FooterData,
 };
 
 ///API dummy date, location, times movises
