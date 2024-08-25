@@ -1,7 +1,7 @@
 import { useState } from "react";
 import MovieBannerAndDetails from "../components/MovieBannerDetails";
 import CinemaSelection from "../components/SelectCinema";
-import Pagination from "../components/Pagination";
+// import Pagination from "../components/Pagination";
 import cine1 from "../assets/icons/Ebu_Id.svg";
 import cine2 from "../assets/icons/cineone21.svg";
 import cine3 from "../assets/icons/hiflix.svg";
@@ -167,98 +167,83 @@ const times = [
 
 const MovieTicketBooking = () => {
   const [selectedCinemaId, setSelectedCinemaId] = useState<string>(movieData.cinemas[0].id);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  // const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleCinemaSelect = (cinemaId: string) => {
     setSelectedCinemaId(cinemaId);
   };
 
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
+  // const handlePageChange = (pageNumber: number) => {
+  //   setCurrentPage(pageNumber);
+  // };
 
   return (
     <>
       <div className="flex flex-col bg-white justify">
         <div className="">{movie && <MovieBannerAndDetails movie={movie} />}</div>
-        <div className="flex z-10 flex-col p-8 self-center content-end w-full max-w-[1123px] max-md:max-w-full">
+        <div className="py-8 px-4 tbt:px-10 lg:px-32">
           {movieData.cinemas.length > 0 && (
             <>
-              <section className="self-stretch pt-8 w-full  max-md:max-w-full">
-                <h2 className="text-3xl tracking-wider leading-none text-neutral-900">Book Tickets</h2>
-                <form className="flex gap-2 md:gap-5 mt-10 max-md:flex-col">
-                  <div className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full">
-                    <div className="flex flex-col grow max-md:mt-7">
-                      <label htmlFor="date" className="text-xl font-semibold tracking-wide leading-9 text-black">
+              <div>
+                <h2 className="text-xl md:text-3xl font-bold text-center md:text-start">Book Tickets</h2>
+                <form className="mt-5">
+                  <div className="md:flex md:gap-10">
+                    <div>
+                      <label htmlFor="date" className="hidden md:block text-xl font-semibold">
                         Choose Date
                       </label>
-                      <div className="flex flex-col mt-3 w-full text-base tracking-wide leading-7 text-gray-600 whitespace-nowrap max-w-[284px]">
-                        <div className="flex gap-5 justify-between px-6 py-3.5 w-full bg-gray-100 rounded-md max-md:px-5">
-                          <div className="flex gap-6">
-                            <img loading="lazy" src={calendar} alt="" className="object-contain shrink-0 my-auto aspect-square w-[18px]" />
-                            <select id="date" name="date" className="bg-transparent outline-none">
-                              {dates.map((date) => (
-                                <option key={date.id} value={date.date}>
-                                  {date.date}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
+                      <div className="flex gap-6 px-6 md:px-3 py-3.5 bg-gray-100 rounded-md md:mt-3 md:w-48 md:h-12">
+                        <img loading="lazy" width="18" src={calendar} alt="" />
+                        <select id="date" name="date" className="bg-transparent outline-none w-full">
+                          {dates.map((date) => (
+                            <option key={date.id} value={date.date}>
+                              {date.date}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
-                    <div className="flex flex-col grow max-md:mt-7">
-                      <label htmlFor="time" className="text-xl font-semibold tracking-wide leading-9 text-black">
+                    <div>
+                      <label htmlFor="time" className="hidden md:block text-xl font-semibold">
                         Choose Time
                       </label>
-                      <div className="flex flex-col mt-3 w-full text-base tracking-wide leading-7 text-gray-600 whitespace-nowrap max-w-[284px]">
-                        <div className="flex gap-5 justify-between px-6 py-3.5 w-full bg-gray-100 rounded-md max-md:px-5">
-                          <div className="flex gap-6">
-                            <img loading="lazy" src={chooseTime} alt="" className="object-contain shrink-0 my-auto aspect-square w-[18px]" />
-                            <select id="time" name="time" className="bg-transparent outline-none">
-                              {times.map((time) => (
-                                <option key={time.id} value={time.time}>
-                                  {time.time}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
+                      <div className="hidden md:flex gap-6 px-6 md:px-3 py-3.5 bg-gray-100 rounded-md md:mt-3 md:w-48 md:h-12">
+                        <img loading="lazy" width="18" src={chooseTime} alt="" />
+                        <select id="time" name="time" className="bg-transparent outline-none w-full">
+                          {times.map((time) => (
+                            <option key={time.id} value={time.time}>
+                              {time.time}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
-                    <div className="flex flex-col grow max-md:mt-7">
-                      <label htmlFor="location" className="text-xl font-semibold tracking-wide leading-9 text-black">
+                    <div>
+                      <label htmlFor="location" className="hidden md:block text-xl font-semibold">
                         Choose Location
                       </label>
-                      <div className="flex flex-col mt-3 w-full text-base tracking-wide leading-7 text-gray-600 whitespace-nowrap max-w-[284px]">
-                        <div className="flex gap-5 justify-between px-6 py-3.5 w-full bg-gray-100 rounded-md max-md:px-5">
-                          <div className="flex gap-6">
-                            <img loading="lazy" src={location} alt="" className="object-contain shrink-0 my-auto aspect-square w-[18px]" />
-                            <select id="location" name="location" className="bg-transparent outline-none">
-                              {locations.map((location) => (
-                                <option key={location.id} value={location.name}>
-                                  {location.name}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
+                      <div className="flex gap-6 px-6 md:px-3 py-3.5 bg-gray-100 rounded-md mt-3 md:w-48 md:h-12">
+                        <img loading="lazy" width="18" src={location} alt="" />
+                        <select id="location" name="location" className="bg-transparent outline-none w-full">
+                          {locations.map((location) => (
+                            <option key={location.id} value={location.name}>
+                              {location.name}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
-                    <button type="submit" className="grow gap-1.5 self-stretch px-5 py-4 h-4 w-full text-sm tracking-wider leading-6 text-center whitespace-nowrap bg-blue-700 rounded-md min-h-[56px] text-slate-50 ">
+                    <button type="submit" className="md:self-end px-5 md:h-12 md:py-1 py-4 w-full md:w-44 text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5 md:mt-0">
                       Filter
                     </button>
                   </div>
                 </form>
-              </section>
+              </div>
               <CinemaSelection cinemas={movieData.cinemas} selectedCinemaId={selectedCinemaId} onCinemaSelect={handleCinemaSelect} />
-              <Pagination currentPage={currentPage} totalPages={Math.ceil(movieData.cinemas.length / 4)} onPageChange={handlePageChange} />
+              {/* <Pagination currentPage={currentPage} totalPages={Math.ceil(movieData.cinemas.length / 4)} onPageChange={handlePageChange} /> */}
+              <button type="submit" className="px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5">
+                Book now
+              </button>
             </>
           )}
         </div>
