@@ -63,7 +63,7 @@ function Hamburger() {
         </div>
         <div className="flex gap-4 py-3 px-4 tbt:px-10 bg-white rounded text-slate-400 w-full">
           <img loading="lazy" src={searchLight} alt="" className="object-contain shrink-0 w-6 aspect-square" />
-          <input type="text" className="flex-auto px-4 py-2" placeholder="Search Movie" />
+          <input type="text" className="flex-auto px-4 py-2" placeholder="Search Movie" id="searchMovie" name="searchMovie" />
         </div>
         <div className="flex gap-5 items-center p-4 justify-center self-stretch my-auto tracking-wider leading-6">
           <button className="gap-1.5 self-stretch px-5 py-3 text-blue-700 hover:bg-blue-700 whitespace-nowrap rounded-md border border-blue-700 hover:text-slate-50 border-solid">SignIn</button>

@@ -63,7 +63,7 @@ function AdminHamburger() {
         </div>
         <div className="flex gap-4 py-3 px-4 tbt:px-10 bg-white rounded text-slate-400 w-full">
           <img loading="lazy" src={searchLight} alt="" className="object-contain shrink-0 w-6 aspect-square" />
-          <input type="text" className="flex-auto px-4 py-2" placeholder="Search" />
+          <input type="text" className="flex-auto px-4 py-2" placeholder="Search" id="searchMovie" name="searchMovie" />
         </div>
       </div>
     </div>

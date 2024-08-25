@@ -5,10 +5,10 @@
 @tailwind utilities;
 
 @layer components {
-  .navbar-nav-detail {
-    @apply right-[-150%];
+  .modal-bg {
+    @apply hidden;
   }
-  .navbar-nav-detail.active {
-    @apply right-0;
+  .modal-bg.show {
+    @apply flex;
   }
 }
