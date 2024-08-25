@@ -60,7 +60,7 @@ export default function AdminMovie() {
 
   return (
     <main className="flex overflow-hidden flex-col pb-11 bg-neutral-100">
-      <section className="flex flex-col items-start self-center px-12 py-12 mt-14 max-w-full bg-white rounded-md w-[732px] max-md:px-5 max-md:mt-10">
+      <section className="flex flex-col items-start self-center px-12 py-12 mt-14 max-w-full bg-white rounded-md w-[90%] md:w-[732px] max-md:px-5 max-md:mt-10">
         <h1 className="text-2xl font-bold tracking-wide text-slate-900">
           Add New Movie
         </h1>
@@ -73,7 +73,7 @@ export default function AdminMovie() {
             </button>
           </div>
 
-          <label className="mt-6 text-base text-gray-600 max-md:ml-2.5">Movie Name</label>
+          <label className="mt-6 text-base text-gray-600 ">Movie Name</label>
           <input
             type="text"
             name="title"
@@ -82,7 +82,7 @@ export default function AdminMovie() {
             onChange={handleInputChange}
           />
 
-          <label className="mt-6 text-base text-gray-600 max-md:ml-2.5">Category</label>
+          <label className="mt-6 text-base text-gray-600 ">Category</label>
           <input
             type="text"
             name="category"
@@ -117,7 +117,7 @@ export default function AdminMovie() {
             </div>
           </div>
 
-          <label className="mt-14 text-base text-gray-600 max-md:mt-10 max-md:ml-2.5">Director Name</label>
+          <label className="mt-14 text-base text-gray-600 max-md:mt-10 ">Director Name</label>
           <input
             type="text"
             name="director"
@@ -126,7 +126,7 @@ export default function AdminMovie() {
             onChange={handleInputChange}
           />
 
-          <label className="mt-6 text-base text-gray-600 max-md:ml-2.5">Cast</label>
+          <label className="mt-6 text-base text-gray-600 ">Cast</label>
           <input
             type="text"
             name="casts"
@@ -135,7 +135,7 @@ export default function AdminMovie() {
             onChange={handleInputChange}
           />
 
-          <label className="mt-6 text-base text-gray-600 max-md:ml-2.5">Synopsis</label>
+          <label className="mt-6 text-base text-gray-600 ">Synopsis</label>
           <textarea
             name="synopsis"
             className="px-6 pt-6 pb-24 mt-3 text-base tracking-wider leading-8 text-gray-600 bg-white rounded border border-solid border-neutral-200 max-md:pl-5 max-md:max-w-full"
@@ -143,7 +143,7 @@ export default function AdminMovie() {
             onChange={handleInputChange}
           />
 
-          <label className="mt-8 text-base text-gray-600 max-md:ml-2.5">Add Location</label>
+          <label className="mt-8 text-base text-gray-600 ">Add Location</label>
           <input
             type="text"
             name="location"
@@ -151,7 +151,7 @@ export default function AdminMovie() {
             onChange={handleInputChange}
           />
 
-          <div className="flex flex-col mt-6 max-w-full text-base text-gray-600 w-[207px] max-md:ml-2.5">
+          <div className="flex flex-col mt-6 max-w-full text-base text-gray-600 w-[207px] ">
             <label>Set Date & Time</label>
             <div className="flex flex-col mt-3 w-full font-semibold tracking-wide leading-7 rounded-none">
               <div className="flex flex-col justify-center px-4 py-2 w-full bg-gray-100 rounded-md">
@@ -174,7 +174,7 @@ export default function AdminMovie() {
             </div>
           </div>
 
-          <div className="flex gap-8 items-center mt-6 text-sm font-semibold tracking-wider leading-loose text-center text-gray-600 whitespace-nowrap max-md:ml-2.5">
+          <div className="flex gap-8 items-center mt-6 text-sm font-semibold tracking-wider leading-loose text-center text-gray-600 whitespace-nowrap ">
             <button>
               <img
                 src={plus}

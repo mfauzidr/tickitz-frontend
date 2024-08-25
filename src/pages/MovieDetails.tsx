@@ -47,12 +47,12 @@ interface FooterData {
   };
 }
 
-// Dummy Data
+// Dummy Data details 
 const movie: Movie = {
   bannerImage: banner,
   poster: "https://cdn.builder.io/api/v1/image/assets/TEMP/0baa3093e3b791d26b72f08e2658b1d538249e02c59f4ede4e9a38108910e3d5?apiKey=b75a55b5285647ecbff457fc782c7d82&",
   title: "The Great Adventure",
-  genres: ["Action", "Adventure"],
+  genres: ["Action", "Adventure"], //get dari api relations
   releaseDate: "2024-05-15",
   duration: "2h 30m",
   director: "John Doe",
