@@ -1,5 +1,7 @@
-function AdminMovie() {
-  return <div>AdminMovie</div>;
-}
+import React from 'react'
 
-export default AdminMovie;
+export default function AdminMovie() {
+  return (
+    <div>AdminMovie</div>
+  )
+}
