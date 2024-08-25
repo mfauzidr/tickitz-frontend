@@ -172,10 +172,6 @@ const MovieTicketBooking = () => {
     setSelectedCinemaId(cinemaId);
   };
 
-  // const handlePageChange = (pageNumber: number) => {
-  //   setCurrentPage(pageNumber);
-  // };
-
   return (
     <>
       <div className="flex flex-col bg-white justify">
