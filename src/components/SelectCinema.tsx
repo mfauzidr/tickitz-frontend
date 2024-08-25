@@ -1,5 +1,5 @@
 import { useState } from "react";
-import dropdown from "../assets/icons/DropdownArrow.svg"
+import dropdown from "../assets/icons/DropdownArrow.svg";
 
 interface Cinema {
   id: string;
@@ -11,8 +11,6 @@ interface Cinema {
     };
   };
 }
-
-
 
 interface CinemaSelectionProps {
   cinemas: Cinema[];
@@ -37,40 +35,21 @@ const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSe
       <div className="flex gap-9 mb-10">
         <h2 className="text-xl font-semibold tracking-wide leading-9 text-black">Choose Cinema</h2>
         <span className="my-auto text-lg font-bold tracking-wider leading-none text-slate-400">
-          {cinemas.length} Result{cinemas.length !== 1 && 's'}
+          {cinemas.length} Result{cinemas.length !== 1 && "s"}
         </span>
       </div>
-      <div className="flex gap-5 flex-row max-md:flex-col">
+      <div className="flex gap-5 flex-col md:flex-row md:justify-center">
         {cinemas.map((cinema) => (
-          <div key={cinema.id} className= {` flex flex-col w-3/12 max-md:w-full ${cinema.id === selectedCinemaId ? 'border-2 rounded-lg border-solid border-neutral-200' : '' } `}>
-            <button
-              onClick={() => onCinemaSelect(cinema.id)}
-              className={`hidden md:flex flex-col grow justify-center px-8 py-9 rounded-lg items-center border-2 border-solid border-neutral-200 max-md:px-5 max-md:mt-4`}
-            >
-              <img
-                loading="lazy"
-                src={cinema.logo}
-                alt={cinema.name}
-                className="object-contain w-full"
-              />
+          <div key={cinema.id} className={` flex flex-col ${cinema.id === selectedCinemaId ? "border-2 rounded-lg border-solid border-neutral-200" : ""} `}>
+            <button onClick={() => onCinemaSelect(cinema.id)} className={`hidden md:flex flex-col grow justify-center px-8 py-9 rounded-lg items-center border-2 border-solid border-neutral-200 max-md:px-5 max-md:mt-4`}>
+              <img loading="lazy" src={cinema.logo} alt={cinema.name} className="object-contain w-full" />
             </button>
             <button
-              onClick={() => openDropdown( cinema.name,cinema.id)}
-              className={`flex flex-row md:flex-col grow justify-center px-8 py-9 rounded-lg items-center md:hidden ${cinema.id === selectedCinemaId ? '' : 'border-2 rounded-lg border-solid border-neutral-200' }
-                 max-md:px-5 max-md:mt-4`}
+              onClick={() => openDropdown(cinema.name, cinema.id)}
+              className={`flex px-8 py-9 rounded-lg justify-between items-center md:hidden ${cinema.id === selectedCinemaId ? "" : "border-2 rounded-lg border-solid border-neutral-200"}`}
             >
-              <img
-                loading="lazy"
-                src={cinema.logo}
-                alt={cinema.name}
-                className="object-contain w-full"
-              />
-              <img
-                loading="lazy"
-                src={dropdown}
-                alt={cinema.name + " drpodown arrow "}
-                className="object-contain w-20 md:hidden "
-              />
+              <img loading="lazy" src={cinema.logo} alt={cinema.name} />
+              <img loading="lazy" width="80" src={dropdown} alt={cinema.name + " dropdown arrow "} />
             </button>
             {/* isi dropdown */}
             <div className="">
