@@ -737,10 +737,6 @@ video {
   aspect-ratio: 2.49;
 }
 
-.aspect-\[2\.49\]{
-  aspect-ratio: 2.49;
-}
-
 .aspect-\[2\.55\]{
   aspect-ratio: 2.55;
 }
@@ -852,42 +848,6 @@ video {
 
 .w-\[18px\]{
   width: 18px;
-}
-
-.w-\[196px\]{
-  width: 196px;
-}
-
-.w-\[205px\]{
-  width: 205px;
-}
-
-.w-\[207px\]{
-  width: 207px;
-}
-
-.w-\[30\%\]{
-  width: 30%;
-}
-
-.w-\[43px\]{
-  width: 43px;
-}
-
-.w-\[63px\]{
-  width: 63px;
-}
-
-.w-\[70\%\]{
-  width: 70%;
-}
-
-.w-\[821px\]{
-  width: 821px;
-}
-
-.w-\[888px\]{
-  width: 888px;
 }
 
 .w-\[196px\]{
@@ -1259,15 +1219,6 @@ video {
   padding: 2rem;
 }
 
-.px-16{
-  padding-left: 4rem;
-  padding-right: 4rem;
-
-.px-2\.5{
-  padding-left: 0.625rem;
-  padding-right: 0.625rem;
-}
-
 .px-2\.5{
   padding-left: 0.625rem;
   padding-right: 0.625rem;
@@ -1505,10 +1456,6 @@ video {
 
 .leading-none{
   line-height: 1;
-}
-
-.leading-tight{
-  line-height: 1.25;
 }
 
 .tracking-normal{
@@ -1874,9 +1821,23 @@ video {
     gap: 1.25rem;
   }
 
+  .md\:gap-8{
+    gap: 2rem;
+  }
+
   .md\:px-12{
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+
+  .md\:px-16{
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  .md\:px-32{
+    padding-left: 8rem;
+    padding-right: 8rem;
   }
 
   .md\:text-center{
