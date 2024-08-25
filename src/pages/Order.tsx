@@ -126,7 +126,7 @@ function Order() {
   };
 
   return (
-    <section className="pt-5 pb-20 px-4 tbt:px-10 lg:px-32 bg-indigo-100 font-mulish">
+    <section className="pt-5 pb-20 px-4 tbt:px-10 lg:px-32 bg-neutral-100 font-mulish">
       <div className="hidden pb-8 md:grid place-items-center">
         <img width="350" src={step} alt="" />
       </div>
