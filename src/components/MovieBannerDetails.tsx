@@ -1,7 +1,7 @@
 import React from "react";
 
 interface Movie {
-  bannerImage: string;
+  bannerImage?: string;
   poster: string;
   title: string;
   genres: string[];
