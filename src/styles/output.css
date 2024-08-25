@@ -653,10 +653,6 @@ video {
   margin-bottom: 1.25rem;
 }
 
-.ml-0{
-  margin-left: 0px;
-}
-
 .ml-2{
   margin-left: 0.5rem;
 }
@@ -667,10 +663,6 @@ video {
 
 .mr-3{
   margin-right: 0.75rem;
-}
-
-.mt-1{
-  margin-top: 0.25rem;
 }
 
 .mt-10{
@@ -699,10 +691,6 @@ video {
 
 .mt-4{
   margin-top: 1rem;
-}
-
-.mt-48{
-  margin-top: 12rem;
 }
 
 .mt-5{
@@ -745,8 +733,8 @@ video {
   display: none;
 }
 
-.aspect-\[0\.65\]{
-  aspect-ratio: 0.65;
+.aspect-\[2\.49\]{
+  aspect-ratio: 2.49;
 }
 
 .aspect-\[2\.49\]{
@@ -900,6 +888,22 @@ video {
 
 .w-\[888px\]{
   width: 888px;
+}
+
+.w-\[196px\]{
+  width: 196px;
+}
+
+.w-\[207px\]{
+  width: 207px;
+}
+
+.w-\[43px\]{
+  width: 43px;
+}
+
+.w-\[63px\]{
+  width: 63px;
 }
 
 .w-fit{
@@ -1258,6 +1262,10 @@ video {
 .px-16{
   padding-left: 4rem;
   padding-right: 4rem;
+
+.px-2\.5{
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
 }
 
 .px-2\.5{
@@ -1736,10 +1744,6 @@ video {
 }
 
 @media (min-width: 641px){
-  .sm\:ml-3{
-    margin-left: 0.75rem;
-  }
-
   .sm\:mt-14{
     margin-top: 3.5rem;
   }
@@ -1750,10 +1754,6 @@ video {
 
   .sm\:mt-5{
     margin-top: 1.25rem;
-  }
-
-  .sm\:w-\[398px\]{
-    width: 398px;
   }
 
   .sm\:grid-cols-3{
@@ -1797,16 +1797,6 @@ video {
   .sm\:text-2xl{
     font-size: 1.5rem;
     line-height: 2rem;
-  }
-
-  .sm\:text-5xl{
-    font-size: 3rem;
-    line-height: 1;
-  }
-
-  .sm\:text-lg{
-    font-size: 1.125rem;
-    line-height: 1.75rem;
   }
 
   .sm\:leading-\[70px\]{

@@ -237,7 +237,7 @@ const MovieTicketBooking = () => {
                         <div className="flex gap-5 justify-between px-6 py-3.5 w-full bg-gray-100 rounded-md max-md:px-5">
                           <div className="flex gap-6">
                             <img loading="lazy" src={location} alt="" className="object-contain shrink-0 my-auto aspect-square w-[18px]" />
-                            <select id="location" name="location" className="bg-transparent outline-noe">
+                            <select id="location" name="location" className="bg-transparent outline-none">
                               {locations.map((location) => (
                                 <option key={location.id} value={location.name}>
                                   {location.name}
