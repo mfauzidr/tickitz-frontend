@@ -621,6 +621,11 @@ video {
   margin-bottom: auto;
 }
 
+.my-20{
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
 .-mt-64{
   margin-top: -16rem;
 }
@@ -703,6 +708,10 @@ video {
 
 .mt-\[14px\]{
   margin-top: 14px;
+}
+
+.mt-20{
+  margin-top: 5rem;
 }
 
 .flex{
@@ -1264,6 +1273,16 @@ video {
 .py-9{
   padding-top: 2.25rem;
   padding-bottom: 2.25rem;
+}
+
+.py-10{
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.px-10{
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 
 .pb-10{

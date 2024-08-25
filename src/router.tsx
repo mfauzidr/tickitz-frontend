@@ -7,6 +7,7 @@ import AdminIndex from "./pages/AdminIndex";
 import AdminMovie from "./pages/AdminMovie";
 import MovieTicketBooking from "./pages/MovieDetails";
 import AdminDashboard from "./pages/AdminDashboard";
+import Order from "./pages/Order";
 
 function Error() {
   return <div>Error</div>;
@@ -107,17 +108,13 @@ const routerWithChildren = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "Details",
+        path: "details",
         element: <MovieTicketBooking />,
       },
-      //   {
-      //     path: "checkoutproduct",
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <CheckoutProduct />
-      //       </PrivateRoute>
-      //     ),
-      //   },
+      {
+        path: "order",
+        element: <Order />,
+      },
       //   {
       //     path: 'orderdetails',
       //     element: (
@@ -178,12 +175,12 @@ const routerWithChildren = createBrowserRouter([
     ],
   },
   {
-    path: '/login',
-    element: <Login/>,
+    path: "/login",
+    element: <Login />,
   },
   {
-    path: '/register',
-    element: <Register/>,
+    path: "/register",
+    element: <Register />,
   },
   //   {
   //     path: '/forgot',
