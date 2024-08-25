@@ -10,7 +10,7 @@ import calendar from "../assets/icons/Calendar.svg";
 import location from "../assets/icons/Location.svg";
 import chooseTime from "../assets/icons/ChooseTime.svg";
 
-// Define interfaces for movie, cinema, and booking details
+//interfaces for movie, cinema, and booking details
 interface Movie {
   bannerImage: string;
   poster: string;
@@ -143,7 +143,6 @@ const movieData = {
 };
 
 ///API dummy date, location, times movises
-
 const dates = [
   { id: 1, date: "2024-08-25" },
   { id: 2, date: "2024-08-26" },
