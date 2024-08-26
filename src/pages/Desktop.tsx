@@ -52,9 +52,9 @@ function Home() {
   useEffect(()=>{
     const asyncFunctest = async ()  =>{
       try {
-        const url = "http://127.0.0.1:8081/movie/"
+        const url = "http://localhost:8080/movie/"
         var result = await axios.get(url);
-        console.log(result)
+        console.log(result.data)
       } catch (error) {
           console.log(error);
       }

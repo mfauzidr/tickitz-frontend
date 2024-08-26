@@ -948,10 +948,6 @@ video {
   min-width: 240px;
 }
 
-.min-w-full{
-  min-width: 100%;
-}
-
 .max-w-\[1105px\]{
   max-width: 1105px;
 }
@@ -1468,11 +1464,6 @@ video {
 .py-12{
   padding-top: 3rem;
   padding-bottom: 3rem;
-}
-
-.py-16{
-  padding-top: 4rem;
-  padding-bottom: 4rem;
 }
 
 .py-2{
