@@ -9,6 +9,7 @@ import MovieTicketBooking from "./pages/MovieDetails";
 import AdminDashboard from "./pages/AdminDashboard";
 import Order from "./pages/Order";
 import AdminPage from "./pages/AdminPage";
+import Payment from "./pages/Payment";
 
 function Error() {
   return <div>Error</div>;
@@ -119,59 +120,10 @@ const routerWithChildren = createBrowserRouter([
         path: "order",
         element: <Order />,
       },
-      //   {
-      //     path: 'orderdetails',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <OrderDetails />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'detailsproduct',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <DetailProduct />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: '/detailsproduct/:id',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <DetailProduct />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: '/ordersdetail/:id',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <OrderDetails />
-      //       </PrivateRoute>
-      //     ),
-      //   }
-      //   ,
-      //   {
-      //     path: 'historyorder',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <HistoryOrder />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'profile',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <Profile />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'axios',
-      //     element: <AxiosTry/>
-      //   },
+      {
+        path: "payment",
+        element: <Payment />,
+      },
       {
         path: "*",
         element: <NotFound />,

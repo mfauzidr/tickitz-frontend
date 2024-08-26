@@ -14,18 +14,18 @@ interface genresType {
 function Home() {
   const [movies, setMovies] = useState<Movie[] | undefined>( undefined )
 
-  useEffect(()=>{
-    const asyncFunctest = async ()  =>{
+  useEffect(() => {
+    const asyncFunctest = async () => {
       try {
-        const url = "http://localhost:8081/movie/"
+        const url = "http://localhost:8080/movie/";
         var result = await axios.get(url);
         setMovies(result.data.data)
       } catch (error) {
-          console.log(error);
+        console.log(error);
       }
-    }
+    };
     asyncFunctest();
-  },[])
+  }, []);
 
   const genreListes = ["Thriller", "Horror", "Romantic", "Adventure", "Sci-Fi"];
   var [genres, setGenres] = useState<genresType[]>([]);

@@ -4,7 +4,7 @@ import downArrow from "../assets/icons/Down-arrow.svg";
 import rightArrow from "../assets/icons/Right-arrow.svg";
 import cine from "../assets/icons/cineone21.svg";
 import step from "../assets/icons/Step.svg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Order() {
   interface Movie {
@@ -344,9 +344,11 @@ function Order() {
               <p className="text-primary font-bold text-right">Rp 75000</p>
             </div>
           </div>
-          <button type="submit" className="px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5">
-            Checkout Now
-          </button>
+          <Link to="/payment">
+            <button type="submit" className="px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5">
+              Checkout Now
+            </button>
+          </Link>
         </div>
       </div>
       <button onClick={handleSubmit} type="submit" className="md:hidden px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5">

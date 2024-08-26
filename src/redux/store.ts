@@ -6,7 +6,7 @@ import storage from "redux-persist/lib/storage";
 import authReducer, { AuthState } from "./slices/auth";
 
 const authPersistConfig: PersistConfig<AuthState> = {
-  key: "auth:coffee",
+  key: "auth:tickitz",
   storage,
   whitelist: ["token"],
 };
