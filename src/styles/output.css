@@ -919,6 +919,10 @@ video {
   width: 732px;
 }
 
+.w-\[90\%\]{
+  width: 90%;
+}
+
 .w-fit{
   width: -moz-fit-content;
   width: fit-content;
@@ -2042,6 +2046,10 @@ video {
     width: 702px;
   }
 
+  .md\:w-\[732px\]{
+    width: 732px;
+  }
+
   .md\:max-w-60{
     max-width: 15rem;
   }
@@ -2084,6 +2092,10 @@ video {
 
   .md\:rounded-lg{
     border-radius: 0.5rem;
+  }
+
+  .md\:rounded-md{
+    border-radius: 0.375rem;
   }
 
   .md\:bg-opacity-100{
