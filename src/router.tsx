@@ -10,6 +10,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Order from "./pages/Order";
 import AdminPage from "./pages/AdminPage";
 import Payment from "./pages/Payment";
+import Result from "./pages/Result";
 
 function Error() {
   return <div>Error</div>;
@@ -123,6 +124,10 @@ const routerWithChildren = createBrowserRouter([
       {
         path: "payment",
         element: <Payment />,
+      },
+      {
+        path: "result",
+        element: <Result />,
       },
       {
         path: "*",

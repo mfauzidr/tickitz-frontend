@@ -7,10 +7,12 @@ import bca from "../assets/icons/BCA-icon.svg";
 import bri from "../assets/icons/BRI-icon.svg";
 import ovo from "../assets/icons/ovo-icon.svg";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Payment() {
   const [showModal, setShowModal] = useState(false);
   const modalBgRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     setShowModal(true);
@@ -20,6 +22,15 @@ function Payment() {
     if (event.target === modalBgRef.current) {
       setShowModal(false);
     }
+  };
+
+  const handleConfirmPayment = () => {
+    setShowModal(false);
+    navigate("/result");
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -93,7 +104,7 @@ function Payment() {
                 <div className="inline-block md:flex justify-between w-full">
                   <h1 className="text-gray-400 text-start text-xs">No. Rekening Virtual</h1>
                   <div className="flex justify-between items-center w-full">
-                    <p className="font-semibold text-right text-xs">12321328913829724</p>
+                    <p className="font-semibold text-xs">12321328913829724</p>
                     <button className="border border-solid border-primary text-primary text-xs px-3 py-1 rounded-md">Copy</button>
                   </div>
                 </div>
@@ -105,10 +116,11 @@ function Payment() {
               <p className="text-gray-400 tracking-wider leading-6 text-xs">
                 Pay this payment bill before it is due, on <span className="text-red-500">June 23, 2023</span>. If the bill has not been paid by the specified time, it will be forfeited
               </p>
-              <button type="submit" className="px-5 py-3 w-full text-sm leading-6 text-center bg-primary rounded-md text-white mt-5">
+              <button onClick={handleConfirmPayment} type="submit" className="px-5 py-3 w-full text-sm leading-6 text-center bg-primary rounded-md text-white mt-5">
                 Check Payment
               </button>
               <button
+                onClick={handleCloseModal}
                 type="submit"
                 className="px-5 py-3 mt-3 w-full text-sm leading-6 text-center bg-white rounded-md text-primary font-bold hover:border-2 hover:border-solid hover:border-primary active:border-2 active:border-solid active:border-primary focus:border-2 focus:border-solid focus:border-primary"
               >
