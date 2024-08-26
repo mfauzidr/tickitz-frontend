@@ -33,7 +33,7 @@ const routerWithChildren = createBrowserRouter([
         element: <AdminDashboard />,
       },
       {
-        path: "page-movielist",
+        path: "movie",
         element: <AdminPage />,
       },
       //   {

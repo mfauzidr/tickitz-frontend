@@ -8,7 +8,7 @@ function AdminIndex() {
   return (
     <div className="container-fluid h-full w-full">
       <NavigationBar />
-      {location.pathname === "/" ? <AdminDashboard /> : <Outlet />}
+      {location.pathname === "/admin" ? <AdminDashboard /> : <Outlet />}
     </div>
   );
 }
