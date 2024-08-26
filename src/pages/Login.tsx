@@ -1,19 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import tickitzIcon from "../assets/icons/tickitz_logo.svg";
 import eyeIcon from "../assets/icons/eye-icon.svg";
 import eyeOffIcon from "../assets/icons/eye-off-icon.svg";
 import facebookIcon from "../assets/icons/facebook-icon.svg";
 import googleIcon from "../assets/icons/google-icon.svg";
 import Input from "../components/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useStoreDispatch, useStoreSelector } from "../redux/hooks";
+import { authAction } from "../redux/slices/auth";
+import { jwtDecode } from "jwt-decode";
 
 function Login() {
+  const { token, isLoading } = useStoreSelector((state) => state.auth);
+  const dispatch = useStoreDispatch();
+  const { loginThunk } = authAction;
+  const [form, setForm] = useState<{ email: string; password: string }>({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
-  const [form, setForm] = useState<{ email: string; pwd: string }>({ email: "", pwd: "" });
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-  };
+  const navigate = useNavigate();
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((form) => {
@@ -23,6 +26,24 @@ function Login() {
       };
     });
   };
+
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(loginThunk(form));
+  };
+
+  useEffect(() => {
+    const decodedToken = jwtDecode<{ role: string }>(token);
+    if (decodedToken.role === "admin") {
+      navigate("/admin");
+    }
+    navigate("/");
+  }, [navigate, token]);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <main className="font-mulish bg-[url('/src/assets/images/auth.webp')] bg-cover h-screen">
       <section className="bg-black bg-opacity-50 py-16 h-screen w-full">
@@ -35,25 +56,25 @@ function Login() {
               <h1 className="text-lg lg:text-2xl font-bold mb-2">Welcome back👋</h1>
               <p className="text-xs lg:text-sm text-gray-400">Sign in with your data that you entered during your registration</p>
             </div>
-            <form>
+            <form onSubmit={onSubmitHandler}>
               <label className="text-sm" htmlFor="email">
                 Email
               </label>
               <div className="relative mt-2">
                 <Input input={{ type: "text", name: "email", placeholder: "Enter your email", autocomplete: "email", value: form.email, onChange: onChangeHandler }} />
               </div>
-              <label className="text-sm" htmlFor="pwd">
+              <label className="text-sm" htmlFor="password">
                 Password
               </label>
               <div className="relative mt-2">
                 <img className="absolute mt-[14px] mr-3 right-0 cursor-pointer" width="15" height="15" src={showPassword ? eyeOffIcon : eyeIcon} alt="toggle-password-visibility" onClick={togglePasswordVisibility} />
-                <Input input={{ type: showPassword ? "text" : "password", name: "pwd", placeholder: "Enter Your Password", autocomplete: "off", value: form.pwd, onChange: onChangeHandler }} />
+                <Input input={{ type: showPassword ? "text" : "password", name: "password", placeholder: "Enter Your Password", autocomplete: "off", value: form.password, onChange: onChangeHandler }} />
               </div>
               <div className="text-right text-xs mb-5 text-primary hover:text-blue-800 active:text-blue-900">
                 <Link to="#">Forgot Your Password?</Link>
               </div>
               <button className="text-white text-sm bg-primary hover:bg-blue-800 active:bg-blue-900 rounded-lg w-full h-12" type="submit">
-                Login
+                {isLoading ? "loading..." : "Login"}
               </button>
               <p className="text-center text-xs uw:text-2xl my-5">
                 Not Have An Account?
