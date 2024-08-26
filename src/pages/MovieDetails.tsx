@@ -155,7 +155,7 @@ const MovieTicketBooking = () => {
   useEffect(()=>{
     const asyncFunctest = async ()  =>{
       try {
-        const url = `http://localhost:8081/movie/${id}`
+        const url = `http://localhost:8080/movie/${id}`
         var result = await axios.get(url);
         setMovies(result.data.data)
       } catch (error) {
