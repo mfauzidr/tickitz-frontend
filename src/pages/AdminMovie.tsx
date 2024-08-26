@@ -141,7 +141,7 @@ export default function AdminMovie() {
 
           <div className="flex gap-8 items-center mt-6 text-sm font-semibold tracking-wider leading-loose text-center text-gray-600 whitespace-nowrap ">
             <button>
-              <img src={plus} className="px-4 py-2 border-violet-800 text-3xl border rounded-2xl px-8 py-2 justify-center items-center" />
+              <img src={plus} className="px-4 py-2 border-violet-800 text-3xl border rounded-2xl justify-center items-center" />
             </button>
             <span className="self-stretch my-auto">08:30am</span>
             <span className="self-stretch my-auto">10:30pm</span>

@@ -919,10 +919,6 @@ video {
   width: 732px;
 }
 
-.w-\[90\%\]{
-  width: 90%;
-}
-
 .w-fit{
   width: -moz-fit-content;
   width: fit-content;
@@ -930,6 +926,10 @@ video {
 
 .w-full{
   width: 100%;
+}
+
+.w-\[90\%\]{
+  width: 90%;
 }
 
 .min-w-\[240px\]{
