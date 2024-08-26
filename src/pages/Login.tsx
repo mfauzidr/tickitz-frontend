@@ -8,7 +8,7 @@ import Input from "../components/Input";
 import { useEffect, useState } from "react";
 import { useStoreDispatch, useStoreSelector } from "../redux/hooks";
 import { authAction } from "../redux/slices/auth";
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 
 function Login() {
   const { token, isLoading } = useStoreSelector((state) => state.auth);
@@ -33,11 +33,7 @@ function Login() {
   };
 
   useEffect(() => {
-    const decodedToken = jwtDecode<{ role: string }>(token);
-    if (decodedToken.role === "admin") {
-      navigate("/admin");
-    }
-    navigate("/");
+    if (token) navigate("/");
   }, [navigate, token]);
 
   const togglePasswordVisibility = () => {
