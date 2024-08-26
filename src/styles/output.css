@@ -1391,6 +1391,10 @@ video {
   padding: 1.5rem;
 }
 
+.p-8{
+  padding: 2rem;
+}
+
 .px-1\.5{
   padding-left: 0.375rem;
   padding-right: 0.375rem;
@@ -2010,11 +2014,6 @@ video {
     padding-top: 7rem;
   }
 
-  .sm\:text-2xl{
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
   .sm\:leading-\[70px\]{
     line-height: 70px;
   }
@@ -2161,6 +2160,15 @@ video {
 
   .md\:rounded-md{
     border-radius: 0.375rem;
+  }
+
+  .md\:border-none{
+    border-style: none;
+  }
+
+  .md\:bg-blue-500{
+    --tw-bg-opacity: 1;
+    background-color: rgb(59 130 246 / var(--tw-bg-opacity));
   }
 
   .md\:bg-opacity-100{

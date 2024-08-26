@@ -112,7 +112,7 @@ const routerWithChildren = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "details",
+        path: "details/:id",
         element: <MovieTicketBooking />,
       },
       {

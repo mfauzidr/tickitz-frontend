@@ -40,7 +40,7 @@ const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSe
       </div>
       <div className="flex gap-5 flex-col md:flex-row md:justify-center">
         {cinemas.map((cinema) => (
-          <div key={cinema.id} className={` flex flex-col ${cinema.id === selectedCinemaId ? "border-2 rounded-lg border-solid border-neutral-200" : ""} `}>
+          <div key={cinema.id} className={` flex flex-col ${cinema.id === selectedCinemaId ? "border-2 md:border-none rounded-lg border-solid border-neutral-200 md:bg-blue-500" : ""} `}>
             <button onClick={() => onCinemaSelect(cinema.id)} className={`hidden md:flex flex-col grow justify-center px-8 py-9 rounded-lg items-center border-2 border-solid border-neutral-200 max-md:px-5 max-md:mt-4`}>
               <img loading="lazy" src={cinema.logo} alt={cinema.name} className="object-contain w-full" />
             </button>

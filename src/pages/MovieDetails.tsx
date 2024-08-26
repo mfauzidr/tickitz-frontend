@@ -1,27 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MovieBannerAndDetails from "../components/MovieBannerDetails";
 import CinemaSelection from "../components/SelectCinema";
 // import Pagination from "../components/Pagination";
 import cine1 from "../assets/icons/Ebu_Id.svg";
 import cine2 from "../assets/icons/cineone21.svg";
 import cine3 from "../assets/icons/hiflix.svg";
-import banner from "../assets/images/Rectangle 613.jpg";
 import calendar from "../assets/icons/Calendar.svg";
 import location from "../assets/icons/Location.svg";
 import chooseTime from "../assets/icons/ChooseTime.svg";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { Movie } from "../types/moviesData";
 
-//interfaces for movie, cinema, and booking details
-interface Movie {
-  bannerImage: string;
-  poster: string;
-  title: string;
-  genres: string[];
-  releaseDate: string;
-  duration: string;
-  director: string;
-  casts: string[];
-  synopsis: string;
-}
 
 interface Cinema {
   id: string;
@@ -47,19 +37,6 @@ interface FooterData {
   };
 }
 
-// Dummy Data details 
-const movie: Movie = {
-  bannerImage: banner,
-  poster: "https://cdn.builder.io/api/v1/image/assets/TEMP/0baa3093e3b791d26b72f08e2658b1d538249e02c59f4ede4e9a38108910e3d5?apiKey=b75a55b5285647ecbff457fc782c7d82&",
-  title: "The Great Adventure",
-  genres: ["Action", "Adventure"], //get dari api relations
-  releaseDate: "2024-05-15",
-  duration: "2h 30m",
-  director: "John Doe",
-  casts: ["Actor A", "Actor B", "Actor C"],
-  synopsis:
-    " A thrilling adventure of a group of explorers who embark on a journey to the unknown A thrilling adventure of a group of explorers who embark on a journey to the unknown A thrilling adventure of a group of explorers who embark on a journey to the unknown A thrilling adventure of a group of explorers who embark on a journey to the unknown A thrilling adventure of a group of explorers who embark on a journey to the unknown A thrilling adventure of a group of explorers who embark on a journey to the unknownA thrilling adventure of a group of explorers who embark on a journey to the unknownA thrilling adventure of a group of explorers who embark on a journey to the unknown.",
-};
 
 const movieData = {
   cinemas: [
@@ -165,17 +142,33 @@ const times = [
 ];
 
 const MovieTicketBooking = () => {
+  const { id } = useParams<{ id: string }>();
   const [selectedCinemaId, setSelectedCinemaId] = useState<string>(movieData.cinemas[0].id);
+  const [movies, setMovies] = useState<Movie | undefined>( undefined )
+
   // const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleCinemaSelect = (cinemaId: string) => {
     setSelectedCinemaId(cinemaId);
   };
 
+  useEffect(()=>{
+    const asyncFunctest = async ()  =>{
+      try {
+        const url = `http://localhost:8081/movie/${id}`
+        var result = await axios.get(url);
+        setMovies(result.data.data)
+      } catch (error) {
+          console.log(error);
+      }
+    }
+    asyncFunctest();
+  },[])
+
   return (
     <>
       <div className="flex flex-col bg-white justify">
-        <div className="">{movie && <MovieBannerAndDetails movie={movie} />}</div>
+        <div className="">{movies && <MovieBannerAndDetails movie={movies} />}</div>
         <div className="py-8 px-4 tbt:px-10 lg:px-32">
           {movieData.cinemas.length > 0 && (
             <>
