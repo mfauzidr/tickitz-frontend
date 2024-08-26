@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import tickitzIcon from "../assets/icons/tickitz_logo.svg";
 import eyeIcon from "../assets/icons/eye-icon.svg";
 import eyeOffIcon from "../assets/icons/eye-off-icon.svg";
@@ -6,14 +6,13 @@ import facebookIcon from "../assets/icons/facebook-icon.svg";
 import googleIcon from "../assets/icons/google-icon.svg";
 import Input from "../components/Input";
 import { useState } from "react";
+import axios, { AxiosResponse } from "axios";
+import { IAuthResponse } from "../types/response";
 
 function Register() {
+  const [form, setForm] = useState<{ email: string; password: string }>({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
-  const [form, setForm] = useState<{ email: string; pwd: string }>({ email: "", pwd: "" });
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-  };
+  const navigate = useNavigate();
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((form) => {
@@ -23,6 +22,23 @@ function Register() {
       };
     });
   };
+
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const url = `${process.env.VITE_REACT_APP_API_URL}/user/register`;
+    axios
+      .post(url, form)
+      .then((result: AxiosResponse<IAuthResponse>) => {
+        console.log(result.data);
+        navigate("/login");
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <main className="font-mulish bg-[url('/src/assets/images/auth.webp')] bg-cover h-screen">
       <section className="bg-black bg-opacity-50 py-16 h-screen w-full">
@@ -35,19 +51,19 @@ function Register() {
               <h1 className="text-lg lg:text-2xl font-bold mb-2">Welcome to Tickitz👋</h1>
               <p className="text-xs lg:text-sm text-gray-400">Registration your data that you can sign in to Tickitz</p>
             </div>
-            <form>
+            <form onSubmit={onSubmitHandler}>
               <label className="text-sm" htmlFor="email">
                 Email
               </label>
               <div className="relative mt-2">
                 <Input input={{ type: "text", name: "email", placeholder: "Enter your email", autocomplete: "email", value: form.email, onChange: onChangeHandler }} />
               </div>
-              <label className="text-sm" htmlFor="pwd">
+              <label className="text-sm" htmlFor="password">
                 Password
               </label>
               <div className="relative mt-2">
                 <img className="absolute mt-[14px] mr-3 right-0 cursor-pointer" width="15" height="15" src={showPassword ? eyeOffIcon : eyeIcon} alt="toggle-password-visibility" onClick={togglePasswordVisibility} />
-                <Input input={{ type: showPassword ? "text" : "password", name: "pwd", placeholder: "Enter Your Password", autocomplete: "off", value: form.pwd, onChange: onChangeHandler }} />
+                <Input input={{ type: showPassword ? "text" : "password", name: "password", placeholder: "Enter Your Password", autocomplete: "off", value: form.password, onChange: onChangeHandler }} />
               </div>
               <div className="text-right text-xs mb-5 text-primary hover:text-blue-800 active:text-blue-900">
                 <a href="#">Forgot Your Password?</a>
