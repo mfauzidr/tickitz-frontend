@@ -1990,6 +1990,10 @@ video {
     margin-top: 1.25rem;
   }
 
+  .md\:mt-10{
+    margin-top: 2.5rem;
+  }
+
   .md\:block{
     display: block;
   }
@@ -2064,6 +2068,10 @@ video {
 
   .md\:justify-normal{
     justify-content: normal;
+  }
+
+  .md\:justify-end{
+    justify-content: flex-end;
   }
 
   .md\:justify-center{
