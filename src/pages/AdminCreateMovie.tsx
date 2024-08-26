@@ -15,7 +15,7 @@ interface MovieData {
   synopsis: string;
 }
 
-export default function AdminMovie() {
+export default function AdminCreateMovie() {
   const [formData, setFormData] = useState<MovieData>({
     title: "Spider-Man: Homecoming",
     image: "",

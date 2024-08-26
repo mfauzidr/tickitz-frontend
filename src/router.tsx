@@ -4,10 +4,11 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminIndex from "./pages/AdminIndex";
-import AdminMovie from "./pages/AdminMovie";
+import AdminCreateMovie from "./pages/AdminCreateMovie";
 import MovieTicketBooking from "./pages/MovieDetails";
 import AdminDashboard from "./pages/AdminDashboard";
 import Order from "./pages/Order";
+import AdminPage from "./pages/AdminPage";
 
 function Error() {
   return <div>Error</div>;
@@ -24,12 +25,16 @@ const routerWithChildren = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: "movie",
-        element: <AdminMovie />,
+        path: "movie-create",
+        element: <AdminCreateMovie />,
       },
       {
         path: "dashboard",
         element: <AdminDashboard />,
+      },
+      {
+        path: "page-movielist",
+        element: <AdminPage />,
       },
       //   {
       //     path: "checkoutproduct",
@@ -70,8 +75,7 @@ const routerWithChildren = createBrowserRouter([
       //         <OrderDetails />
       //       </PrivateRoute>
       //     ),
-      //   }
-      //   ,
+      //   },
       //   {
       //     path: 'historyorder',
       //     element: (
