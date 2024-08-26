@@ -42,7 +42,7 @@ function Login() {
 
   return (
     <main className="font-mulish bg-[url('/src/assets/images/auth.webp')] bg-cover h-screen">
-      <section className="bg-black bg-opacity-50 py-16 h-screen w-full">
+      <section className="bg-black bg-opacity-50 py-8 h-screen w-full">
         <div className="grid place-items-center mb-10">
           <img className="lg: w-32" src={tickitzIcon} alt="wallet" />
         </div>
