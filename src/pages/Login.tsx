@@ -42,15 +42,15 @@ function Login() {
 
   return (
     <main className="font-mulish bg-[url('/src/assets/images/auth.webp')] bg-cover h-screen">
-      <section className="bg-black bg-opacity-50 py-8 h-screen w-full">
+      <section className="bg-black bg-opacity-50 py-16 h-screen w-full">
         <div className="grid place-items-center mb-10">
-          <img className="lg: w-32" src={tickitzIcon} alt="wallet" />
+          <img src={tickitzIcon} alt="wallet" />
         </div>
-        <div className="bg-white rounded-xl w-4/5 mx-auto tbt:w-96 px-5 md:px-12 py-7 lg:py-12">
+        <div className="bg-white rounded-xl w-4/5 mx-auto tbt:w-96 px-5 md:px-12 py-7">
           <div>
             <div className="mb-3">
-              <h1 className="text-lg lg:text-2xl font-bold mb-2">Welcome back👋</h1>
-              <p className="text-xs lg:text-sm text-gray-400">Sign in with your data that you entered during your registration</p>
+              <h1 className="text-lg font-bold mb-2">Welcome back👋</h1>
+              <p className="text-xs text-gray-400">Sign in with your data that you entered during your registration</p>
             </div>
             <form onSubmit={onSubmitHandler}>
               <label className="text-sm" htmlFor="email">
