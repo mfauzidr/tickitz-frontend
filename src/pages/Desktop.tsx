@@ -1,8 +1,9 @@
 import HeroImage from "../assets/images/AvangerHero.png";
 import searchLight from "../assets/icons/SearchLight.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
 import Newsletter from "../components/NewsLetter";
+import axios from "axios";
 
 interface genresType {
   genre: string;
@@ -47,6 +48,19 @@ function Home() {
       image: "https://cdn.builder.io/api/v1/image/assets/TEMP/db8310b416dc4ba164fc7ef6d67b54affc36d71866943c15e954e5f6df649a70?apiKey=b75a55b5285647ecbff457fc782c7d82&",
     },
   ];
+
+  useEffect(()=>{
+    const asyncFunctest = async ()  =>{
+      try {
+        const url = "http://127.0.0.1:8081/movie/"
+        var result = await axios.get(url);
+        console.log(result)
+      } catch (error) {
+          console.log(error);
+      }
+    }
+    asyncFunctest();
+  },[])
 
   const genreListes = ["Thriller", "Horror", "Romantic", "Adventure", "Sci-Fi"];
   var [genres, setGenres] = useState<genresType[]>([]);
