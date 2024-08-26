@@ -53,7 +53,7 @@ function MovieList() {
         <div className="flex flex-col px-14 pt-6 pb-10 w-full bg-white rounded-3xl max-md:px-5 max-md:max-w-full">
           <div className="flex flex-wrap gap-5 justify-between w-full max-md:max-w-full">
             <h1 className="my-auto text-2xl font-bold text-slate-900">List Movie</h1>
-            <button className=" md:hidden p-6 bg-blue-700 rounded-lg fill-blue-700 px-8 py-2 font-bold tracking-wider leading-loose text-center text-slate-50">
+            <button className=" md:hidden p-6 bg-blue-700 rounded-lg fill-blue-700 px-8 py-2 font-bold tracking-wider leading-loose text-center text-slate-50 ">
                 + Add
             </button>
             <div className="flex gap-3.5 text-base w-full md:w-auto">
@@ -73,7 +73,7 @@ function MovieList() {
           <div className="overflow-x-auto mt-10">
             <table className="min-w-full bg-white">
               <thead>
-                <tr className="w-full text-left text-xs font-bold text-sky-900">
+                <tr className="w-full text-left text-small font-bold text-sky-900">
                   <th className="px-4 py-2">No</th>
                   <th className="px-4 py-2">Thumbnail</th>
                   <th className="px-4 py-2">Movie Name</th>
