@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 import threeDots from "../assets/icons/3_dot.svg";
 import userIcon from "../assets/images/user.webp";
@@ -24,12 +26,38 @@ function Profile() {
     const [loyaltyPoints, setLoyaltyPoints] = useState<number>(0);
     const [pointsNeeded, setPointsNeeded] = useState<number>(0);
 
-    const totalPoints = 180; // Total points needed to become a master (misalnya)
+    const Token = useSelector((state: RootState) => state.auth.token);
+
+    const totalPoints = 500;
     const percentage = (loyaltyPoints / totalPoints) * 100;
 
+    const url = import.meta.env.VITE_REACT_APP_API_URL;
+
+    // useEffect(() => {
+    //     // Fetch user data on component mount
+    //     axios.get(`${url}/user/profile`)
+    //         .then(response => {
+    //             const userData = response.data;
+    //             setFirstName(userData.first_name);
+    //             setLastName(userData.last_name);
+    //             setEmail(userData.email);
+    //             setPhoneNumber(userData.phone_number);
+    //             setProfileImage(userData.image || userIcon);
+    //             setLoyaltyPoints(userData.points || 0);
+    //             setPointsNeeded(totalPoints - userData.points);
+    //         })
+    //         .catch(error => {
+    //             console.error("Error fetching user data:", error);
+    //         });
+    // }, []);
+
     useEffect(() => {
-        // Fetch user data on component mount
-        axios.get('/api/user/profile')
+        if (Token) {
+            axios.get(`${url}/user/profile`, {
+                headers: {
+                    Authorization: `Bearer ${Token}`, 
+                },
+            })
             .then(response => {
                 const userData = response.data;
                 setFirstName(userData.first_name);
@@ -38,12 +66,43 @@ function Profile() {
                 setPhoneNumber(userData.phone_number);
                 setProfileImage(userData.image || userIcon);
                 setLoyaltyPoints(userData.points || 0);
-                setPointsNeeded(totalPoints - userData.points);
+                setPointsNeeded(totalPoints - (userData.points || 0));
             })
             .catch(error => {
                 console.error("Error fetching user data:", error);
             });
-    }, []);
+        } else {
+            console.error("Token is missing or invalid.");
+        }
+    }, [Token, url, totalPoints]);
+
+    // const handleUpdateProfile = () => {
+    //     const formData = new FormData();
+    //     formData.append('first_name', firstName);
+    //     formData.append('last_name', lastName);
+    //     formData.append('email', email);
+    //     formData.append('phone_number', phoneNumber);
+    //     if (password === confirmPassword && password) {
+    //         formData.append('password', password);
+    //     }
+    //     if (uploadedImage) {
+    //         formData.append('image', uploadedImage);
+    //     }
+
+    //     axios.patch(`${url}/user/profile`, formData, {
+    //         headers: {
+    //             'Content-Type': 'multipart/form-data'
+    //         }
+    //     })
+    //         .then(response => {
+    //             alert("Profile updated successfully!");
+    //             setProfileImage(response.data.image);
+    //             setIsModalOpen(false);
+    //         })
+    //         .catch(error => {
+    //             console.error("Error updating profile:", error);
+    //         });
+    // };
 
     const handleUpdateProfile = () => {
         const formData = new FormData();
@@ -51,6 +110,7 @@ function Profile() {
         formData.append('last_name', lastName);
         formData.append('email', email);
         formData.append('phone_number', phoneNumber);
+
         if (password === confirmPassword && password) {
             formData.append('password', password);
         }
@@ -58,19 +118,20 @@ function Profile() {
             formData.append('image', uploadedImage);
         }
 
-        axios.patch('/api/user/profile', formData, {
+        axios.patch(`${url}/user/settings`, formData, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${Token}`, 
             }
         })
-            .then(response => {
-                alert("Profile updated successfully!");
-                setProfileImage(response.data.image);
-                setIsModalOpen(false);
-            })
-            .catch(error => {
-                console.error("Error updating profile:", error);
-            });
+        .then(response => {
+            alert("Profile updated successfully!");
+            setProfileImage(response.data.image);
+            setIsModalOpen(false);
+        })
+        .catch(error => {
+            console.error("Error updating profile:", error);
+        });
     };
 
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
