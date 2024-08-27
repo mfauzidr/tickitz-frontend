@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import ThreeDots from "../assets/icons/SidebarIcon.svg";
 import searchLight from "../assets/icons/SearchLight.svg";
 
-function AdminHamburger() {
+function HamburgerLogin() {
+  const links = ["Home", "Movie", "Buy Ticket"];
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -54,23 +55,19 @@ function AdminHamburger() {
         aria-labelledby="menu-button"
       >
         <div className="grid gap-5" role="none">
-          <Link to="/admin/dashboard" className="hover:underline text-lg font-semibold py-1 w-full">
-            Dashboard
-          </Link>
-          <Link to="/admin/page-movielist" className="hover:underline text-lg font-semibold py-1 w-full">
-            Movie
-          </Link>
-          <Link to="/admin/movie-create" className="hover:underline text-lg font-semibold py-1 w-full">
-            Create New Movie
-          </Link>
+          {links.map((link, index) => (
+            <Link key={index} to={`${link.toLowerCase().replace(" ", "-")}`} className="hover:underline text-lg font-semibold py-1 w-full">
+              {link}
+            </Link>
+          ))}
         </div>
         <div className="flex gap-4 py-3 px-4 tbt:px-10 bg-white rounded text-slate-400 w-full">
           <img loading="lazy" src={searchLight} alt="" className="object-contain shrink-0 w-6 aspect-square" />
-          <input type="text" className="flex-auto px-4 py-2" placeholder="Search" id="searchMovie" name="searchMovie" />
-        </div>
+          <input type="text" className="flex-auto px-4 py-2" placeholder="Search Movie" id="searchMovie" name="searchMovie" />
+        </div>        
       </div>
     </div>
   );
 }
 
-export default AdminHamburger;
+export default HamburgerLogin;
