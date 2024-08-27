@@ -4,10 +4,13 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminIndex from "./pages/AdminIndex";
-import AdminMovie from "./pages/AdminMovie";
+import AdminCreateMovie from "./pages/AdminCreateMovie";
 import MovieTicketBooking from "./pages/MovieDetails";
 import AdminDashboard from "./pages/AdminDashboard";
 import Order from "./pages/Order";
+import AdminPage from "./pages/AdminPage";
+import Payment from "./pages/Payment";
+import Result from "./pages/Result";
 
 function Error() {
   return <div>Error</div>;
@@ -24,12 +27,16 @@ const routerWithChildren = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: "movie",
-        element: <AdminMovie />,
+        path: "movie-create",
+        element: <AdminCreateMovie />,
       },
       {
         path: "dashboard",
         element: <AdminDashboard />,
+      },
+      {
+        path: "movie",
+        element: <AdminPage />,
       },
       //   {
       //     path: "checkoutproduct",
@@ -70,8 +77,7 @@ const routerWithChildren = createBrowserRouter([
       //         <OrderDetails />
       //       </PrivateRoute>
       //     ),
-      //   }
-      //   ,
+      //   },
       //   {
       //     path: 'historyorder',
       //     element: (
@@ -108,72 +114,28 @@ const routerWithChildren = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "details",
+        path: "details/:id",
         element: <MovieTicketBooking />,
       },
       {
-        path: "order",
+        path: "order/:id",
         element: <Order />,
       },
-      //   {
-      //     path: 'orderdetails',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <OrderDetails />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'detailsproduct',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <DetailProduct />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: '/detailsproduct/:id',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <DetailProduct />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: '/ordersdetail/:id',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <OrderDetails />
-      //       </PrivateRoute>
-      //     ),
-      //   }
-      //   ,
-      //   {
-      //     path: 'historyorder',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <HistoryOrder />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'profile',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <Profile />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'axios',
-      //     element: <AxiosTry/>
-      //   },
+      {
+        path: "payment",
+        element: <Payment />,
+      },
+      {
+        path: "result",
+        element: <Result />,
+      },
       {
         path: "*",
         element: <NotFound />,
       },
     ],
   },
+
   {
     path: "/login",
     element: <Login />,
