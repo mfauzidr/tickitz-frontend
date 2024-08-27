@@ -18,7 +18,7 @@ const initialState = {
 
 const loginThunk = createAsyncThunk<string, { email: string; password: string }, { rejectValue: { error: Error; status?: number } }>("auth/login", async (form, { rejectWithValue }) => {
   try {
-    const url = `${process.env.VITE_REACT_APP_API_URL}/user/login`;
+    const url = `http://localhost:8080/user/login`;
     const result: AxiosResponse<IAuthResponse> = await axios.post(url, form);
     return result.data.data;
   } catch (error) {
