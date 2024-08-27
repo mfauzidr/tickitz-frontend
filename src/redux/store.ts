@@ -15,7 +15,7 @@ const authPersistConfig: PersistConfig<AuthState> = {
 const OrderPersistConfig: PersistConfig<MovieOrderState> = {
   key: "auth:tickitz",
   storage,
-  whitelist: ["movie","cinema"],
+  whitelist: ["movie","cinema","payment"],
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
