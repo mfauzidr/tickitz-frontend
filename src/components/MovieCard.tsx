@@ -45,7 +45,7 @@ function MovieCard({ movies }: MovieCardProps) {
                         </Link>
                         <Link
                           className="gap-1.5 self-stretch px-3 sm:px-5 py-2 sm:py-3 mt-3 w-full bg-blue-700 rounded-md text-slate-50"
-                          to={``}
+                          to={`/details/${movie.id}`}
                         >
                           Buy Ticket
                         </Link>
