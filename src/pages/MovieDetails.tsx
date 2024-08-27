@@ -8,10 +8,12 @@ import cine3 from "../assets/icons/hiflix.svg";
 import calendar from "../assets/icons/Calendar.svg";
 import location from "../assets/icons/Location.svg";
 import chooseTime from "../assets/icons/ChooseTime.svg";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Movie } from "../types/moviesData";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setCinema, setMovieOrder } from "../redux/slices/MovieOrder";
+import { RootState } from "../redux/store";
 
 interface Cinema {
   id: string;
@@ -23,27 +25,12 @@ interface Cinema {
     };
   };
 }
-
-interface HeaderData {
-  title: string;
-  subtitle: string;
-}
-
-interface FooterData {
-  contact: string;
-  socialMedia: {
-    facebook: string;
-    twitter: string;
-  };
-}
-
-
 const movieData = {
   cinemas: [
     {
       id: "cinema1",
       logo: cine1,
-      name: "Cinema One",
+      name: "Ebu Id",
       Category: {
         primary: {
           times: ["06:00 PM", "08:00 PM", "10:00 PM"],
@@ -56,7 +43,7 @@ const movieData = {
     {
       id: "cinema2",
       logo: cine2,
-      name: "Cinema Two",
+      name: "CineOne 21",
       Category: {
         standard: {
           times: ["05:00 PM", "07:00 PM", "09:00 PM"],
@@ -69,7 +56,7 @@ const movieData = {
     {
       id: "cinema3",
       logo: cine3,
-      name: "Cinema Three",
+      name: "Hiflix",
       Category: {
         basic: {
           times: ["04:00 PM", "06:00 PM", "08:00 PM"],
@@ -82,7 +69,7 @@ const movieData = {
     {
       id: "cinema4",
       logo: cine1,
-      name: "Cinema Four",
+      name: "Ebu Id",
       Category: {
         economy: {
           times: ["03:00 PM", "05:00 PM", "07:00 PM"],
@@ -95,7 +82,7 @@ const movieData = {
     {
       id: "cinema5",
       logo: cine2,
-      name: "Cinema Five",
+      name: "Cine One",
       Category: {
         regular: {
           times: ["01:00 PM", "03:00 PM", "05:00 PM"],
@@ -105,68 +92,77 @@ const movieData = {
         },
       },
     },
-  ] as Cinema[],
-  headerData: {
-    title: "Book Your Tickets Now!",
-    subtitle: "Choose your favorite cinema and movie time",
-  } as HeaderData,
-  footerData: {
-    contact: "contact@example.com",
-    socialMedia: {
-      facebook: "https://facebook.com/example",
-      twitter: "https://twitter.com/example",
-    },
-  } as FooterData,
+  ] as Cinema[]
 };
 
-///API dummy date, location, times movises
-const dates = [
-  { id: 1, date: "2024-08-25" },
-  { id: 2, date: "2024-08-26" },
-  { id: 3, date: "2024-08-27" },
-  { id: 4, date: "2024-08-28" },
-];
+// Fungsi untuk menghasilkan rentang tanggal
+const generateDateRange = (startDate: string, endDate: string) => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const dates: string[] = [];
 
-const locations = [
-  { id: 1, name: "Purwokerto" },
-  { id: 2, name: "Jakarta" },
-  { id: 3, name: "Bandung" },
-  { id: 4, name: "Surabaya" },
-];
+  while (start <= end) {
+    dates.push(new Date(start).toISOString().split('T')[0]); // Format YYYY-MM-DD
+    start.setDate(start.getDate() + 1);
+  }
 
-const times = [
-  { id: 1, time: "09:00 AM" },
-  { id: 2, time: "12:00 PM" },
-  { id: 3, time: "03:00 PM" },
-  { id: 4, time: "06:00 PM" },
-];
+  return dates;
+};
 
 const MovieTicketBooking = () => {
   const { id } = useParams<{ id: string }>();
-  const [selectedCinemaId, setSelectedCinemaId] = useState<string>(movieData.cinemas[0].id);
-  const [movies, setMovies] = useState<Movie | undefined>( undefined )
+  const [selectedCinemaId, setSelectedCinemaId] = useState<string>('');
+  const [movies, setMovies] = useState<Movie | undefined>(undefined)
+  const Token = useSelector((state: RootState) => state.auth.token);
+  const Navi = useNavigate()
+  const [TimeOrder, setTime] = useState<any>('')
+  const [LocOrder, SetLocation] = useState<any>('')
+  const [DateOrder , setDate] = useState<any>('')
+
+  const dispatch = useDispatch();
+  // const moviesRedux = useSelector((state: RootState) => state.order.movie);
+  // const cinemasRedux = useSelector((state: RootState) => state.order.cinema);
+
+  const [startDate, endDate] = movies?.airing_dates ? movies.airing_dates.split(` - `).map((date) => date.trim()) : ["", ""];
+  const dateRange = generateDateRange(startDate, endDate);
+  const locations = movies?.locations ? movies.locations.split(",").map((g) => g.trim()) : [];
+  const times = movies?.airing_times ? movies.airing_times.split(",").map((g) => g.trim()) : [];
 
   // const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const handleCinemaSelect = (cinemaId: string) => {
+  const handleCinemaSelect = (cinemaId: string, cinemaName: string, logo: string) => {
+    const name = cinemaName;
     setSelectedCinemaId(cinemaId);
+    dispatch(setCinema( {logo , name} ))
   };
 
-  useEffect(()=>{
-    const asyncFunctest = async ()  =>{
+  useEffect(() => {
+    const asyncFunctest = async () => {
       try {
         const url = `http://localhost:8080/movie/${id}`
-        var result = await axios.get(url);
+        var result = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        });
         setMovies(result.data.data)
       } catch (error) {
-          console.log(error);
+        console.log(error);
       }
     }
     asyncFunctest();
-  },[])
+  }, [id])
+
+
+  const handleBookNow = () => {
+    const idMovie = id;
+    dispatch(setMovieOrder({ idMovie, DateOrder, TimeOrder, LocOrder }));
+    console.log(DateOrder ," date order")
+
+    Navi(`/order/${id}`)
+  };
 
   return (
-    <>
       <div className="flex flex-col bg-white justify">
         <div className="">{movies && <MovieBannerAndDetails movie={movies} />}</div>
         <div className="py-8 px-4 tbt:px-10 lg:px-32">
@@ -182,10 +178,12 @@ const MovieTicketBooking = () => {
                       </label>
                       <div className="flex gap-6 px-6 md:px-3 py-3.5 bg-gray-100 rounded-md md:mt-3 md:w-48 md:h-12">
                         <img loading="lazy" width="18" src={calendar} alt="" />
-                        <select id="date" name="date" className="bg-transparent outline-none w-full">
-                          {dates.map((date) => (
-                            <option key={date.id} value={date.date}>
-                              {date.date}
+                        <select id="date" name="date" className="bg-transparent outline-none w-full" onChange={(e)=>{setDate(e.target.value)
+                          console.log(DateOrder)
+                        }} >
+                          {dateRange.map((date) => (
+                            <option key={date} value={date}>
+                              {date}
                             </option>
                           ))}
                         </select>
@@ -197,10 +195,10 @@ const MovieTicketBooking = () => {
                       </label>
                       <div className="hidden md:flex gap-6 px-6 md:px-3 py-3.5 bg-gray-100 rounded-md md:mt-3 md:w-48 md:h-12">
                         <img loading="lazy" width="18" src={chooseTime} alt="" />
-                        <select id="time" name="time" className="bg-transparent outline-none w-full">
+                        <select id="time" name="time" className="bg-transparent outline-none w-full" onChange={(e)=>{setTime(e.target.value)}}>
                           {times.map((time) => (
-                            <option key={time.id} value={time.time}>
-                              {time.time}
+                            <option key={time} value={time}>
+                              {time}
                             </option>
                           ))}
                         </select>
@@ -212,10 +210,10 @@ const MovieTicketBooking = () => {
                       </label>
                       <div className="flex gap-6 px-6 md:px-3 py-3.5 bg-gray-100 rounded-md mt-3 md:w-48 md:h-12">
                         <img loading="lazy" width="18" src={location} alt="" />
-                        <select id="location" name="location" className="bg-transparent outline-none w-full">
+                        <select id="location" name="location" className="bg-transparent outline-none w-full" onChange={(e)=>{SetLocation(e.target.value)}}>
                           {locations.map((location) => (
-                            <option key={location.id} value={location.name}>
-                              {location.name}
+                            <option key={location} value={location}>
+                              {location}
                             </option>
                           ))}
                         </select>
@@ -229,14 +227,13 @@ const MovieTicketBooking = () => {
               </div>
               <CinemaSelection cinemas={movieData.cinemas} selectedCinemaId={selectedCinemaId} onCinemaSelect={handleCinemaSelect} />
               {/* <Pagination currentPage={currentPage} totalPages={Math.ceil(movieData.cinemas.length / 4)} onPageChange={handlePageChange} /> */}
-              <button type="submit" className="px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5">
+              <button type="submit" className="px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5" onClick={handleBookNow}>
                 Book now
               </button>
             </>
           )}
         </div>
       </div>
-    </>
   );
 };
 

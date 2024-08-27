@@ -14,7 +14,7 @@ interface chartJsData {
 }
 
 const documentStyle = getComputedStyle(document.documentElement);
-const textColor = documentStyle.getPropertyValue("--text-color");
+const textColor = "#1D4ED8";
 const textColorSecondary = documentStyle.getPropertyValue("--text-color-secondary");
 const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
 
@@ -24,13 +24,13 @@ const salesData = {
       id: 1,
       title: "Inception",
       daily_sales: [
-        { date: "2024-08-01", sales: 150 },
-        { date: "2024-08-02", sales: 200 },
-        { date: "2024-08-03", sales: 175 },
-        { date: "2024-08-04", sales: 200 },
-        { date: "2024-08-05", sales: 175 },
-        { date: "2024-08-06", sales: 200 },
-        { date: "2024-08-07", sales: 175 },
+        { date: "jan", sales: 150 },
+        { date: "jan", sales: 200 },
+        { date: "jan", sales: 175 },
+        { date: "jan", sales: 200 },
+        { date: "jan", sales: 175 },
+        { date: "jan", sales: 700 },
+        { date: "jan", sales: 175 },
       ],
     },
     {
@@ -134,6 +134,7 @@ const options = {
 function AdminDashboard() {
   const [selectedMovie, setSelectedMovie] = useState(salesData.movie[0]);
   const [interval, setInterval] = useState("Daily");
+
   const [chartData, setChartData] = useState<chartJsData>({
     labels: selectedMovie.daily_sales.map((s) => s.date),
     datasets: [
@@ -169,6 +170,7 @@ function AdminDashboard() {
       <section className="flex flex-col gap-4 items-start self-center px-12 py-12 mt-14 max-w-full bg-white rounded-lg md:rounded-md w-[90%] md:w-[732px] max-md:px-5 max-md:mt-10">
         <h1 className="text-2xl font-bold tracking-wide text-slate-900">Sales Chart</h1>
         <div className="flex flex-col md:flex-row w-full gap-4">
+          {/*  */}
           <div className="flex gap-6 px-6 md:px-3 py-3.5 bg-gray-100 rounded-md md:mt-3 w-full md:h-12">
             <select
               id="movie"
@@ -200,9 +202,13 @@ function AdminDashboard() {
             Filter
           </button>
         </div>
-        <div className="card w-full">
+        <div className="card w-full ">
           <div>{selectedMovie.title}</div>
-          <Chart type="line" data={chartData} options={options} />
+          <div className="overflow-y-auto">
+            <div className=" min-w-[500px] md:w-full">
+              <Chart type="line" data={chartData} options={options} />
+            </div>
+          </div>
         </div>
       </section>
     </main>

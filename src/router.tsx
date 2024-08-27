@@ -119,8 +119,16 @@ const routerWithChildren = createBrowserRouter([
         element: <MovieTicketBooking />,
       },
       {
-        path: "order",
+        path: "order/:id",
         element: <Order />,
+      },
+      {
+        path: "payment",
+        element: <Payment />,
+      },
+      {
+        path: "result",
+        element: <Result />,
       },
       {
         path: "payment",
@@ -136,6 +144,7 @@ const routerWithChildren = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "/login",
     element: <Login />,
