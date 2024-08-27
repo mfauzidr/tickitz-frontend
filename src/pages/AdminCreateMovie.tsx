@@ -21,18 +21,27 @@ export default function AdminCreateMovie() {
     airing_time: "",
   });
 
+
+
   const { token } = useStoreSelector((state) => state.auth);
   const [genres, setGenres] = useState<{ id: number; name: string }[]>([]);
   const [genreId, setGenreId] = useState<number[]>([]);
+  const [inputGenreNama, setInputGenreNama] = useState<string[]>([]); // Update state to hold genre names
 
-  const toggleGenreId = (id: number) => {
-    setGenreId(
-      (prevGenreIds) =>
-        prevGenreIds.includes(id)
-          ? prevGenreIds.filter((genreId) => genreId !== id) // Hapus jika sudah ada
-          : [...prevGenreIds, id] // Tambahkan jika belum ada
-    );
-  };
+
+const toggleGenreId = (id: number, name: string) => {
+  setGenreId(prevGenreIds =>
+    prevGenreIds.includes(id)
+      ? prevGenreIds.filter(genreId => genreId !== id) // Remove if already exists
+      : [...prevGenreIds, id] // Add if not exists
+  );
+
+  setInputGenreNama(prevGenreNames =>
+    prevGenreNames.includes(name)
+      ? prevGenreNames.filter(genreName => genreName !== name) // Remove if already exists
+      : [...prevGenreNames, name] // Add if not exists
+  );
+};
 
   useEffect(() => {
     // Update form.category setiap kali genreId berubah
@@ -80,15 +89,6 @@ export default function AdminCreateMovie() {
     getGenres();
   }, []);
 
-  console.log(genreId);
-
-  // category dropdown
-  // release date yyyy-mm-dd
-  // duration 2 hours 13 minutes
-  // location dropdown
-  // date string yyyy-mm-dd - yyyy-mm-dd
-  // time get airingTime
-
   return (
     <main className="pt-16 pb-20 px-4 tbt:px-10 md:px-52 lg:px-[450px] bg-neutral-100">
       <section className="self-center px-5 md:px-10 py-10 bg-white rounded-md">
@@ -105,15 +105,15 @@ export default function AdminCreateMovie() {
           <input type="text" name="title" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" value={form.title} onChange={onChangeHandler} />
 
           <label className="mt-6 text-gray-600">Category</label>
-          <input type="text" name="category" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" value={form.category} readOnly />
+          <input type="text" name="category" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" value={inputGenreNama} readOnly />
 
-          <div className="mt-4">
+          <div className="mt-4 gap-2">
             {genres.map((genre) => (
               <button
                 type="button"
                 key={genre.id}
-                onClick={() => toggleGenreId(genre.id)}
-                className={`text-sm p-2 rounded-lg ${genreId.includes(genre.id) ? "bg-blue-700" : "bg-gray-300"} fill-blue-700 max-md:px-5 font-bold tracking-wider leading-loose text-center text-slate-50`}
+                onClick={() => toggleGenreId(genre.id, genre.name)}
+                className={`text-sm p-2  rounded-lg ${genreId.includes(genre.id) ? "bg-blue-700" : "bg-gray-300"} fill-blue-700 max-md:px-5 font-bold tracking-wider leading-loose text-center text-slate-50`}
               >
                 {genre.name}
               </button>
