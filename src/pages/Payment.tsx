@@ -8,12 +8,22 @@ import bri from "../assets/icons/BRI-icon.svg";
 import ovo from "../assets/icons/ovo-icon.svg";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { jwtDecode } from "jwt-decode";
+
 
 function Payment() {
   const [showModal, setShowModal] = useState(false);
   const modalBgRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
+  const paymentRedux = useSelector((state: RootState) => state.order.payment);
+  const Token = useSelector((state: RootState) => state.auth.token);
+  var TokenDecoded
+  if (Token) {
+     TokenDecoded = jwtDecode(Token)
+  }
+  console.log(TokenDecoded)
   const handleSubmit = () => {
     setShowModal(true);
   };
@@ -33,39 +43,59 @@ function Payment() {
     setShowModal(false);
   };
 
+  const formattedDateTime = new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  }).format(new Date(`${paymentRedux.date} ${paymentRedux.time}`));
+
   return (
     <main className="font-mulish pt-16 pb-20 px-4 md:px-52 lg:px-[450px] bg-neutral-100">
       <section className="self-center px-5 md:px-10 py-10 bg-white rounded-md">
         <h1 className="text-xl font-bold tracking-wide text-slate-900">Payment Info</h1>
-        <form className="flex flex-col mt-7">
+        <div className="flex flex-col mt-7">
           <label className="mt-6 text-sm text-gray-600">DATE & TIME</label>
-          <input type="text" name="date" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" />
-
+          <div className="pl-3 py-3 text-sm mt-3 tracking-wider bg-white rounded border-b-[2px] border-solid border-neutral-200">
+            {formattedDateTime}
+          </div>
+  
           <label className="mt-6 text-sm text-gray-600">MOVIE TITLE</label>
-          <input type="text" name="title" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" />
-
+          <div className="pl-3 py-3 text-sm mt-3 tracking-wider bg-white rounded border-b-[2px] border-solid border-neutral-200">
+            {paymentRedux.title || "N/A"}
+          </div>
+  
           <label className="mt-6 text-sm text-gray-600">CINEMA NAME</label>
-          <input type="text" name="cinema" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" />
-
+          <div className="pl-3 py-3 text-sm mt-3 tracking-wider bg-white rounded border-b-[2px] border-solid border-neutral-200">
+            {paymentRedux.cinema}
+          </div>
+  
           <label className="text-gray-600 mt-6 text-sm">NUMBER OF TICKETS</label>
-          <input type="text" name="ticket" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" />
-
+          <div className="pl-3 py-3 text-sm mt-3 tracking-wider bg-white rounded border-b-[2px] border-solid border-neutral-200">
+            {paymentRedux.TiketsCount}
+          </div>
+  
           <label className="text-gray-600 mt-6 text-sm">TOTAL PAYMENT</label>
-          <input type="text" name="total" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" />
-
+          <div className="pl-3 py-3 text-sm mt-3 tracking-wider text-[#1D4ED8] bg-white rounded border-b-[2px] border-solid border-neutral-200">
+            Rp.{paymentRedux.Total}
+          </div>
+  
           <h1 className="text-xl font-bold tracking-wide text-slate-900 mt-6">Personal Information</h1>
-
+  
           <label className="text-gray-600 mt-6 text-sm">Full Name</label>
           <input type="text" name="fullname" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" />
-
+  
           <label className="text-gray-600 mt-6 text-sm">Email</label>
           <input type="text" name="email" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" />
-
+  
           <label className="text-gray-600 mt-6 text-sm">Phone Number</label>
           <input type="text" name="phone" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" />
-        </form>
+        </div>
         <h1 className="text-xl font-bold tracking-wide text-slate-900 mt-6">Payment Method</h1>
-
+  
         <div className="grid grid-cols-2 gap-5 mt-6 tbt:grid-cols-4">
           <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
             <img width="50" src={gpay} alt="" />
@@ -109,7 +139,7 @@ function Payment() {
                 </div>
                 <div className="inline-block md:flex justify-between mt-3">
                   <p className="text-gray-400 text-xs">Total Payment</p>
-                  <p className="font-bold text-primary">Rp 75000</p>
+                  <p className="font-bold text-primary">Rp {paymentRedux.Total}</p>
                 </div>
               </div>
               <p className="text-gray-400 tracking-wider leading-6 text-xs">
@@ -131,6 +161,7 @@ function Payment() {
       </section>
     </main>
   );
+  
 }
 
 export default Payment;

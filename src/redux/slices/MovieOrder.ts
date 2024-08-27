@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Movie {
   id?: string;
@@ -36,30 +36,33 @@ const initialState: MovieOrderState = {
   },
   cinema: {
     logo: "",
-    name: ""
+    name: "",
   },
   payment: {
-    date: '',
-    time: '',
-    title: '',
-    cinema: '',
+    date: "",
+    time: "",
+    title: "",
+    cinema: "",
     TiketsCount: 0,
-    Total: 0
-  }
-}
+    Total: 0,
+  },
+};
 
 const MovieOrder = createSlice({
-  name: 'Order',
+  name: "order",
   initialState,
   reducers: {
-    setPayment(state, action: PayloadAction<{
-      date: string;
-      time: string;
-      title?: string;
-      cinema: string;
-      TiketsCount: number;
-      Total: number;
-    }>) {
+    setPayment(
+      state,
+      action: PayloadAction<{
+        date: string;
+        time: string;
+        title?: string;
+        cinema: string;
+        TiketsCount: number;
+        Total: number;
+      }>
+    ) {
       state.payment.date = action.payload.date;
       state.payment.time = action.payload.time;
       state.payment.title = action.payload.title;
@@ -78,10 +81,13 @@ const MovieOrder = createSlice({
       state.movie.time = action.payload.TimeOrder;
       state.movie.location = action.payload.LocOrder;
     },
-    setCinema: (state, action: PayloadAction<{
-      logo: string;
-      name: string;
-    }>) => {
+    setCinema: (
+      state,
+      action: PayloadAction<{
+        logo: string;
+        name: string;
+      }>
+    ) => {
       state.cinema.logo = action.payload.logo;
       state.cinema.name = action.payload.name;
     },

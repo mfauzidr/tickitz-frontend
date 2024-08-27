@@ -4,23 +4,22 @@ import { PersistConfig } from "redux-persist/lib/types";
 import storage from "redux-persist/lib/storage";
 
 import authReducer, { AuthState } from "./slices/auth";
-import MovieOrder , { MovieOrderState } from "./slices/MovieOrder";
+import MovieOrder, { MovieOrderState } from "./slices/MovieOrder";
 
 const authPersistConfig: PersistConfig<AuthState> = {
   key: "auth:tickitz",
   storage,
-  whitelist: ["token"],
+  whitelist: ["token", "user"],
 };
 
 const OrderPersistConfig: PersistConfig<MovieOrderState> = {
-  key: "auth:tickitz",
+  key: "order:tickitz",
   storage,
-  whitelist: ["movie","cinema","payment"],
+  whitelist: ["movie", "cinema", "payment"],
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 const persistedOrderReducer = persistReducer(OrderPersistConfig, MovieOrder);
-
 
 export const store = configureStore({
   reducer: {

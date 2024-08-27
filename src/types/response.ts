@@ -1,3 +1,5 @@
+import { IUser } from "./user";
+
 export interface IPaginationMeta {
   totalData?: number;
   totalPage?: number;
@@ -14,5 +16,8 @@ interface IBasicResponse {
 }
 
 export interface IAuthResponse extends IBasicResponse {
-  data: string;
+  data: {
+    token: string;
+    user: IUser;
+  };
 }
