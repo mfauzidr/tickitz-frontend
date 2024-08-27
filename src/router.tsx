@@ -118,7 +118,7 @@ const routerWithChildren = createBrowserRouter([
         element: <MovieTicketBooking />,
       },
       {
-        path: "order",
+        path: "order/:id",
         element: <Order />,
       },
       {

@@ -10,7 +10,7 @@ function Order() {
   interface Movie {
     poster: string;
     title: string;
-    genres: string[];
+    genres: string;
   }
 
   interface Cinema {
@@ -21,13 +21,14 @@ function Order() {
   const movie: Movie = {
     poster: "https://cdn.builder.io/api/v1/image/assets/TEMP/0baa3093e3b791d26b72f08e2658b1d538249e02c59f4ede4e9a38108910e3d5?apiKey=b75a55b5285647ecbff457fc782c7d82&",
     title: "The Great Adventure",
-    genres: ["Action", "Adventure"],
+    genres: "Action,Adventure",
   };
 
   const cinema: Cinema = {
     logo: cine,
     name: "CineOne21 Cinema",
   };
+
   const seatAlphabets = [
     { id: 1, name: "A" },
     { id: 2, name: "B" },
@@ -124,6 +125,7 @@ function Order() {
       setShowModal(false);
     }
   };
+  const genres = movie.genres ? movie.genres.split(',').map(g => g.trim()) : [];
 
   return (
     <section className="pt-5 pb-20 px-4 tbt:px-10 lg:px-32 bg-neutral-100 font-mulish">
@@ -131,7 +133,7 @@ function Order() {
         <img width="350" src={step} alt="" />
       </div>
       <div className="md:flex md:gap-3 md:justify-between">
-        <div className="bg-white p-2 rounded-lg md:w-3/4">
+        <div className="bg-white p-2 rounded-lg md:w-3/4 px-4 py-8">
           <div className="p-5 border rounded-lg border-blue-700 border-solid md:flex md:justify-between">
             <div className="md:flex md:gap-5">
               <div className="grid place-items-center h-[100px] md:h-[130px] overflow-hidden">
@@ -140,7 +142,7 @@ function Order() {
               <div>
                 <h1 className="text-xl text-center md:text-start font-semibold mt-3 md:mt-0">{movie.title}</h1>
                 <div className="flex gap-2 justify-center md:justify-normal mt-3 md:mt-5 text-center text-gray-400">
-                  {movie.genres.map((genre, index) => (
+                  {genres.map((genre, index) => (
                     <div key={index} className="px-3 py-2 rounded-3xl bg-slate-400 bg-opacity-10 text-sm">
                       {genre}
                     </div>
@@ -154,9 +156,9 @@ function Order() {
             </div>
           </div>
           <div className="py-10">
-            <div>
-              <h1 className="font-semibold">Choose Your Seat</h1>
-              <div className="w-full my-1">
+            <div className="pb-8">
+              <h1 className="font-bold pb-8">Choose Your Seat</h1>
+              <div className="w-full my-1 pb-8">
                 <p className="text-xs text-center">Screen</p>
               </div>
               <div className="flex gap-1 justify-center">
@@ -255,7 +257,7 @@ function Order() {
             </div>
             <div className="mt-5">
               <h1 className="font-semibold">Seating Key</h1>
-              <div className="flex flex-wrap gap-5 mt-5">
+              <div className="flex flex-wrap gap-5 mt-5 px-8">
                 <div className="flex gap-3">
                   <img src={downArrow} width="18.5" alt="" />
                   <p className="text-sm">A - G</p>
@@ -316,7 +318,7 @@ function Order() {
           </div>
         </div>
         <div className="hidden md:block h-1/2 w-1/4">
-          <div className="bg-white py-6 px-1.5 rounded-lg">
+          <div className="bg-white py-6 px-2 rounded-lg">
             <div className="grid place-items-center">
               <img width="100" src={cinema.logo} alt="" />
             </div>

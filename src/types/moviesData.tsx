@@ -12,6 +12,9 @@ export interface Movie {
     created_at: string;
     updated_at?: string;
     release_date: string;
+    airing_dates: string;
+    airing_times: string;
+    locations: string;
   }
   
   export interface MovieResponse {
