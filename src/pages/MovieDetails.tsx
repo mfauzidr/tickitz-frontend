@@ -11,8 +11,9 @@ import chooseTime from "../assets/icons/ChooseTime.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Movie } from "../types/moviesData";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCinema, setMovieOrder } from "../redux/slices/MovieOrder";
+import { RootState } from "../redux/store";
 
 interface Cinema {
   id: string;
@@ -112,11 +113,11 @@ const MovieTicketBooking = () => {
   const { id } = useParams<{ id: string }>();
   const [selectedCinemaId, setSelectedCinemaId] = useState<string>('');
   const [movies, setMovies] = useState<Movie | undefined>(undefined)
-
+  const Token = useSelector((state: RootState) => state.auth.token);
   const Navi = useNavigate()
   const [TimeOrder, setTime] = useState<any>('')
   const [LocOrder, SetLocation] = useState<any>('')
-  const [DateOrder , setDate] = useState<any>()
+  const [DateOrder , setDate] = useState<any>('')
 
   const dispatch = useDispatch();
   // const moviesRedux = useSelector((state: RootState) => state.order.movie);
@@ -139,7 +140,11 @@ const MovieTicketBooking = () => {
     const asyncFunctest = async () => {
       try {
         const url = `http://localhost:8080/movie/${id}`
-        var result = await axios.get(url);
+        var result = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        });
         setMovies(result.data.data)
       } catch (error) {
         console.log(error);

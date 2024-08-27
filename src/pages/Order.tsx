@@ -3,7 +3,7 @@ import Seat from "../components/Seat";
 import downArrow from "../assets/icons/Down-arrow.svg";
 import rightArrow from "../assets/icons/Right-arrow.svg";
 import step from "../assets/icons/Step.svg";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
@@ -52,6 +52,7 @@ const fright: string[] = Array.from({ length: 7 }, (_, index) => `F${index + 8}`
 const gleft: string[] = Array.from({ length: 7 }, (_, index) => `G${index + 1}`);
 const gright: string[] = Array.from({ length: 7 }, (_, index) => `G${index + 8}`);
 
+
 function Order() {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -63,12 +64,9 @@ function Order() {
   const [movie, setMovies] = useState<Movie | undefined>(undefined);
   const moviesRedux = useSelector((state: RootState) => state.order.movie);
   const cinemasRedux = useSelector((state: RootState) => state.order.cinema);
+  const Token = useSelector((state: RootState) => state.auth.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  console.log(cinemasRedux.logo ," Movie redux cinema")
-  console.log(moviesRedux.date ," Movie redux order")
-
 
   const handleAlphabetChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedAlphabet(event.target.value);
@@ -93,7 +91,11 @@ function Order() {
     const asyncFunctest = async () => {
       try {
         const url = `http://localhost:8080/movie/${id}`
-        var result = await axios.get(url);
+        var result = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        });
         setMovies(result.data.data)
       } catch (error) {
         console.log(error);
@@ -117,6 +119,10 @@ function Order() {
   }, []);
 
   const handleSubmit = () => {
+    setShowModal(true);
+  };
+
+  const handleConfirmOrder = () => {
     dispatch(setPayment({
       date: moviesRedux.date,
       time: moviesRedux.time,
@@ -125,10 +131,6 @@ function Order() {
       TiketsCount: selectedSeats.length,
       Total: selectedSeats.length*25000
     }))
-    setShowModal(true);
-  };
-
-  const handleConfirmOrder = () => {
     setShowModal(false);
     navigate("/payment");
   };
@@ -138,6 +140,7 @@ function Order() {
       setShowModal(false);
     }
   };
+  
   const genres = movie?.genres ? movie.genres.split(',').map(g => g.trim()) : [];
 
   return (
@@ -364,11 +367,9 @@ function Order() {
               <p className="text-primary font-bold text-right">Rp.{selectedSeats.length * 25000}</p>
             </div>
           </div>
-          <Link to="/payment">
-            <button type="submit" className="px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5">
+            <button type="submit" className="px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5" onClick={handleConfirmOrder}>
               Checkout Now
             </button>
-          </Link>
         </div>
       </div>
       <button onClick={handleSubmit} type="submit" className="md:hidden px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5">

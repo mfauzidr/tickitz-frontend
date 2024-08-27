@@ -70,15 +70,12 @@ const MovieOrder = createSlice({
       state.payment.TiketsCount = action.payload.TiketsCount;
       state.payment.Total = action.payload.Total;
     },
-    setMovieOrder(
-      state,
-      action: PayloadAction<{
-        idMovie?: string;
-        DateOrder: string;
-        TimeOrder: string;
-        LocOrder: string;
-      }>
-    ) {
+    setMovieOrder(state, action: PayloadAction<{
+      idMovie?: string;
+      DateOrder: string;
+      TimeOrder: string;
+      LocOrder: string;
+    }>) {
       state.movie.id = action.payload.idMovie;
       state.movie.date = action.payload.DateOrder;
       state.movie.time = action.payload.TimeOrder;
