@@ -52,6 +52,7 @@ const fright: string[] = Array.from({ length: 7 }, (_, index) => `F${index + 8}`
 const gleft: string[] = Array.from({ length: 7 }, (_, index) => `G${index + 1}`);
 const gright: string[] = Array.from({ length: 7 }, (_, index) => `G${index + 8}`);
 
+
 function Order() {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -61,9 +62,9 @@ function Order() {
   const modalBgRef = useRef<HTMLDivElement>(null);
   const { id } = useParams<{ id: string }>();
   const [movie, setMovies] = useState<Movie | undefined>(undefined);
-  const Token = useSelector((state: RootState) => state.auth.token);
   const moviesRedux = useSelector((state: RootState) => state.order.movie);
   const cinemasRedux = useSelector((state: RootState) => state.order.cinema);
+  const Token = useSelector((state: RootState) => state.auth.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -90,7 +91,11 @@ function Order() {
     const asyncFunctest = async () => {
       try {
         const url = `http://localhost:8080/movie/${id}`
-        var result = await axios.get(url);
+        var result = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        });
         setMovies(result.data.data)
       } catch (error) {
         console.log(error);
