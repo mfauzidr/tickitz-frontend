@@ -1,10 +1,10 @@
 import { Chart } from "primereact/chart";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import axios from "axios";
+// import { useSelector } from "react-redux";
+// import { RootState } from "../redux/store";
+// import axios from "axios";
 
-interface ChartJsData {
+interface chartJsData {
   labels: string[];
   datasets: {
     label: string;
@@ -20,6 +20,98 @@ const documentStyle = getComputedStyle(document.documentElement);
 const textColor = "#1D4ED8";
 const textColorSecondary = documentStyle.getPropertyValue("--text-color-secondary");
 const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
+
+const salesData = {
+  movie: [
+    {
+      id: 1,
+      title: "Inception",
+      daily_sales: [
+        { date: "jan", sales: 150 },
+        { date: "jan", sales: 200 },
+        { date: "jan", sales: 175 },
+        { date: "jan", sales: 200 },
+        { date: "jan", sales: 175 },
+        { date: "jan", sales: 700 },
+        { date: "jan", sales: 175 },
+      ],
+    },
+    {
+      id: 2,
+      title: "The Dark Knight",
+      daily_sales: [
+        { date: "2024-08-01", sales: 10 },
+        { date: "2024-08-02", sales: 200 },
+        { date: "2024-08-03", sales: 150 },
+        { date: "2024-08-04", sales: 200 },
+        { date: "2024-08-05", sales: 170 },
+        { date: "2024-08-06", sales: 200 },
+        { date: "2024-08-07", sales: 750 },
+      ],
+    },
+    {
+      id: 3,
+      title: "Interstellar",
+      daily_sales: [
+        { date: "2024-08-01", sales: 167 },
+        { date: "2024-08-02", sales: 250 },
+        { date: "2024-08-03", sales: 230 },
+        { date: "2024-08-04", sales: 232 },
+        { date: "2024-08-05", sales: 220 },
+        { date: "2024-08-06", sales: 266 },
+        { date: "2024-08-07", sales: 750 },
+      ],
+    },
+    {
+      id: 4,
+      title: "Avatar",
+      daily_sales: [
+        { date: "2024-08-01", sales: 887 },
+        { date: "2024-08-02", sales: 280 },
+        { date: "2024-08-03", sales: 230 },
+        { date: "2024-08-04", sales: 932 },
+        { date: "2024-08-05", sales: 299 },
+        { date: "2024-08-06", sales: 996 },
+        { date: "2024-08-07", sales: 450 },
+      ],
+    },
+    {
+      id: 5,
+      title: "Avengers: Endgame",
+      daily_sales: [
+        { date: "2024-08-01", sales: 887 },
+        { date: "2024-08-02", sales: 2800 },
+        { date: "2024-08-03", sales: 2300 },
+        { date: "2024-08-04", sales: 932 },
+        { date: "2024-08-05", sales: 2909 },
+        { date: "2024-08-06", sales: 996 },
+        { date: "2024-08-07", sales: 450 },
+      ],
+    },
+    {
+      id: 6,
+      title: "Titanic",
+      daily_sales: [
+        { date: "2024-08-01", sales: 887 },
+        { date: "2024-08-02", sales: 280 },
+        { date: "2024-08-03", sales: 230 },
+        { date: "2024-08-04", sales: 932 },
+        { date: "2024-08-05", sales: 299 },
+        { date: "2024-08-06", sales: 996 },
+        { date: "2024-08-07", sales: 450 },
+      ],
+    },
+  ],
+};
+
+interface movie {
+  id: number;
+  title: string;
+  daily_sales: {
+    date: string;
+    sales: number;
+  }[];
+}
 
 const options = {
   maintainAspectRatio: false,
@@ -51,55 +143,43 @@ const options = {
   },
 };
 
-interface Movie {
-  id: number;
-  title: string;
-  daily_sales: {
-    date: string;
-    sales: number;
-  }[];
-}
-
 function AdminDashboard() {
-  const token = useSelector((state: RootState) => state.auth.token);
+  // const Token = useSelector((state: RootState) => state.auth.token);
 
-  const [salesData, setSalesData] = useState<Movie[]>([]);
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  // const [salesData, setSalesData ] = useState<movie[]>([])
+  console.log(salesData);
+
+  const [selectedMovie, setSelectedMovie] = useState(salesData.movie[0]);
   const [interval, setInterval] = useState("Daily");
 
-  useEffect(() => {
-    const getSalesData = async () => {
-      try {
-        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/order/dashboards`;
-        if (token) {
-          const result = await axios.get(url, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          if (Array.isArray(result.data.data.movies)) {
-            setSalesData(result.data.data.movies);
-            if (result.data.data.movies.length > 0) {
-              setSelectedMovie(result.data.data.movies[0]);
-            }
-          } else {
-            console.error("Expected array but got:", result.data.data.movies);
-          }
-        }
-      } catch (error) {
-        console.error('Failed to fetch sales data', error);
-      }
-    };
+  // useEffect(()=>{
+  //   const GetSalesData = async () => {
+  //     try {
+  //       const url = `${import.meta.env.VITE_REACT_APP_API_URL}/order/dashboards`;
+  //       if (Token) {
+  //         const result = await axios.get(url, {
+  //           headers: {
+  //             Authorization: `Bearer ${Token}`,
+  //           },
+  //         });
+  //         setSalesData(result.data.data);
+  //         console.log(salesData)
 
-    getSalesData();
-  }, [token]);
+  //       }
+  //     } catch (error) {
+  //       console.error('Failed to fetch user info', error);
+  //     }
+  //   };
 
-  const [chartData, setChartData] = useState<ChartJsData>({
-    labels: [],
+  //   GetSalesData();
+  // },[Token])
+
+  const [chartData, setChartData] = useState<chartJsData>({
+    labels: selectedMovie.daily_sales.map((s) => s.date),
     datasets: [
       {
-        label: "",
-        data: [],
+        label: selectedMovie.title,
+        data: selectedMovie.daily_sales.map((s) => s.sales),
         fill: true,
         borderColor: documentStyle.getPropertyValue("--orange-500"),
         tension: 0.4,
@@ -109,21 +189,19 @@ function AdminDashboard() {
   });
 
   useEffect(() => {
-    if (selectedMovie) {
-      setChartData({
-        labels: selectedMovie.daily_sales.map((s) => s.date),
-        datasets: [
-          {
-            label: selectedMovie.title,
-            data: selectedMovie.daily_sales.map((s) => s.sales),
-            fill: true,
-            borderColor: documentStyle.getPropertyValue("--orange-500"),
-            tension: 0.4,
-            backgroundColor: "rgba(29, 78, 216, 0.53)",
-          },
-        ],
-      });
-    }
+    setChartData({
+      labels: selectedMovie.daily_sales.map((s) => s.date),
+      datasets: [
+        {
+          label: selectedMovie.title,
+          data: selectedMovie.daily_sales.map((s) => s.sales),
+          fill: true,
+          borderColor: documentStyle.getPropertyValue("--orange-500"),
+          tension: 0.4,
+          backgroundColor: "rgba(29, 78, 216, 0.53)",
+        },
+      ],
+    });
   }, [selectedMovie]);
 
   return (
@@ -131,30 +209,26 @@ function AdminDashboard() {
       <section className="flex flex-col gap-4 items-start self-center px-12 py-12 mt-14 max-w-full bg-white rounded-lg md:rounded-md w-[90%] md:w-[732px] max-md:px-5 max-md:mt-10">
         <h1 className="text-2xl font-bold tracking-wide text-slate-900">Sales Chart</h1>
         <div className="flex flex-col md:flex-row w-full gap-4">
+          {/*  */}
           <div className="flex gap-6 px-6 md:px-3 py-3.5 bg-gray-100 rounded-md md:mt-3 w-full md:h-12">
             <select
               id="movie"
               name="movie"
               className="bg-transparent outline-none w-full"
-              value={ selectedMovie?.id }
+              value={selectedMovie.id}
               onChange={(e) => {
                 const selectedId = parseInt(e.target.value);
-                const movie = salesData.find((m) => m.id === selectedId);
-                console.log(salesData)
+                const movie = salesData.movie.find((m) => m.id === selectedId);
                 if (movie) {
                   setSelectedMovie(movie);
                 }
               }}
             >
-              {salesData.length > 0 ? (
-                salesData.map((movie) => (
-                  <option key={movie.id} value={movie.id}>
-                    {movie.title}
-                  </option>
-                ))
-              ) : (
-                <option value="">No movies available</option>
-              )}
+              {salesData.movie.map((movie) => (
+                <option key={movie.id} value={movie.id}>
+                  {movie.title}
+                </option>
+              ))}
             </select>
           </div>
           <div className="flex gap-6 px-6 md:px-3 py-3.5 bg-gray-100 rounded-md md:mt-3 w-full md:h-12">
@@ -168,9 +242,9 @@ function AdminDashboard() {
           </button>
         </div>
         <div className="card w-full ">
-          <div>{selectedMovie ? selectedMovie.title : "Select a movie"}</div>
+          <div>{selectedMovie.title}</div>
           <div className="overflow-y-auto">
-            <div className="min-w-[500px] md:w-full">
+            <div className=" min-w-[500px] md:w-full">
               <Chart type="line" data={chartData} options={options} />
             </div>
           </div>
