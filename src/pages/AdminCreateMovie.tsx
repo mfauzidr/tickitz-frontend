@@ -21,33 +21,21 @@ export default function AdminCreateMovie() {
     airing_time: "",
   });
 
-
-
   const { token } = useStoreSelector((state) => state.auth);
   const [genres, setGenres] = useState<{ id: number; name: string }[]>([]);
   const [genreId, setGenreId] = useState<number[]>([]);
-  const [inputGenreNama, setInputGenreNama] = useState<string[]>([]); // Update state to hold genre names
+  const [inputGenreNama, setInputGenreNama] = useState<string[]>([]);
 
+  const toggleGenreId = (id: number, name: string) => {
+    setGenreId((prevGenreIds) => (prevGenreIds.includes(id) ? prevGenreIds.filter((genreId) => genreId !== id) : [...prevGenreIds, id]));
 
-const toggleGenreId = (id: number, name: string) => {
-  setGenreId(prevGenreIds =>
-    prevGenreIds.includes(id)
-      ? prevGenreIds.filter(genreId => genreId !== id) // Remove if already exists
-      : [...prevGenreIds, id] // Add if not exists
-  );
-
-  setInputGenreNama(prevGenreNames =>
-    prevGenreNames.includes(name)
-      ? prevGenreNames.filter(genreName => genreName !== name) // Remove if already exists
-      : [...prevGenreNames, name] // Add if not exists
-  );
-};
+    setInputGenreNama((prevGenreNames) => (prevGenreNames.includes(name) ? prevGenreNames.filter((genreName) => genreName !== name) : [...prevGenreNames, name]));
+  };
 
   useEffect(() => {
-    // Update form.category setiap kali genreId berubah
     setForm((prevForm) => ({
       ...prevForm,
-      category: genreId.join(", "), // Gabungkan genreId menjadi string, dipisahkan dengan koma
+      category: genreId.join(", "),
     }));
   }, [genreId]);
 
@@ -107,7 +95,7 @@ const toggleGenreId = (id: number, name: string) => {
           <label className="mt-6 text-gray-600">Category</label>
           <input type="text" name="category" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" value={inputGenreNama} readOnly />
 
-          <div className="mt-4 gap-2">
+          <div className="mt-4 flex flex-wrap gap-5">
             {genres.map((genre) => (
               <button
                 type="button"
