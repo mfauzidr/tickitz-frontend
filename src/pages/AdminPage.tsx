@@ -2,6 +2,7 @@ import calendar from "../assets/icons/Calendar.svg";
 import eye from "../assets/icons/Eye.svg";
 import edit from "../assets/icons/Edit.svg";
 import deleteIcon from "../assets/icons/Delete.svg";
+import { Link } from "react-router-dom";
 
 const movieData = [
   {
@@ -48,12 +49,14 @@ const movieData = [
 
 function MovieList() {
   return (
-    <main className="flex flex-col pb-16 bg-neutral-100">
+    <main className="flex flex-col pb-16 px-4 tbt:px-10 lg:px-32 bg-neutral-100">
       <section className="flex flex-col self-center mt-16 w-full bg-white rounded-3xl max-w-[1105px] max-md:mt-10 max-md:max-w-full">
         <div className="flex flex-col px-14 pt-6 pb-10 w-full bg-white rounded-3xl max-md:px-5 max-md:max-w-full">
           <div className="flex flex-wrap gap-5 justify-between w-full max-md:max-w-full">
             <h1 className="my-auto text-2xl font-bold text-slate-900">List Movie</h1>
-            <button className=" md:hidden p-6 bg-blue-700 rounded-lg fill-blue-700 px-8 py-2 font-bold tracking-wider leading-loose text-center text-slate-50">+ Add</button>
+            <Link to="/admin/movie-create">
+              <button className=" md:hidden bg-blue-700 rounded-md fill-blue-700 px-6 py-1 font-bold tracking-wider leading-loose text-center text-slate-50">+ Add</button>
+            </Link>
             <div className="flex gap-3.5 text-base w-full md:w-auto">
               <div className="flex flex-col grow shrink-0 font-semibold tracking-wide leading-7 text-gray-600 basis-0 md:w-fit">
                 <div className="flex gap-5 justify-between px-6 py-3.5 w-full bg-gray-100 rounded-lg max-md:px-5">
@@ -63,7 +66,9 @@ function MovieList() {
                   </div>
                 </div>
               </div>
-              <button className="hidden md:flex p-2 bg-blue-700 rounded-lg fill-blue-700 max-md:px-5 font-bold tracking-wider leading-loose text-center text-slate-50">Add Movies</button>
+              <Link to="/admin/movie-create" className="self-center">
+                <button className="text-sm hidden items-center md:flex p-2 bg-blue-700 rounded-lg fill-blue-700 max-md:px-5 font-bold tracking-wider leading-loose text-center text-slate-50">Add Movies</button>
+              </Link>
             </div>
           </div>
           <div className="overflow-x-auto mt-5">
@@ -90,15 +95,15 @@ function MovieList() {
                     <td className="px-4 py-2 text-sm">{movie.category}</td>
                     <td className="px-4 py-2 text-sm">{movie.releaseDate}</td>
                     <td className="px-4 py-2 text-sm">{movie.duration}</td>
-                    <td className="px-4 py-2">
+                    <td className="p-4">
                       <div className="flex gap-2">
-                        <button className="bg-blue-500 text-white p-2  rounded">
+                        <button className="bg-blue-500 text-white p-2 rounded w-8 h-8">
                           <img src={eye} alt="" />
                         </button>
-                        <button className="bg-[#5D5FEF] text-white p-2  rounded">
+                        <button className="bg-[#5D5FEF] text-white p-2  rounded w-8 h-8">
                           <img src={edit} alt="" />
                         </button>
-                        <button className="bg-red-500 text-white p-2 rounded">
+                        <button className="bg-red-500 text-white p-2 rounded w-8 h-8">
                           <img src={deleteIcon} alt="" />
                         </button>
                       </div>

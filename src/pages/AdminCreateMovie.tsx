@@ -34,6 +34,13 @@ export default function AdminCreateMovie() {
     });
   };
 
+  // category dropdown
+  // release date yyyy-mm-dd
+  // duration 2 hours 13 minutes
+  // location dropdown
+  // date string yyyy-mm-dd - yyyy-mm-dd
+  // time get airingTime
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -58,7 +65,7 @@ export default function AdminCreateMovie() {
   };
 
   return (
-    <main className="pt-16 pb-20 px-4 md:px-52 lg:px-[450px] bg-neutral-100">
+    <main className="pt-16 pb-20 px-4 tbt:px-10 md:px-52 lg:px-[450px] bg-neutral-100">
       <section className="self-center px-5 md:px-10 py-10 bg-white rounded-md">
         <h1 className="text-xl font-bold tracking-wide text-slate-900">Add New Movie</h1>
         <form className="flex flex-col mt-7" onSubmit={handleSubmit}>
