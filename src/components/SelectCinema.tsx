@@ -15,18 +15,18 @@ interface Cinema {
 interface CinemaSelectionProps {
   cinemas: Cinema[];
   selectedCinemaId: string;
-  onCinemaSelect: (cinemaId: string, cinemaName: string) => void;
+  onCinemaSelect: (cinemaId: string, cinemaName: string, logo: string) => void;
 }
 
 const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSelectionProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState("");
 
-  const openDropdown = (name: string, id: string) => {
+  const openDropdown = (name: string, id: string, logo: string) => {
     if (isDropdownOpen === name) {
       setIsDropdownOpen("");
     } else {
       setIsDropdownOpen(name);
-      onCinemaSelect(id, name);
+      onCinemaSelect(id, name, logo);
     }
   };
 
@@ -41,11 +41,11 @@ const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSe
       <div className="flex gap-5 flex-col md:flex-row md:justify-center">
         {cinemas.map((cinema) => (
           <div key={cinema.id} className={` flex flex-col ${cinema.id === selectedCinemaId ? "border-2 md:border-none rounded-lg border-solid border-neutral-200 md:bg-blue-500" : ""} `}>
-            <button onClick={() => onCinemaSelect(cinema.id, cinema.name)} className={`hidden md:flex flex-col grow justify-center px-8 py-9 rounded-lg items-center border-2 border-solid border-neutral-200 max-md:px-5 max-md:mt-4`}>
+            <button onClick={() => onCinemaSelect(cinema.id, cinema.name, cinema.logo)} className={`hidden md:flex flex-col grow justify-center px-8 py-9 rounded-lg items-center border-2 border-solid border-neutral-200 max-md:px-5 max-md:mt-4`}>
               <img loading="lazy" src={cinema.logo} alt={cinema.name} className="object-contain w-full" />
             </button>
             <button
-              onClick={() => openDropdown(cinema.name, cinema.id)}
+              onClick={() => openDropdown(cinema.name, cinema.id, cinema.logo)}
               className={`flex px-8 py-9 rounded-lg justify-between items-center md:hidden ${cinema.id === selectedCinemaId ? "" : "border-2 rounded-lg border-solid border-neutral-200"}`}
             >
               <img loading="lazy" src={cinema.logo} alt={cinema.name} />

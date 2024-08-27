@@ -29,7 +29,7 @@ const movieData = {
     {
       id: "cinema1",
       logo: cine1,
-      name: "Cinema One",
+      name: "Ebu Id",
       Category: {
         primary: {
           times: ["06:00 PM", "08:00 PM", "10:00 PM"],
@@ -42,7 +42,7 @@ const movieData = {
     {
       id: "cinema2",
       logo: cine2,
-      name: "Cinema Two",
+      name: "CineOne 21",
       Category: {
         standard: {
           times: ["05:00 PM", "07:00 PM", "09:00 PM"],
@@ -55,7 +55,7 @@ const movieData = {
     {
       id: "cinema3",
       logo: cine3,
-      name: "Cinema Three",
+      name: "Hiflix",
       Category: {
         basic: {
           times: ["04:00 PM", "06:00 PM", "08:00 PM"],
@@ -68,7 +68,7 @@ const movieData = {
     {
       id: "cinema4",
       logo: cine1,
-      name: "Cinema Four",
+      name: "Ebu Id",
       Category: {
         economy: {
           times: ["03:00 PM", "05:00 PM", "07:00 PM"],
@@ -81,7 +81,7 @@ const movieData = {
     {
       id: "cinema5",
       logo: cine2,
-      name: "Cinema Five",
+      name: "Cine One",
       Category: {
         regular: {
           times: ["01:00 PM", "03:00 PM", "05:00 PM"],
@@ -93,7 +93,6 @@ const movieData = {
     },
   ] as Cinema[]
 };
-
 
 // Fungsi untuk menghasilkan rentang tanggal
 const generateDateRange = (startDate: string, endDate: string) => {
@@ -109,16 +108,15 @@ const generateDateRange = (startDate: string, endDate: string) => {
   return dates;
 };
 
-
 const MovieTicketBooking = () => {
   const { id } = useParams<{ id: string }>();
   const [selectedCinemaId, setSelectedCinemaId] = useState<string>('');
   const [movies, setMovies] = useState<Movie | undefined>(undefined)
 
   const Navi = useNavigate()
-  const [TimeOrder, setTime] = useState('')
-  const [LocOrder, SetLocation] = useState('')
-  const [DateOrder , setDate] = useState('')
+  const [TimeOrder, setTime] = useState<any>('')
+  const [LocOrder, SetLocation] = useState<any>('')
+  const [DateOrder , setDate] = useState<any>()
 
   const dispatch = useDispatch();
   // const moviesRedux = useSelector((state: RootState) => state.order.movie);
@@ -131,9 +129,10 @@ const MovieTicketBooking = () => {
 
   // const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const handleCinemaSelect = (cinemaId: string, cinemaName: string) => {
+  const handleCinemaSelect = (cinemaId: string, cinemaName: string, logo: string) => {
+    const name = cinemaName;
     setSelectedCinemaId(cinemaId);
-    dispatch(setCinema(cinemaName))
+    dispatch(setCinema( {logo , name} ))
   };
 
   useEffect(() => {
@@ -153,7 +152,7 @@ const MovieTicketBooking = () => {
   const handleBookNow = () => {
     const idMovie = id;
     dispatch(setMovieOrder({ idMovie, DateOrder, TimeOrder, LocOrder }));
-    dispatch(setCinema({  }));
+    console.log(DateOrder ," date order")
 
     Navi(`/order/${id}`)
   };
@@ -174,7 +173,9 @@ const MovieTicketBooking = () => {
                       </label>
                       <div className="flex gap-6 px-6 md:px-3 py-3.5 bg-gray-100 rounded-md md:mt-3 md:w-48 md:h-12">
                         <img loading="lazy" width="18" src={calendar} alt="" />
-                        <select id="date" name="date" className="bg-transparent outline-none w-full" onChange={(e)=>{setDate(e.target.value)}} >
+                        <select id="date" name="date" className="bg-transparent outline-none w-full" onChange={(e)=>{setDate(e.target.value)
+                          console.log(DateOrder)
+                        }} >
                           {dateRange.map((date) => (
                             <option key={date} value={date}>
                               {date}
