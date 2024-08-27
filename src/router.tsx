@@ -11,6 +11,7 @@ import Order from "./pages/Order";
 import AdminPage from "./pages/AdminPage";
 import Payment from "./pages/Payment";
 import Result from "./pages/Result";
+import ProfileIndex from "./pages/ProfileIndex";
 
 function Error() {
   return <div>Error</div>;
@@ -130,6 +131,14 @@ const routerWithChildren = createBrowserRouter([
         element: <Result />,
       },
       {
+        path: "payment",
+        element: <Payment />,
+      },
+      {
+        path: "result",
+        element: <Result />,
+      },
+      {
         path: "*",
         element: <NotFound />,
       },
@@ -144,6 +153,10 @@ const routerWithChildren = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
+  {
+    path: "/profile",
+    element: <ProfileIndex />,
+  }
   //   {
   //     path: '/forgot',
   //     element: <ForgotPass/>
