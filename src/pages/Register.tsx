@@ -9,8 +9,6 @@ import { useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import { IAuthResponse } from "../types/response";
 
-const API_URL = import.meta.env.VITE_REACT_APP_API_URL;
-
 function Register() {
   const [form, setForm] = useState<{ email: string; password: string }>({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
@@ -27,7 +25,7 @@ function Register() {
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const url = `${API_URL}/user/register`;
+    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/user/register`;
     axios
       .post(url, form, {
         headers: {

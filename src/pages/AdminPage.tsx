@@ -3,51 +3,79 @@ import eye from "../assets/icons/Eye.svg";
 import edit from "../assets/icons/Edit.svg";
 import deleteIcon from "../assets/icons/Delete.svg";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Movie } from "../types/moviesData";
+import axios from "axios";
 
-const movieData = [
-  {
-    id: 1,
-    name: "Spiderman HomeComing",
-    thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/db8310b416dc4ba164fc7ef6d67b54affc36d71866943c15e954e5f6df649a70?apiKey=b75a55b5285647ecbff457fc782c7d82&",
-    category: "Action, Adventure",
-    releaseDate: "07/05/2023",
-    duration: "2 Hours 15 Minute",
-  },
-  {
-    id: 2,
-    name: "Avengers End Game",
-    thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/b0a1fc7cb47ac3f156a6be7bddc07d51158c99096efa04c42111672231545f93?apiKey=b75a55b5285647ecbff457fc782c7d82&",
-    category: "Sci-fi, Adventure",
-    releaseDate: "10/06/2023",
-    duration: "2 Hours 15 Minute",
-  },
-  {
-    id: 3,
-    name: "Spiderman HomeComing",
-    thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/af67c0e83dea01d6909c89371fe6143541a80a4296a7bc2a730b7be6f6d86355?apiKey=b75a55b5285647ecbff457fc782c7d82&",
-    category: "Action, Adventure",
-    releaseDate: "02/03/2023",
-    duration: "2 Hours 15 Minute",
-  },
-  {
-    id: 4,
-    name: "Avengers End Game",
-    thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/b0a1fc7cb47ac3f156a6be7bddc07d51158c99096efa04c42111672231545f93?apiKey=b75a55b5285647ecbff457fc782c7d82&",
-    category: "Sci-fi, Adventure",
-    releaseDate: "01/09/2023",
-    duration: "2 Hours 15 Minute",
-  },
-  {
-    id: 5,
-    name: "Spiderman HomeComing",
-    thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/af67c0e83dea01d6909c89371fe6143541a80a4296a7bc2a730b7be6f6d86355?apiKey=b75a55b5285647ecbff457fc782c7d82&",
-    category: "Action, Adventure",
-    releaseDate: "07/08/2023",
-    duration: "2 Hours 15 Minute",
-  },
-];
+// const movieData = [
+//   {
+//     id: 1,
+//     name: "Spiderman HomeComing",
+//     thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/db8310b416dc4ba164fc7ef6d67b54affc36d71866943c15e954e5f6df649a70?apiKey=b75a55b5285647ecbff457fc782c7d82&",
+//     category: "Action, Adventure",
+//     releaseDate: "07/05/2023",
+//     duration: "2 Hours 15 Minute",
+//   },
+//   {
+//     id: 2,
+//     name: "Avengers End Game",
+//     thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/b0a1fc7cb47ac3f156a6be7bddc07d51158c99096efa04c42111672231545f93?apiKey=b75a55b5285647ecbff457fc782c7d82&",
+//     category: "Sci-fi, Adventure",
+//     releaseDate: "10/06/2023",
+//     duration: "2 Hours 15 Minute",
+//   },
+//   {
+//     id: 3,
+//     name: "Spiderman HomeComing",
+//     thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/af67c0e83dea01d6909c89371fe6143541a80a4296a7bc2a730b7be6f6d86355?apiKey=b75a55b5285647ecbff457fc782c7d82&",
+//     category: "Action, Adventure",
+//     releaseDate: "02/03/2023",
+//     duration: "2 Hours 15 Minute",
+//   },
+//   {
+//     id: 4,
+//     name: "Avengers End Game",
+//     thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/b0a1fc7cb47ac3f156a6be7bddc07d51158c99096efa04c42111672231545f93?apiKey=b75a55b5285647ecbff457fc782c7d82&",
+//     category: "Sci-fi, Adventure",
+//     releaseDate: "01/09/2023",
+//     duration: "2 Hours 15 Minute",
+//   },
+//   {
+//     id: 5,
+//     name: "Spiderman HomeComing",
+//     thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/af67c0e83dea01d6909c89371fe6143541a80a4296a7bc2a730b7be6f6d86355?apiKey=b75a55b5285647ecbff457fc782c7d82&",
+//     category: "Action, Adventure",
+//     releaseDate: "07/08/2023",
+//     duration: "2 Hours 15 Minute",
+//   },
+// ];
 
 function MovieList() {
+  const [movies, setMovies] = useState<Movie[] | undefined>(undefined);
+
+  useEffect(() => {
+    const getMovies = async () => {
+      try {
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/`;
+        var result = await axios.get(url);
+        setMovies(result.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getMovies();
+  }, []);
+
+  const deleteMovie = async (id: string) => {
+    try {
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/${id}`;
+      await axios.delete(url);
+      setMovies(movies?.filter((movie) => movie.id !== id));
+    } catch (error) {
+      console.log("Error saat menghapus film:", error);
+    }
+  };
+
   return (
     <main className="flex flex-col pb-16 px-4 tbt:px-10 lg:px-32 bg-neutral-100">
       <section className="flex flex-col self-center mt-16 w-full bg-white rounded-3xl max-w-[1105px] max-md:mt-10 max-md:max-w-full">
@@ -85,15 +113,15 @@ function MovieList() {
                 </tr>
               </thead>
               <tbody>
-                {movieData.map((movie, index) => (
+                {movies?.map((movie, index) => (
                   <tr key={movie.id} className="border-t">
                     <td className="px-4 py-2">{index + 1}</td>
                     <td className="px-4 py-2">
-                      <img src={movie.thumbnail} alt={movie.name} className="w-16 h-16 object-cover rounded-2xl" />
+                      <img src={movie.image} alt={movie.title} className="w-16 h-16 object-cover rounded-2xl" />
                     </td>
-                    <td className="px-4 py-2 text-sm text-primary">{movie.name}</td>
-                    <td className="px-4 py-2 text-sm">{movie.category}</td>
-                    <td className="px-4 py-2 text-sm">{movie.releaseDate}</td>
+                    <td className="px-4 py-2 text-sm text-primary">{movie.title}</td>
+                    <td className="px-4 py-2 text-sm">{movie.genres}</td>
+                    <td className="px-4 py-2 text-sm">{movie.release_date}</td>
                     <td className="px-4 py-2 text-sm">{movie.duration}</td>
                     <td className="p-4">
                       <div className="flex gap-2">
@@ -103,7 +131,7 @@ function MovieList() {
                         <button className="bg-[#5D5FEF] text-white p-2  rounded w-8 h-8">
                           <img src={edit} alt="" />
                         </button>
-                        <button className="bg-red-500 text-white p-2 rounded w-8 h-8">
+                        <button onClick={() => deleteMovie(movie.id)} className="bg-red-500 text-white p-2 rounded w-8 h-8">
                           <img src={deleteIcon} alt="" />
                         </button>
                       </div>

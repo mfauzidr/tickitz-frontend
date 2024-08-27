@@ -1180,6 +1180,10 @@ video {
   white-space: nowrap;
 }
 
+.text-wrap{
+  text-wrap: wrap;
+}
+
 .rounded{
   border-radius: 0.25rem;
 }
