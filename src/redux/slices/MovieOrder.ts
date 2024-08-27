@@ -66,8 +66,7 @@ const MovieOrder = createSlice({
       state.payment.cinema = action.payload.cinema;
       state.payment.TiketsCount = action.payload.TiketsCount;
       state.payment.Total = action.payload.Total;
-    }
-    ,
+    },
     setMovieOrder(state, action: PayloadAction<{
       idMovie?: string;
       DateOrder: string;

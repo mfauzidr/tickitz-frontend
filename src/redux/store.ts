@@ -9,7 +9,7 @@ import MovieOrder , { MovieOrderState } from "./slices/MovieOrder";
 const authPersistConfig: PersistConfig<AuthState> = {
   key: "auth:tickitz",
   storage,
-  whitelist: ["token","movie","cinema"],
+  whitelist: ["token"],
 };
 
 const OrderPersistConfig: PersistConfig<MovieOrderState> = {
