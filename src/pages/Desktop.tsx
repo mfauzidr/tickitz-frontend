@@ -28,15 +28,11 @@ function Home() {
   }, []);
 
   const genreListes = ["Thriller", "Horror", "Romantic", "Adventure", "Sci-Fi"];
-  var [genres, setGenres] = useState<genresType[]>([]);
+  var [genres, setGenres] = useState<genresType>({genre: ""});
   // genres bakal dikrim jadi parameter
 
   const SetgenreMoviecards = (genre: string) => {
-    if (genres.some((g) => g.genre === genre)) {
-      setGenres(genres.filter((g) => g.genre !== genre));
-    } else {
-      setGenres([...genres, { genre }]);
-    }
+    setGenres({genre: genre})
   };
 
   return (
@@ -71,7 +67,7 @@ function Home() {
           <div className="flex flex-wrap mt-3 max-w-full w-full ">
             <div className="flex flex-wrap flex-auto gap-3 items-center my-auto text-xs font-medium leading-none text-gray-600 whitespace-nowrap">
               {genreListes.map((genre, index) => (
-                <button onClick={() => SetgenreMoviecards(genre)} key={index} className={`px-3 sm:px-6 py-2 sm:py-2.5 my-auto text-center ${genres.some((g) => g.genre === genre) ? "font-semibold text-white bg-blue-700 rounded-xl" : ""}`}>
+                <button onClick={() => SetgenreMoviecards(genre)} key={index} className={`px-3 sm:px-6 py-2 sm:py-2.5 my-auto text-center ${ genres.genre === genre ? "font-semibold text-white bg-blue-700 rounded-xl" : ""}`}>
                   {genre}
                 </button>
               ))}
