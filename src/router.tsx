@@ -126,7 +126,7 @@ const routerWithChildren = createBrowserRouter([
         element: <Payment />,
       },
       {
-        path: "result",
+        path: "result/:id",
         element: <Result />,
       },
       {
