@@ -11,7 +11,7 @@ import { authAction } from "../redux/slices/auth";
 // import { jwtDecode } from "jwt-decode";
 
 function Login() {
-  const { token, isLoading } = useStoreSelector((state) => state.auth);
+  const { token, user, isLoading } = useStoreSelector((state) => state.auth);
   const dispatch = useStoreDispatch();
   const { loginThunk } = authAction;
   const [form, setForm] = useState<{ email: string; password: string }>({ email: "", password: "" });
@@ -33,7 +33,10 @@ function Login() {
   };
 
   useEffect(() => {
-    if (token) navigate("/");
+    if (token) {
+      if (user?.role === "user") navigate("/");
+      if (user?.role === "admin") navigate("/admin");
+    }
   }, [navigate, token]);
 
   const togglePasswordVisibility = () => {

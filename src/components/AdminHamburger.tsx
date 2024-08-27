@@ -57,11 +57,8 @@ function AdminHamburger() {
           <Link to="/admin/dashboard" className="hover:underline text-lg font-semibold py-1 w-full">
             Dashboard
           </Link>
-          <Link to="/admin/page-movielist" className="hover:underline text-lg font-semibold py-1 w-full">
+          <Link to="/admin/movie" className="hover:underline text-lg font-semibold py-1 w-full">
             Movie
-          </Link>
-          <Link to="/admin/movie-create" className="hover:underline text-lg font-semibold py-1 w-full">
-            Create New Movie
           </Link>
         </div>
         <div className="flex gap-4 py-3 px-4 tbt:px-10 bg-white rounded text-slate-400 w-full">
