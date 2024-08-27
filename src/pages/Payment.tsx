@@ -63,36 +63,35 @@ function Payment() {
 
           <label className="text-gray-600 mt-6 text-sm">Phone Number</label>
           <input type="text" name="phone" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" />
-
-          <h1 className="text-xl font-bold tracking-wide text-slate-900 mt-6">Payment Method</h1>
-
-          <div className="grid grid-cols-2 gap-5 mt-6 tbt:grid-cols-4">
-            <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
-              <img width="50" src={gpay} alt="" />
-            </button>
-            <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
-              <img width="50" src={visa} alt="" />
-            </button>
-            <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
-              <img width="50" src={gopay} alt="" />
-            </button>
-            <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
-              <img width="20" src={paypal} alt="" />
-            </button>
-            <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
-              <img width="50" src={dana} alt="" />
-            </button>
-            <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
-              <img width="50" src={bca} alt="" />
-            </button>
-            <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
-              <img width="30" src={bri} alt="" />
-            </button>
-            <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
-              <img width="50" src={ovo} alt="" />
-            </button>
-          </div>
         </form>
+        <h1 className="text-xl font-bold tracking-wide text-slate-900 mt-6">Payment Method</h1>
+
+        <div className="grid grid-cols-2 gap-5 mt-6 tbt:grid-cols-4">
+          <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
+            <img width="50" src={gpay} alt="" />
+          </button>
+          <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
+            <img width="50" src={visa} alt="" />
+          </button>
+          <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
+            <img width="50" src={gopay} alt="" />
+          </button>
+          <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
+            <img width="20" src={paypal} alt="" />
+          </button>
+          <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
+            <img width="50" src={dana} alt="" />
+          </button>
+          <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
+            <img width="50" src={bca} alt="" />
+          </button>
+          <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
+            <img width="30" src={bri} alt="" />
+          </button>
+          <button className="border border-solid border-neutral-300 rounded-lg py-2 grid place-items-center">
+            <img width="50" src={ovo} alt="" />
+          </button>
+        </div>
         <button onClick={handleSubmit} type="submit" className="w-full px-5 py-2 mt-6 text-sm font-semibold tracking-wider leading-loose text-center bg-primary rounded active:bg-blue-800 text-slate-50">
           Pay your order
         </button>
