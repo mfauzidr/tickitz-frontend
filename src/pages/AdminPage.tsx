@@ -88,7 +88,7 @@ function MovieList() {
                   <tr key={movie.id} className="border-t">
                     <td className="px-4 py-2">{index + 1}</td>
                     <td className="px-4 py-2">
-                      <img src={movie.thumbnail} alt={movie.name} className="w-16 h-16 object-cover rounded rounded-2xl" />
+                      <img src={movie.thumbnail} alt={movie.name} className="w-16 h-16 object-cover rounded-2xl" />
                     </td>
                     <td className="px-4 py-2">{movie.name}</td>
                     <td className="px-4 py-2">{movie.category}</td>

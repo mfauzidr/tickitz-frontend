@@ -9,6 +9,7 @@ import MovieTicketBooking from "./pages/MovieDetails";
 import AdminDashboard from "./pages/AdminDashboard";
 import Order from "./pages/Order";
 import AdminPage from "./pages/AdminPage";
+import Profile from "./pages/Profile";
 
 function Error() {
   return <div>Error</div>;
@@ -118,6 +119,10 @@ const routerWithChildren = createBrowserRouter([
       {
         path: "order",
         element: <Order />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
       },
       //   {
       //     path: 'orderdetails',
