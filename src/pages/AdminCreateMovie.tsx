@@ -1,67 +1,99 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dropdown from "../assets/icons/DropdownArrow.svg";
 import calendar from "../assets/icons/Calendar.svg";
 import plus from "../assets/icons/PurplePlus.svg";
-
-interface MovieData {
-  title: string;
-  image: string;
-  director: string;
-  casts: string;
-  duration: string;
-  price: number;
-  release_date: string;
-  synopsis: string;
-}
+// import { Movie } from "../types/moviesData";
+import axios from "axios";
+// import { IAuthResponse } from "../types/response";
+import { useStoreSelector } from "../redux/hooks";
 
 export default function AdminCreateMovie() {
-  const [formData, setFormData] = useState<MovieData>({
-    title: "Spider-Man: Homecoming",
-    image: "",
-    director: "Jon Watts",
-    casts: "Tom Holland, Michael Keaton, Robert Downey Jr.",
-    duration: "2h 13m",
-    price: 100000, // Example price
-    release_date: "2020-07-05", // Example date
-    synopsis: "Thrilled by his experience with the Avengers, Peter returns home, where he lives with his Aunt May.",
+  const [form, setForm] = useState<{ title?: string; category?: string; release_date?: string; duration?: string; director?: string; casts?: string; synopsis?: string; location?: string; airing_date?: string[]; airing_time?: string }>({
+    title: "",
+    category: "",
+    release_date: "",
+    duration: "",
+    director: "",
+    casts: "",
+    synopsis: "",
+    location: "",
+    airing_date: [""],
+    airing_time: "",
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+  const { token } = useStoreSelector((state) => state.auth);
+  const [genres, setGenres] = useState<{ id: number; name: string }[]>([]);
+  const [genreId, setGenreId] = useState<number[]>([]);
+
+  const toggleGenreId = (id: number) => {
+    setGenreId(
+      (prevGenreIds) =>
+        prevGenreIds.includes(id)
+          ? prevGenreIds.filter((genreId) => genreId !== id) // Hapus jika sudah ada
+          : [...prevGenreIds, id] // Tambahkan jika belum ada
+    );
+  };
+
+  useEffect(() => {
+    // Update form.category setiap kali genreId berubah
+    setForm((prevForm) => ({
+      ...prevForm,
+      category: genreId.join(", "), // Gabungkan genreId menjadi string, dipisahkan dengan koma
+    }));
+  }, [genreId]);
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((form) => {
+      return {
+        ...form,
+        [e.target.name]: e.target.value,
+      };
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleCreateMovie = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/order/new`;
     try {
-      const response = await fetch("https://yourapiendpoint.com/movies", {
-        method: "POST",
+      const result = await axios.post(url, form, {
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to save the movie");
-      }
-
-      const result = await response.json();
-      console.log("Movie saved successfully:", result);
-    } catch (error) {
-      console.error("Error saving movie:", error);
+      console.log(result.data);
+    } catch (err) {
+      console.log(err);
     }
   };
 
+  useEffect(() => {
+    const getGenres = async () => {
+      try {
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/genres`;
+        const result = await axios.get(url);
+        setGenres(result.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getGenres();
+  }, []);
+
+  console.log(genreId);
+
+  // category dropdown
+  // release date yyyy-mm-dd
+  // duration 2 hours 13 minutes
+  // location dropdown
+  // date string yyyy-mm-dd - yyyy-mm-dd
+  // time get airingTime
+
   return (
-    <main className="pt-16 pb-20 px-4 md:px-52 lg:px-[450px] bg-neutral-100">
+    <main className="pt-16 pb-20 px-4 tbt:px-10 md:px-52 lg:px-[450px] bg-neutral-100">
       <section className="self-center px-5 md:px-10 py-10 bg-white rounded-md">
         <h1 className="text-xl font-bold tracking-wide text-slate-900">Add New Movie</h1>
-        <form className="flex flex-col mt-7" onSubmit={handleSubmit}>
+        <form className="flex flex-col mt-7" onSubmit={handleCreateMovie}>
           <label className="text-base tracking-wide text-gray-500">Upload Image</label>
           <div className="flex flex-col mt-3.5 text-sm tracking-wider leading-loose text-center text-slate-50 w-[106px]">
             <button type="button" className="px-8 py-2 bg-blue-700 rounded-lg fill-blue-700 max-md:px-5">
@@ -70,42 +102,49 @@ export default function AdminCreateMovie() {
           </div>
 
           <label className="mt-6 text-gray-600">Movie Name</label>
-          <input type="text" name="title" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" value={formData.title} onChange={handleInputChange} />
+          <input type="text" name="title" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" value={form.title} onChange={onChangeHandler} />
 
           <label className="mt-6 text-gray-600">Category</label>
-          <input type="text" name="category" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" value={formData.casts} onChange={handleInputChange} />
+          <input type="text" name="category" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" value={form.category} readOnly />
+
+          <div className="mt-4">
+            {genres.map((genre) => (
+              <button
+                type="button"
+                key={genre.id}
+                onClick={() => toggleGenreId(genre.id)}
+                className={`text-sm p-2 rounded-lg ${genreId.includes(genre.id) ? "bg-blue-700" : "bg-gray-300"} fill-blue-700 max-md:px-5 font-bold tracking-wider leading-loose text-center text-slate-50`}
+              >
+                {genre.name}
+              </button>
+            ))}
+          </div>
 
           <div className="md:flex md:justify-between">
             <div className="mt-6 md:w-2/5">
               <label className="text-gray-600">Release Date</label>
-              <input
-                type="text"
-                name="release_date"
-                className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full"
-                value={formData.release_date}
-                onChange={handleInputChange}
-              />
+              <input type="text" name="release_date" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={form.release_date} onChange={onChangeHandler} />
             </div>
 
             <div className="mt-6 md:w-2/5">
               <label className="text-gray-600">
                 Duration <span className="font-semibold">(hour / minute)</span>
               </label>
-              <input type="text" name="duration" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={formData.duration} onChange={handleInputChange} />
+              <input type="text" name="duration" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={form.duration} onChange={onChangeHandler} />
             </div>
           </div>
 
           <label className="text-gray-600 mt-6">Director Name</label>
-          <input type="text" name="director" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={formData.director} onChange={handleInputChange} />
+          <input type="text" name="director" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={form.director} onChange={onChangeHandler} />
 
           <label className="text-gray-600 mt-6">Cast</label>
-          <input type="text" name="casts" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={formData.casts} onChange={handleInputChange} />
+          <input type="text" name="casts" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={form.casts} onChange={onChangeHandler} />
 
           <label className="mt-6 text-gray-600">Synopsis</label>
-          <textarea name="synopsis" className="pt-3 px-3 pb-10 mt-3 tracking-wider leading-8 text-gray-600 bg-white rounded border border-solid border-neutral-200" value={formData.synopsis} onChange={handleInputChange} />
+          <input name="synopsis" className="pt-3 text-wrap px-3 pb-10 mt-3 tracking-wider leading-8 text-gray-600 bg-white rounded border border-solid border-neutral-200" value={form.synopsis} onChange={onChangeHandler} />
 
           <label className="mt-6 text-gray-600">Add Location</label>
-          <input type="text" name="location" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" onChange={handleInputChange} />
+          <input type="text" name="location" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" onChange={onChangeHandler} />
 
           <div className="mt-6">
             <label className="text-gray-600">Set Date & Time</label>

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
 import Newsletter from "../components/NewsLetter";
 import axios from "axios";
-import { Movie } from "../types/moviesData"
+import { Movie } from "../types/moviesData";
 // import axios from "axios";
 
 interface genresType {
@@ -12,14 +12,14 @@ interface genresType {
 }
 
 function Home() {
-  const [movies, setMovies] = useState<Movie[] | undefined>( undefined )
+  const [movies, setMovies] = useState<Movie[] | undefined>(undefined);
 
   useEffect(() => {
     const asyncFunctest = async () => {
       try {
-        const url = "http://localhost:8080/movie/";
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/`;
         var result = await axios.get(url);
-        setMovies(result.data.data)
+        setMovies(result.data.data);
       } catch (error) {
         console.log(error);
       }
@@ -83,7 +83,7 @@ function Home() {
         <h2 className="self-center text-3xl font-bold tracking-wider leading-9 text-center text-blue-700">MOVIES</h2>
         <h3 className="self-center mt-3.5 text-3xl tracking-wider leading-10 text-center text-neutral-900">Exciting Movies That Should Be Watched Today</h3>
       </div>
-       <MovieCard movies={movies} /> 
+      <MovieCard movies={movies} />
       {/* <Pagination
               currentPage={currentPage}
               totalPages={Math.ceil(movieData.cinemas.length / 4)}
