@@ -7,8 +7,11 @@ function NavLinks() {
       <Link to="/home" className="hover:underline">
         Home
       </Link>
-      <Link to="/order" className="hover:underline">
-        order
+      <Link to="/#" className="hover:underline">
+        Movie
+      </Link>
+      <Link to="/buytickets" className="hover:underline">
+        Buy Tickets
       </Link>
     </nav>
   );

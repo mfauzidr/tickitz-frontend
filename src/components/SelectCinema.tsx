@@ -15,7 +15,7 @@ interface Cinema {
 interface CinemaSelectionProps {
   cinemas: Cinema[];
   selectedCinemaId: string;
-  onCinemaSelect: (cinemaId: string) => void;
+  onCinemaSelect: (cinemaId: string, cinemaName: string) => void;
 }
 
 const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSelectionProps) => {
@@ -26,7 +26,7 @@ const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSe
       setIsDropdownOpen("");
     } else {
       setIsDropdownOpen(name);
-      onCinemaSelect(id);
+      onCinemaSelect(id, name);
     }
   };
 
@@ -41,7 +41,7 @@ const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSe
       <div className="flex gap-5 flex-col md:flex-row md:justify-center">
         {cinemas.map((cinema) => (
           <div key={cinema.id} className={` flex flex-col ${cinema.id === selectedCinemaId ? "border-2 md:border-none rounded-lg border-solid border-neutral-200 md:bg-blue-500" : ""} `}>
-            <button onClick={() => onCinemaSelect(cinema.id)} className={`hidden md:flex flex-col grow justify-center px-8 py-9 rounded-lg items-center border-2 border-solid border-neutral-200 max-md:px-5 max-md:mt-4`}>
+            <button onClick={() => onCinemaSelect(cinema.id, cinema.name)} className={`hidden md:flex flex-col grow justify-center px-8 py-9 rounded-lg items-center border-2 border-solid border-neutral-200 max-md:px-5 max-md:mt-4`}>
               <img loading="lazy" src={cinema.logo} alt={cinema.name} className="object-contain w-full" />
             </button>
             <button
@@ -51,7 +51,6 @@ const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSe
               <img loading="lazy" src={cinema.logo} alt={cinema.name} />
               <img loading="lazy" width="80" src={dropdown} alt={cinema.name + " dropdown arrow "} />
             </button>
-            {/* isi dropdown */}
             <div className="">
               {Object.entries(cinema.Category).map(([categoryName, categoryData]) => (
                 <div className={` flex flex-col p-4 gap-4 ${isDropdownOpen === cinema.name ? "" : "hidden"} `} key={categoryName}>
@@ -64,7 +63,6 @@ const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSe
                 </div>
               ))}
             </div>
-            {/* akhir isi dropdown */}
           </div>
         ))}
       </div>
