@@ -134,7 +134,6 @@ function Payment() {
   }).format(new Date(`${paymentRedux.date} ${paymentRedux.time}`));
   console.log(paymentRedux.time )
 
-
   return (
     <main className="font-mulish pt-16 pb-20 px-4 md:px-52 lg:px-[450px] bg-neutral-100">
       <section className="self-center px-5 md:px-10 py-10 bg-white rounded-md">

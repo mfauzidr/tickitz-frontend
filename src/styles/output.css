@@ -596,10 +596,6 @@ video {
   bottom: 0px;
 }
 
-.left-8{
-  left: 2rem;
-}
-
 .right-0{
   right: 0px;
 }
@@ -608,6 +604,13 @@ video {
   right: 3rem;
 }
 
+<<<<<<< HEAD
+=======
+.left-8{
+  left: 2rem;
+}
+
+>>>>>>> 618fdb3f8cdd0b95a4a80482df83efd416dba572
 .right-4{
   right: 1rem;
 }
@@ -643,11 +646,6 @@ video {
   margin-bottom: 2.5rem;
 }
 
-.my-14{
-  margin-top: 3.5rem;
-  margin-bottom: 3.5rem;
-}
-
 .my-16{
   margin-top: 4rem;
   margin-bottom: 4rem;
@@ -661,6 +659,11 @@ video {
 .my-auto{
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.my-14{
+  margin-top: 3.5rem;
+  margin-bottom: 3.5rem;
 }
 
 .-mt-64{
@@ -848,10 +851,13 @@ video {
   height: 0.875rem;
 }
 
+<<<<<<< HEAD
 .h-4{
   height: 1rem;
 }
 
+=======
+>>>>>>> 618fdb3f8cdd0b95a4a80482df83efd416dba572
 .h-8{
   height: 2rem;
 }
@@ -860,24 +866,8 @@ video {
   height: 100px;
 }
 
-.h-\[125px\]{
-  height: 125px;
-}
-
 .h-\[31px\]{
   height: 31px;
-}
-
-.h-\[783px\]{
-  height: 783px;
-}
-
-.h-\[84px\]{
-  height: 84px;
-}
-
-.h-auto{
-  height: auto;
 }
 
 .h-full{
@@ -890,6 +880,26 @@ video {
 
 .h-screen{
   height: 100vh;
+}
+
+.h-4{
+  height: 1rem;
+}
+
+.h-\[125px\]{
+  height: 125px;
+}
+
+.h-\[783px\]{
+  height: 783px;
+}
+
+.h-\[84px\]{
+  height: 84px;
+}
+
+.h-auto{
+  height: auto;
 }
 
 .min-h-\[318px\]{
@@ -918,10 +928,6 @@ video {
 
 .w-0\.5{
   width: 0.125rem;
-}
-
-.w-1\/2{
-  width: 50%;
 }
 
 .w-1\/4{
@@ -988,10 +994,13 @@ video {
   width: 207px;
 }
 
+<<<<<<< HEAD
 .w-\[30\%\]{
   width: 30%;
 }
 
+=======
+>>>>>>> 618fdb3f8cdd0b95a4a80482df83efd416dba572
 .w-\[43px\]{
   width: 43px;
 }
@@ -1000,10 +1009,13 @@ video {
   width: 63px;
 }
 
+<<<<<<< HEAD
 .w-\[70\%\]{
   width: 70%;
 }
 
+=======
+>>>>>>> 618fdb3f8cdd0b95a4a80482df83efd416dba572
 .w-\[90\%\]{
   width: 90%;
 }
@@ -1015,6 +1027,18 @@ video {
 
 .w-full{
   width: 100%;
+}
+
+.w-1\/2{
+  width: 50%;
+}
+
+.w-\[30\%\]{
+  width: 30%;
+}
+
+.w-\[70\%\]{
+  width: 70%;
 }
 
 .min-w-\[240px\]{
@@ -1332,10 +1356,8 @@ video {
   border-bottom-width: 2px;
 }
 
-.border-b-4{
-  border-bottom-width: 4px;
-}
-
+<<<<<<< HEAD
+=======
 .border-b-\[2px\]{
   border-bottom-width: 2px;
 }
@@ -1344,6 +1366,22 @@ video {
   border-top-width: 1px;
 }
 
+>>>>>>> 618fdb3f8cdd0b95a4a80482df83efd416dba572
+.border-b-4{
+  border-bottom-width: 4px;
+}
+
+<<<<<<< HEAD
+.border-b-\[2px\]{
+  border-bottom-width: 2px;
+}
+
+.border-t{
+  border-top-width: 1px;
+}
+
+=======
+>>>>>>> 618fdb3f8cdd0b95a4a80482df83efd416dba572
 .border-solid{
   border-style: solid;
 }
@@ -1352,11 +1390,14 @@ video {
   border-style: dashed;
 }
 
+<<<<<<< HEAD
 .border-\[\#DEDEDE\]{
   --tw-border-opacity: 1;
   border-color: rgb(222 222 222 / var(--tw-border-opacity));
 }
 
+=======
+>>>>>>> 618fdb3f8cdd0b95a4a80482df83efd416dba572
 .border-black{
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
@@ -1372,11 +1413,14 @@ video {
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
+<<<<<<< HEAD
 .border-gray-300{
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
+=======
+>>>>>>> 618fdb3f8cdd0b95a4a80482df83efd416dba572
 .border-neutral-100{
   --tw-border-opacity: 1;
   border-color: rgb(245 245 245 / var(--tw-border-opacity));
@@ -1412,6 +1456,16 @@ video {
   border-color: rgb(212 212 216 / var(--tw-border-opacity));
 }
 
+.border-\[\#DEDEDE\]{
+  --tw-border-opacity: 1;
+  border-color: rgb(222 222 222 / var(--tw-border-opacity));
+}
+
+.border-gray-300{
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+
 .bg-\[\#2563EB\]{
   --tw-bg-opacity: 1;
   background-color: rgb(37 99 235 / var(--tw-bg-opacity));
@@ -1422,11 +1476,14 @@ video {
   background-color: rgb(93 95 239 / var(--tw-bg-opacity));
 }
 
+<<<<<<< HEAD
 .bg-\[\#FCFDFE\]{
   --tw-bg-opacity: 1;
   background-color: rgb(252 253 254 / var(--tw-bg-opacity));
 }
 
+=======
+>>>>>>> 618fdb3f8cdd0b95a4a80482df83efd416dba572
 .bg-black{
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
@@ -1450,11 +1507,6 @@ video {
 .bg-gray-100{
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-
-.bg-gray-200{
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
 .bg-gray-300{
@@ -1509,6 +1561,16 @@ video {
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.bg-\[\#FCFDFE\]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 253 254 / var(--tw-bg-opacity));
+}
+
+.bg-gray-200{
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-10{
@@ -1573,11 +1635,14 @@ video {
   padding: 2rem;
 }
 
+<<<<<<< HEAD
 .px-10{
   padding-left: 2.5rem;
   padding-right: 2.5rem;
 }
 
+=======
+>>>>>>> 618fdb3f8cdd0b95a4a80482df83efd416dba572
 .px-12{
   padding-left: 3rem;
   padding-right: 3rem;
@@ -1588,11 +1653,14 @@ video {
   padding-right: 3.5rem;
 }
 
+<<<<<<< HEAD
 .px-16{
   padding-left: 4rem;
   padding-right: 4rem;
 }
 
+=======
+>>>>>>> 618fdb3f8cdd0b95a4a80482df83efd416dba572
 .px-2{
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -1703,6 +1771,16 @@ video {
   padding-bottom: 2.25rem;
 }
 
+.px-10{
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
+.px-16{
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
 .pb-10{
   padding-bottom: 2.5rem;
 }
@@ -1723,10 +1801,13 @@ video {
   padding-bottom: 5rem;
 }
 
+<<<<<<< HEAD
 .pb-4{
   padding-bottom: 1rem;
 }
 
+=======
+>>>>>>> 618fdb3f8cdd0b95a4a80482df83efd416dba572
 .pb-5{
   padding-bottom: 1.25rem;
 }
@@ -1743,10 +1824,13 @@ video {
   padding-bottom: 152%;
 }
 
+<<<<<<< HEAD
 .pl-10{
   padding-left: 2.5rem;
 }
 
+=======
+>>>>>>> 618fdb3f8cdd0b95a4a80482df83efd416dba572
 .pl-3{
   padding-left: 0.75rem;
 }
@@ -1785,6 +1869,14 @@ video {
 
 .pt-6{
   padding-top: 1.5rem;
+}
+
+.pb-4{
+  padding-bottom: 1rem;
+}
+
+.pl-10{
+  padding-left: 2.5rem;
 }
 
 .text-left{
@@ -1867,12 +1959,12 @@ video {
   font-weight: 500;
 }
 
-.font-normal{
-  font-weight: 400;
-}
-
 .font-semibold{
   font-weight: 600;
+}
+
+.font-normal{
+  font-weight: 400;
 }
 
 .leading-10{

@@ -1,5 +1,8 @@
 import { Chart } from "primereact/chart";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import axios from "axios";
 
 interface chartJsData {
   labels: string[];
@@ -101,6 +104,16 @@ const salesData = {
   ],
 };
 
+    interface movie {
+      id: number;
+      title: string;
+      daily_sales: {
+          date: string;
+          sales: number;
+      }[];
+    }
+
+
 const options = {
   maintainAspectRatio: false,
   aspectRatio: 0.6,
@@ -132,8 +145,35 @@ const options = {
 };
 
 function AdminDashboard() {
+  // const Token = useSelector((state: RootState) => state.auth.token);
+
+  // const [salesData, setSalesData ] = useState<movie[]>([])
+  console.log(salesData)
+
   const [selectedMovie, setSelectedMovie] = useState(salesData.movie[0]);
   const [interval, setInterval] = useState("Daily");
+
+  // useEffect(()=>{
+  //   const GetSalesData = async () => {
+  //     try {
+  //       const url = `${import.meta.env.VITE_REACT_APP_API_URL}/order/dashboards`;
+  //       if (Token) {
+  //         const result = await axios.get(url, {
+  //           headers: {
+  //             Authorization: `Bearer ${Token}`,
+  //           },
+  //         });
+  //         setSalesData(result.data.data);
+  //         console.log(salesData)
+
+  //       }
+  //     } catch (error) {
+  //       console.error('Failed to fetch user info', error);
+  //     }
+  //   };
+
+  //   GetSalesData();
+  // },[Token])
 
   const [chartData, setChartData] = useState<chartJsData>({
     labels: selectedMovie.daily_sales.map((s) => s.date),
