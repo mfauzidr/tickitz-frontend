@@ -2200,6 +2200,10 @@ video {
 }
 
 @media (min-width: 426px){
+  .tbt\:mt-16{
+    margin-top: 4rem;
+  }
+
   .tbt\:h-7{
     height: 1.75rem;
   }

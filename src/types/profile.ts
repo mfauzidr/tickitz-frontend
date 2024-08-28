@@ -4,6 +4,7 @@ export interface IProfileBody {
   image?: string;
   first_name?: string;
   last_name?: string;
-  phone?: string;
-  address?: string;
+  phone_number?: string;
+  password?: string;
+  point?: string;
 }

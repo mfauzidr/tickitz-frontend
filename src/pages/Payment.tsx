@@ -198,7 +198,7 @@ function Payment() {
             name="phone"
             placeholder="Enter Your Phone"
             autoComplete="off"
-            value={form?.phone}
+            value={form?.phone_number}
             onChange={onChangeHandler}
             className="pl-3 py-3 text-sm mt-3 tracking-wider bg-white rounded border-b-[2px] border-solid border-neutral-200"
           ></input>
