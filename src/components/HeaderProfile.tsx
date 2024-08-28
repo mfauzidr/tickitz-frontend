@@ -1,17 +1,17 @@
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
-import AuthButtons from "./AuthButtons";
-import Hamburger from "./Hamburger";
+import HamburgerLogin from "./HamburgerLogin";
+import AdminProfileButton from "./AdminProfileButton";
 
-function Header() {
+function HeaderProfile() {
   return (
     <header className="flex justify-between items-center font-mulish py-5 px-4 tbt:px-10 lg:px-32 text-sm text-center border-b border-neutral-200">
       <Logo />
       <NavLinks />
-      <AuthButtons />
-      <Hamburger />
+      <AdminProfileButton />
+      <HamburgerLogin />
     </header>
   );
 }
 
-export default Header;
+export default HeaderProfile;

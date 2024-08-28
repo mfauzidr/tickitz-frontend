@@ -9,11 +9,11 @@ import { useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import { IAuthResponse } from "../types/response";
 
-const API_URL = import.meta.env.VITE_REACT_APP_API_URL;
-
 function Register() {
   const [form, setForm] = useState<{ email: string; password: string }>({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const navigate = useNavigate();
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,38 +27,43 @@ function Register() {
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const url = `${API_URL}/user/register`;
-    axios
-      .post(url, form, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((result: AxiosResponse<IAuthResponse>) => {
-        console.log(result.data);
-        navigate("/login");
-      })
-      .catch((err) => console.error(err));
+    setHasSubmitted(true);
+
+    if (agreeToTerms) {
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/user/register`;
+      axios
+        .post(url, form, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((result: AxiosResponse<IAuthResponse>) => {
+          console.log(result.data);
+          navigate("/login");
+        })
+        .catch((err) => console.error(err));
+    }
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
 
-  // test20@example.com
-  // password123
+  const toggleAgreeToTerms = () => {
+    setAgreeToTerms((prev) => !prev);
+  };
 
   return (
     <main className="font-mulish bg-[url('/src/assets/images/auth.webp')] bg-cover h-screen">
-      <section className="bg-black bg-opacity-50 py-8 h-screen w-full">
+      <section className="bg-black bg-opacity-50 py-8 h-full w-full">
         <div className="grid place-items-center mb-10">
           <img src={tickitzIcon} alt="wallet" />
         </div>
         <div className="bg-white rounded-xl w-4/5 mx-auto tbt:w-96 px-5 md:px-12 py-7">
           <div>
             <div className="mb-3">
-              <h1 className="text-lg lg:text-2xl font-bold mb-2">Welcome to Tickitz👋</h1>
-              <p className="text-xs lg:text-sm text-gray-400">Registration your data that you can sign in to Tickitz</p>
+              <h1 className="text-lg font-bold mb-2">Welcome to Tickitz👋</h1>
+              <p className="text-xs text-gray-400">Registration your data that you can sign in to Tickitz</p>
             </div>
             <form onSubmit={onSubmitHandler}>
               <label className="text-sm" htmlFor="email">
@@ -74,9 +79,13 @@ function Register() {
                 <img className="absolute mt-[14px] mr-3 right-0 cursor-pointer" width="15" height="15" src={showPassword ? eyeOffIcon : eyeIcon} alt="toggle-password-visibility" onClick={togglePasswordVisibility} />
                 <Input input={{ type: showPassword ? "text" : "password", name: "password", placeholder: "Enter Your Password", autocomplete: "off", value: form.password, onChange: onChangeHandler }} />
               </div>
-              <div className="text-right text-xs mb-5 text-primary hover:text-blue-800 active:text-blue-900">
-                <a href="#">Forgot Your Password?</a>
+              <div className="my-4 flex items-center">
+                <input type="checkbox" id="agreeToTerms" checked={agreeToTerms} onChange={toggleAgreeToTerms} className="mr-2" />
+                <label htmlFor="agreeToTerms" className="text-xs">
+                  I agree to terms & conditions
+                </label>
               </div>
+              {!agreeToTerms && hasSubmitted && <p className="text-red-500 text-xs my-1">You must agree to the terms and conditions to register.</p>}
               <button className="text-white text-sm bg-primary hover:bg-blue-800 active:bg-blue-900 rounded-lg w-full h-12" type="submit">
                 Join for free now
               </button>

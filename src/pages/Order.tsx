@@ -3,13 +3,12 @@ import Seat from "../components/Seat";
 import downArrow from "../assets/icons/Down-arrow.svg";
 import rightArrow from "../assets/icons/Right-arrow.svg";
 import step from "../assets/icons/Step.svg";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Movie } from "../types/moviesData";
-import { setPayment } from "../redux/slices/MovieOrder";
-
+import { setPayment, setSeats } from "../redux/slices/MovieOrder";
 
 const seatAlphabets = [
   { id: 1, name: "A" },
@@ -63,12 +62,9 @@ function Order() {
   const [movie, setMovies] = useState<Movie | undefined>(undefined);
   const moviesRedux = useSelector((state: RootState) => state.order.movie);
   const cinemasRedux = useSelector((state: RootState) => state.order.cinema);
+  const Token = useSelector((state: RootState) => state.auth.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  console.log(cinemasRedux.logo ," Movie redux cinema")
-  console.log(moviesRedux.date ," Movie redux order")
-
 
   const handleAlphabetChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedAlphabet(event.target.value);
@@ -92,15 +88,19 @@ function Order() {
   useEffect(() => {
     const asyncFunctest = async () => {
       try {
-        const url = `http://localhost:8080/movie/${id}`
-        var result = await axios.get(url);
-        setMovies(result.data.data)
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/${id}`;
+        var result = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        });
+        setMovies(result.data.data);
       } catch (error) {
         console.log(error);
       }
-    }
+    };
     asyncFunctest();
-  }, [id])
+  }, [id]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -117,18 +117,27 @@ function Order() {
   }, []);
 
   const handleSubmit = () => {
-    dispatch(setPayment({
-      date: moviesRedux.date,
-      time: moviesRedux.time,
-      title: movie?.title,
-      cinema: cinemasRedux.name,
-      TiketsCount: selectedSeats.length,
-      Total: selectedSeats.length*25000
-    }))
     setShowModal(true);
   };
 
   const handleConfirmOrder = () => {
+    dispatch(
+      setPayment({
+        date: moviesRedux.date,
+        time: moviesRedux.time,
+        title: movie?.title,
+        cinema: cinemasRedux.name,
+        TiketsCount: selectedSeats.length,
+        Total: selectedSeats.length * 25000,
+      })
+    );
+
+    dispatch(
+      setSeats({
+        seats: selectedSeats,
+      })
+    );
+
     setShowModal(false);
     navigate("/payment");
   };
@@ -138,7 +147,8 @@ function Order() {
       setShowModal(false);
     }
   };
-  const genres = movie?.genres ? movie.genres.split(',').map(g => g.trim()) : [];
+
+  const genres = movie?.genres ? movie.genres.split(",").map((g) => g.trim()) : [];
 
   return (
     <section className="pt-5 pb-20 px-4 tbt:px-10 lg:px-32 bg-neutral-100 font-mulish">
@@ -284,11 +294,6 @@ function Order() {
                   <p className="text-sm">Available</p>
                 </div>
                 <div className="flex gap-3.5 items-center">
-                  <div className="bg-gray-500 p-2 rounded-sm"></div>
-                  <p className="text-sm">Sold</p>
-                </div>
-
-                <div className="flex gap-3.5 items-center">
                   <div className="bg-primary p-2 rounded-sm"></div>
                   <p className="text-sm">Selected</p>
                 </div>
@@ -352,11 +357,10 @@ function Order() {
               <div className="flex justify-between text-xs mt-3">
                 <p className="text-gray-400">Seat Choosed</p>
                 <div className="flex flex-wrap">
-                  {selectedSeats.map((Seats)=>(
+                  {selectedSeats.map((Seats) => (
                     <p className="font-semibold text-right">{Seats},</p>
-                  ))
-                  }
-                </div>                
+                  ))}
+                </div>
               </div>
             </div>
             <div className="flex justify-between text-sm py-3 mt-3">
@@ -364,11 +368,9 @@ function Order() {
               <p className="text-primary font-bold text-right">Rp.{selectedSeats.length * 25000}</p>
             </div>
           </div>
-          <Link to="/payment">
-            <button type="submit" className="px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5">
-              Checkout Now
-            </button>
-          </Link>
+          <button type="submit" className="px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5" onClick={handleConfirmOrder}>
+            Checkout Now
+          </button>
         </div>
       </div>
       <button onClick={handleSubmit} type="submit" className="md:hidden px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5">
@@ -376,7 +378,7 @@ function Order() {
       </button>
       {showModal && (
         <div ref={modalBgRef} onClick={handleBackgroundClick} className="show fixed z-50 inset-0 bg-black bg-opacity-50 modal-bg justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md uw:max-w-2xl w-3/4 tbt:w-full">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-3/4 tbt:w-full">
             <div className="grid place-items-center">
               <img width="100" src={cinemasRedux.logo} alt="" />
             </div>
@@ -397,11 +399,10 @@ function Order() {
               <div className="flex justify-between text-xs mt-3">
                 <p className="text-gray-400">Seat Choosed</p>
                 <div className="flex flex-wrap">
-                  {selectedSeats.map((Seats)=>(
+                  {selectedSeats.map((Seats) => (
                     <p className="font-semibold text-right">{Seats},</p>
-                  ))
-                  }
-                </div> 
+                  ))}
+                </div>
               </div>
             </div>
             <div className="flex justify-between text-sm py-3 mt-3">

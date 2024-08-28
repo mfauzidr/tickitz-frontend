@@ -9,7 +9,7 @@ import YoutubeSmall from "../assets/icons/Youtube.svg";
 
 function Footer() {
   return (
-    <footer className="items-start px-4 tbt:px-10 lg:px-32 py-12 tracking-wide bg-gray-50 bottom-0 gap-5 justify-between text-slate-500">
+    <footer className="items-start px-4 tbt:px-10 font-mulish lg:px-32 py-12 tracking-wide bg-gray-50 bottom-0 gap-5 justify-between text-slate-500">
       <div className="md:flex md:justify-between">
         <div className="md:max-w-60">
           <img loading="lazy" width="150" src={Logo} alt="Tickitz Logo" className="object-contain aspect-[2.59]" />

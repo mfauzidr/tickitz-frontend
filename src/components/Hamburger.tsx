@@ -59,7 +59,7 @@ function Hamburger() {
   }, [isDropdownOpen]);
 
   return (
-    <div className="md:hidden">
+    <div className="md:hidden font-mulish">
       <div>
         <button
           ref={buttonRef}
@@ -94,24 +94,24 @@ function Hamburger() {
             <>
               {user?.role === "admin" ? (
                 <Link to="/admin">
-                  <button className="gap-1.5 self-stretch px-5 py-3 text-blue-700 hover:bg-blue-700 whitespace-nowrap rounded-md border border-blue-700 hover:text-slate-50 border-solid">Dashboard</button>
+                  <button className="gap-1.5 self-stretch px-5 py-3 text-blue-700 active:bg-blue-700 whitespace-nowrap rounded-md border border-blue-700 active:text-slate-50 border-solid">Dashboard</button>
                 </Link>
               ) : (
                 <Link to="/profile">
-                  <button className="gap-1.5 self-stretch px-5 py-3 text-blue-700 hover:bg-blue-700 whitespace-nowrap rounded-md border border-blue-700 hover:text-slate-50 border-solid">Profile</button>
+                  <button className="gap-1.5 self-stretch px-5 py-3 text-blue-700 active:bg-blue-700 whitespace-nowrap rounded-md border border-blue-700 active:text-slate-50 border-solid">Profile</button>
                 </Link>
               )}
-              <button onClick={handleLogout} className="gap-1.5 self-stretch px-5 py-3 text-blue-700 hover:bg-blue-700 rounded-md whitespace-nowrap border-blue-700 hover:text-slate-50 border-solid border">
+              <button onClick={handleLogout} className="gap-1.5 self-stretch px-5 py-3 text-blue-700 active:bg-blue-700 rounded-md whitespace-nowrap border-blue-700 active:text-slate-50 border-solid border">
                 Logout
               </button>
             </>
           ) : (
             <>
               <Link to="/login">
-                <button className="gap-1.5 self-stretch px-5 py-3 text-blue-700 hover:bg-blue-700 whitespace-nowrap rounded-md border border-blue-700 hover:text-slate-50 border-solid">SignIn</button>
+                <button className="gap-1.5 self-stretch px-5 py-3 text-blue-700 active:bg-blue-700 whitespace-nowrap rounded-md border border-blue-700 active:text-slate-50 border-solid">SignIn</button>
               </Link>
               <Link to="/register">
-                <button className="gap-1.5 self-stretch px-5 py-3 text-blue-700 hover:bg-blue-700 rounded-md whitespace-nowrap border-blue-700 hover:text-slate-50 border-solid border">Sign Up</button>
+                <button className="gap-1.5 self-stretch px-5 py-3 text-blue-700 active:bg-blue-700 rounded-md whitespace-nowrap border-blue-700 active:text-slate-50 border-solid border">Sign Up</button>
               </Link>
             </>
           )}
@@ -119,14 +119,14 @@ function Hamburger() {
       </div>
       {showModal && (
         <div ref={modalBgRef} onClick={handleBackgroundClick} className="show fixed z-50 inset-0 bg-black bg-opacity-50 modal-bg justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg max-w-md uw:max-w-2xl w-3/4 tbt:w-full text-center">
-            <h2 className="text-sm tbt:text-2xl uw:text-4xl font-semibold mb-4">Confirm Log Out</h2>
-            <p className="text-xs xsm:text-sm tbt:text-base uw:text-2xl mb-6">Are you sure you want to log out?</p>
+          <div className="bg-white p-6 rounded shadow-lg max-w-md w-3/4 tbt:w-full text-center">
+            <h2 className="text-sm tbt:text-2xl font-semibold mb-4">Confirm Log Out</h2>
+            <p className="text-xs xsm:text-sm tbt:text-base mb-6">Are you sure you want to log out?</p>
             <div className="flex justify-center">
-              <button onClick={handleConfirmLogout} className="text-xs tbt:text-base uw:text-2xl bg-red-500 hover:bg-red-600 active:bg-red-700 text-white px-4 py-2 rounded mr-2">
+              <button onClick={handleConfirmLogout} className="text-xs tbt:text-base bg-red-500 active:bg-red-700 text-white px-4 py-2 rounded mr-2">
                 Log Out
               </button>
-              <button onClick={handleCloseModal} className="text-xs tbt:text-base uw:text-2xl bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white px-4 py-2 rounded">
+              <button onClick={handleCloseModal} className="text-xs tbt:text-base bg-gray-500 active:bg-gray-700 text-white px-4 py-2 rounded">
                 Cancel
               </button>
             </div>

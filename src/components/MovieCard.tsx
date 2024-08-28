@@ -14,7 +14,7 @@ function MovieCard({ movies }: MovieCardProps) {
   }
 
   return (
-    <section className="mt-10 sm:mt-14">
+    <section className="mt-10 sm:mt-14 font-mulish">
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5 px-4 tbt:px-10 lg:px-32">
         {movies.map((movie, index) => {
           // Split genres into an array

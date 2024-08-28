@@ -8,7 +8,7 @@ export default function MovieBannerAndDetails({ movie }: MovieBannerAndDetailsPr
   const genres = movie.genres ? movie.genres.split(",").map((g) => g.trim()) : [];
 
   return (
-    <section className="relative">
+    <section className="relative font-mulish">
       <div className="flex relative flex-col">
         <img loading="lazy" srcSet={movie.banner} className="object-cover absolute inset-0 size-full" />
         <div className="flex relative w-full rounded-md bg-black bg-opacity-40 min-h-[415px] max-md:max-w-full" />
