@@ -1128,10 +1128,6 @@ video {
   align-items: center;
 }
 
-.justify-end{
-  justify-content: flex-end;
-}
-
 .justify-center{
   justify-content: center;
 }
@@ -1194,10 +1190,6 @@ video {
 
 .gap-9{
   gap: 2.25rem;
-}
-
-.gap-16{
-  gap: 4rem;
 }
 
 .gap-x-1\.5{
@@ -1444,10 +1436,6 @@ video {
 .bg-\[\#5D5FEF\]{
   --tw-bg-opacity: 1;
   background-color: rgb(93 95 239 / var(--tw-bg-opacity));
-}
-
-.bg-\[\#6E719133\]{
-  background-color: #6E719133;
 }
 
 .bg-\[\#FCFDFE\]{
@@ -1970,11 +1958,6 @@ video {
 .text-\[\#1D4ED8\]{
   --tw-text-opacity: 1;
   color: rgb(29 78 216 / var(--tw-text-opacity));
-}
-
-.text-\[\#6E7191\]{
-  --tw-text-opacity: 1;
-  color: rgb(110 113 145 / var(--tw-text-opacity));
 }
 
 .text-\[\#AAAAAA\]{
@@ -2580,12 +2563,6 @@ video {
     margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
-  .md\:space-x-8 > :not([hidden]) ~ :not([hidden]){
-    --tw-space-x-reverse: 0;
-    margin-right: calc(2rem * var(--tw-space-x-reverse));
-    margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
-  }
-
   .md\:space-y-0 > :not([hidden]) ~ :not([hidden]){
     --tw-space-y-reverse: 0;
     margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
@@ -2705,20 +2682,10 @@ video {
     flex-direction: row;
   }
 
-  .lg\:gap-10{
-    gap: 2.5rem;
-  }
-
   .lg\:space-x-10 > :not([hidden]) ~ :not([hidden]){
     --tw-space-x-reverse: 0;
     margin-right: calc(2.5rem * var(--tw-space-x-reverse));
     margin-left: calc(2.5rem * calc(1 - var(--tw-space-x-reverse)));
-  }
-
-  .lg\:space-x-20 > :not([hidden]) ~ :not([hidden]){
-    --tw-space-x-reverse: 0;
-    margin-right: calc(5rem * var(--tw-space-x-reverse));
-    margin-left: calc(5rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
   .lg\:px-32{
@@ -2737,31 +2704,5 @@ video {
 
   .lg\:pl-32{
     padding-left: 8rem;
-  }
-
-  .lg\:text-2xl{
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .lg\:text-xl{
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-}
-
-@media (min-width: 2041px){
-  .uw\:max-w-2xl{
-    max-width: 42rem;
-  }
-
-  .uw\:text-2xl{
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .uw\:text-4xl{
-    font-size: 2.25rem;
-    line-height: 2.5rem;
   }
 }
