@@ -15,7 +15,6 @@ function Profile() {
     const [passwordVisible1, setPasswordVisible1] = useState<boolean>(false);
     const [passwordVisible2, setPasswordVisible2] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [isOrderHistory, setIsOrderHistory] = useState<boolean>(false);
     const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
     const [firstName, setFirstName] = useState<string>('');
@@ -154,10 +153,6 @@ function Profile() {
         setIsModalOpen(!isModalOpen);
     };
 
-    const toggleOrderHistory = () => {
-        setIsOrderHistory(!isOrderHistory);
-    };
-
     return (
         <main className="bg-neutral-100 px-5 sm:px-16 py-5 sm:py-12">
             <div className="flex flex-col lg:flex-row justify-between lg:space-x-10">
@@ -206,109 +201,112 @@ function Profile() {
                             <p className="text-black">Account Settings</p>
                         </button>
                         <button
-                             onClick={() => {
-                                setActiveButton('orderHistory');
-                                toggleOrderHistory();
-                            }}                                
+                             onClick={() => setActiveButton('orderHistory')}                                
                             className={`relative pb-2 focus:outline-none ${activeButton === 'orderHistory' ? 'border-b-4 border-primary' : ''}`}
                         >
                             <p className="text-black">Order History</p>
                         </button>
                     </div>
-                    <div className="bg-white w-full h-auto rounded-3xl px-10 py-10 sm:space-y-10">
-                        <div className="pb-4 mb-7 sm:mb-0 border-b border-gray-300">
-                            Details Information
+                    
+                    {activeButton === 'accountSettings' &&
+                        <>
+                        <div className="bg-white w-full h-auto rounded-3xl px-10 py-10 sm:space-y-10">
+                            <div className="pb-4 mb-7 sm:mb-0 border-b border-gray-300">
+                                Details Information
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:space-x-8">
+                                <div className="flex flex-col w-full mb-7 sm:mb-0">
+                                    <label htmlFor="firstName" className="mb-2">First Name</label>
+                                    <input
+                                        type="text"
+                                        id="firstName"
+                                        value={firstName}
+                                        onChange={(e) => setFirstName(e.target.value)}
+                                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg"
+                                    />
+                                </div>
+                                <div className="flex flex-col w-full mb-7 sm:mb-0">
+                                    <label htmlFor="lastName" className="mb-2">Last Name</label>
+                                    <input
+                                        type="text"
+                                        id="lastName"
+                                        value={lastName}
+                                        onChange={(e) => setLastName(e.target.value)}
+                                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg"
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:space-x-8">
+                                <div className="flex flex-col w-full mb-7 sm:mb-0">
+                                    <label htmlFor="email" className="mb-2">E-mail</label>
+                                    <input
+                                        type="text"
+                                        id="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
+                                    />
+                                </div>
+                                <div className="flex flex-col w-full mb-7 sm:mb-0">
+                                    <label htmlFor="phoneNumber" className="mb-2">Phone Number</label>
+                                    <input
+                                        type="text"
+                                        id="phoneNumber"
+                                        value={phoneNumber}
+                                        onChange={(e) => setPhoneNumber(e.target.value)}
+                                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div className="flex flex-col sm:flex-row sm:space-x-8">
-                            <div className="flex flex-col w-full mb-7 sm:mb-0">
-                                <label htmlFor="firstName" className="mb-2">First Name</label>
-                                <input
-                                    type="text"
-                                    id="firstName"
-                                    value={firstName}
-                                    onChange={(e) => setFirstName(e.target.value)}
-                                    className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg"
-                                />
+                        <div className="bg-white w-full h-auto rounded-3xl px-10 py-10 space-y-10">
+                            <div className="pb-4 border-b border-gray-300">
+                                Account and Privacy
                             </div>
-                            <div className="flex flex-col w-full mb-7 sm:mb-0">
-                                <label htmlFor="lastName" className="mb-2">Last Name</label>
-                                <input
-                                    type="text"
-                                    id="lastName"
-                                    value={lastName}
-                                    onChange={(e) => setLastName(e.target.value)}
-                                    className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg"
-                                />
-                            </div>
+                            <div className="flex flex-col sm:flex-row sm:space-x-8">
+                                <div className="flex flex-col w-full relative mb-7 sm:mb-0">
+                                    <label htmlFor="password" className="mb-2">New Password</label>
+                                    <input
+                                        type={passwordVisible1 ? 'text' : 'password'}
+                                        id="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
+                                    />
+                                    <img
+                                        src={passwordVisible1 ? eyeIconOpen : eyeIconClose}
+                                        alt="Toggle password visibility"
+                                        onClick={togglePasswordVisibility1}
+                                        className="absolute bottom-0 transform -translate-y-1/2 right-4 cursor-pointer"
+                                    />
+                                </div>
+                                <div className="flex flex-col w-full relative">
+                                    <label htmlFor="confirmPassword" className="mb-2">Confirm Password</label>
+                                    <input
+                                        type={passwordVisible2 ? 'text' : 'password'}
+                                        id="confirmPassword"
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
+                                    />
+                                    <img
+                                        src={passwordVisible2 ? eyeIconOpen : eyeIconClose}
+                                        alt="Toggle password visibility"
+                                        onClick={togglePasswordVisibility2}
+                                        className="absolute bottom-0 transform -translate-y-1/2 right-4 cursor-pointer"
+                                    />
+                                </div>                            
+                            </div>                        
                         </div>
-                        <div className="flex flex-col sm:flex-row sm:space-x-8">
-                            <div className="flex flex-col w-full mb-7 sm:mb-0">
-                                <label htmlFor="email" className="mb-2">E-mail</label>
-                                <input
-                                    type="text"
-                                    id="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
-                                />
-                            </div>
-                            <div className="flex flex-col w-full mb-7 sm:mb-0">
-                                <label htmlFor="phoneNumber" className="mb-2">Phone Number</label>
-                                <input
-                                    type="text"
-                                    id="phoneNumber"
-                                    value={phoneNumber}
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
-                                    className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="bg-white w-full h-auto rounded-3xl px-10 py-10 space-y-10">
-                        <div className="pb-4 border-b border-gray-300">
-                            Account and Privacy
-                        </div>
-                        <div className="flex flex-col sm:flex-row sm:space-x-8">
-                            <div className="flex flex-col w-full relative mb-7 sm:mb-0">
-                                <label htmlFor="password" className="mb-2">New Password</label>
-                                <input
-                                    type={passwordVisible1 ? 'text' : 'password'}
-                                    id="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
-                                />
-                                <img
-                                    src={passwordVisible1 ? eyeIconOpen : eyeIconClose}
-                                    alt="Toggle password visibility"
-                                    onClick={togglePasswordVisibility1}
-                                    className="absolute bottom-0 transform -translate-y-1/2 right-4 cursor-pointer"
-                                />
-                            </div>
-                            <div className="flex flex-col w-full relative">
-                                <label htmlFor="confirmPassword" className="mb-2">Confirm Password</label>
-                                <input
-                                    type={passwordVisible2 ? 'text' : 'password'}
-                                    id="confirmPassword"
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
-                                />
-                                <img
-                                    src={passwordVisible2 ? eyeIconOpen : eyeIconClose}
-                                    alt="Toggle password visibility"
-                                    onClick={togglePasswordVisibility2}
-                                    className="absolute bottom-0 transform -translate-y-1/2 right-4 cursor-pointer"
-                                />
-                            </div>                            
-                        </div>                        
-                    </div>
-                    <button
-                            className="bg-primary text-white rounded-2xl py-3 px-10"
-                            onClick={handleUpdateProfile}
-                        >
-                            Update Changes
-                    </button>
+                        <button
+                                className="bg-primary text-white rounded-2xl py-3 px-10"
+                                onClick={handleUpdateProfile}
+                            >
+                                Update Changes
+                        </button>
+                        </>
+                    }
+                    {activeButton === 'orderHistory' && <OrderHistory />}
                 </section>
             </div>
 
@@ -339,12 +337,6 @@ function Profile() {
                         </div>
                     </div>
                 </div>
-            )}
-
-            {isOrderHistory && (
-                <>
-                    <OrderHistory />
-                </>                
             )}
         </main>
     )
