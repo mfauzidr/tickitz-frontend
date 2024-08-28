@@ -37,7 +37,7 @@ const CinemaSelection = ({ cinemas, selectedCinemaId, onCinemaSelect }: CinemaSe
   };
 
   return (
-    <section className="mt-10 max-md:max-w-full">
+    <section className="mt-10 max-md:max-w-full font-mulish">
       <div className="flex gap-9 mb-10">
         <h2 className="text-xl font-semibold tracking-wide leading-9 text-black">Choose Cinema</h2>
         <span className="my-auto text-lg font-bold tracking-wider leading-none text-slate-400">

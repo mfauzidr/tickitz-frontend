@@ -59,7 +59,7 @@ function Hamburger() {
   }, [isDropdownOpen]);
 
   return (
-    <div className="md:hidden">
+    <div className="md:hidden font-mulish">
       <div>
         <button
           ref={buttonRef}

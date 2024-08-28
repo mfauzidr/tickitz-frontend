@@ -78,7 +78,7 @@ export default function AdminCreateMovie() {
   }, []);
 
   return (
-    <main className="pt-16 pb-20 px-4 tbt:px-10 md:px-52 lg:px-[450px] bg-neutral-100">
+    <main className="pt-16 pb-20 px-4 tbt:px-10 md:px-52 lg:px-[450px] bg-neutral-100 font-mulish">
       <section className="self-center px-5 md:px-10 py-10 bg-white rounded-md">
         <h1 className="text-xl font-bold tracking-wide text-slate-900">Add New Movie</h1>
         <form className="flex flex-col mt-7" onSubmit={handleCreateMovie}>

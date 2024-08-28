@@ -101,6 +101,15 @@ const salesData = {
   ],
 };
 
+// interface movie {
+//   id: number;
+//   title: string;
+//   daily_sales: {
+//     date: string;
+//     sales: number;
+//   }[];
+// }
+
 const options = {
   maintainAspectRatio: false,
   aspectRatio: 0.6,
@@ -193,7 +202,7 @@ function AdminDashboard() {
   }, [selectedMovie]);
 
   return (
-    <main className="flex overflow-hidden flex-col pb-11 bg-neutral-100">
+    <main className="flex overflow-hidden flex-col pb-11 bg-neutral-100 font-mulish">
       <section className="flex flex-col gap-4 items-start self-center px-12 py-12 mt-14 max-w-full bg-white rounded-lg md:rounded-md w-[90%] md:w-[732px] max-md:px-5 max-md:mt-10">
         <h1 className="text-2xl font-bold tracking-wide text-slate-900">Sales Chart</h1>
         <div className="flex flex-col md:flex-row w-full gap-4">

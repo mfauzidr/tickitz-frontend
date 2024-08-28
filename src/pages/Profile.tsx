@@ -116,7 +116,7 @@ function Profile() {
   };
 
   return (
-    <main className="bg-neutral-100 px-5 sm:px-16 py-5 sm:py-12">
+    <main className="bg-neutral-100 px-5 sm:px-16 py-5 sm:py-12 font-mulish">
       <div className="flex flex-col lg:flex-row justify-between lg:space-x-10">
         <section className="w-full lg:w-[30%] pb-10 lg:pb-0">
           <div className="bg-white flex flex-col w-full h-[783px] rounded-3xl pt-10">

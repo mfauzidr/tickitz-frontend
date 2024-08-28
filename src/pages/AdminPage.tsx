@@ -77,7 +77,7 @@ function MovieList() {
   };
 
   return (
-    <main className="flex flex-col pb-16 px-4 tbt:px-10 lg:px-32 bg-neutral-100">
+    <main className="flex flex-col pb-16 px-4 tbt:px-10 lg:px-32 bg-neutral-100 font-mulish">
       <section className="flex flex-col self-center mt-16 w-full bg-white rounded-3xl max-w-[1105px] max-md:mt-10 max-md:max-w-full">
         <div className="flex flex-col px-14 pt-6 pb-10 w-full bg-white rounded-3xl max-md:px-5 max-md:max-w-full">
           <div className="flex flex-wrap gap-5 justify-between w-full max-md:max-w-full">

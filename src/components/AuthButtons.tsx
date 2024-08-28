@@ -31,7 +31,7 @@ function AuthButtons() {
   };
 
   return (
-    <div className="hidden md:flex gap-5 my-auto">
+    <div className="hidden md:flex gap-5 my-auto font-mulish">
       {token ? (
         <>
           {user?.role === "admin" ? (

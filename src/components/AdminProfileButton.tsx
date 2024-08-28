@@ -59,7 +59,7 @@ function AdminProfileButton() {
   }, [isDropdownOpen]);
 
   return (
-    <div className="hidden md:flex gap-3 items-center">
+    <div className="hidden md:flex gap-3 items-center font-mulish">
       <button type="button" className="flex gap-1 items-center" id="menu-button" aria-expanded="true" aria-haspopup="true">
         <p>Location</p>
         <img width="15" src={dropdown} />

@@ -88,7 +88,7 @@ function Order() {
   useEffect(() => {
     const asyncFunctest = async () => {
       try {
-        const url = `http://localhost:8080/movie/${id}`;
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/${id}`;
         var result = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${Token}`,

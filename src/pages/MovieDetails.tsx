@@ -141,7 +141,7 @@ const MovieTicketBooking = () => {
   useEffect(() => {
     const asyncFunctest = async () => {
       try {
-        const url = `http://localhost:8080/movie/${id}`;
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/${id}`;
         var result = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${Token}`,
@@ -163,7 +163,7 @@ const MovieTicketBooking = () => {
   };
 
   return (
-    <div className="flex flex-col bg-white justify">
+    <div className="flex flex-col bg-white justify font-mulish">
       <div className="">{movies && <MovieBannerAndDetails movie={movies} />}</div>
       <div className="py-8 px-4 tbt:px-10 lg:px-32">
         {movieData.cinemas.length > 0 && (

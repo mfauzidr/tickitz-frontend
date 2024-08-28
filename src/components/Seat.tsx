@@ -12,7 +12,7 @@ const Seat = ({ seatNumber, isSelected, onClick, isClickable }: SeatProps) => {
     }
   };
   return (
-    <div className={`bg-gray-300 w-3.5 h-3.5 tbt:w-7 tbt:h-7 rounded text-center text-[0px] cursor-pointer ${isSelected ? "bg-primary" : "bg-gray-300"}`} onClick={handleClick}>
+    <div className={`bg-gray-300 font-mulish w-3.5 h-3.5 tbt:w-7 tbt:h-7 rounded text-center text-[0px] cursor-pointer ${isSelected ? "bg-primary" : "bg-gray-300"}`} onClick={handleClick}>
       {seatNumber}
     </div>
   );

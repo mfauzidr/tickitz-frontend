@@ -1,6 +1,6 @@
 function Newsletter() {
   return (
-    <section className="px-4 tbt:px-10 lg:px-32">
+    <section className="px-4 tbt:px-10 lg:px-32 font-mulish">
       <div className="flex relative flex-col justify-center items-center py-20 my-16 w-full text-white bg-[#2563EB] min-h-[318px] border border-solid rounded-3xl max-md:px-5 max-md:mt-10 max-md:max-w-full">
         <div className="flex relative flex-col max-w-full md:w-[702px] rounded ">
           <h2 className="self-center text-5xl tracking-wider leading-none text-center max-md:max-w-full max-md:text-4xl">Subscribe to our newsletter</h2>
