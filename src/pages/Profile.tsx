@@ -13,7 +13,6 @@ import { IProfileBody } from "../types/profile";
 import { useStoreSelector } from "../redux/hooks";
 
 function Profile() {
-  const [isOrderHistory, setIsOrderHistory] = useState<boolean>(false);
   const [activeButton, setActiveButton] = useState<string>("accountSettings");
   const [passwordVisible1, setPasswordVisible1] = useState<boolean>(false);
   const [passwordVisible2, setPasswordVisible2] = useState<boolean>(false);
@@ -109,11 +108,7 @@ function Profile() {
 
   const togglePasswordVisibility2 = () => {
     setPasswordVisible2(!passwordVisible2);
-  };
-
-  const toggleOrderHistory = () => {
-    setIsOrderHistory(!isOrderHistory);
-  };
+  };  
 
   return (
     <main className="bg-neutral-100 px-5 sm:px-16 py-5 sm:py-12 font-mulish">
@@ -161,21 +156,20 @@ function Profile() {
             </div>
           </div>
         </section>
-        <section className="w-full lg:w-[70%] space-y-10">
-          <div className="bg-white flex flex-row w-full h-[84px] rounded-3xl pl-0 sm:pl-10 space-x-10 justify-center sm:justify-start items-center">
+        <section className="w-full lg:w-[70%] space-y-10">        
+                <div className="bg-white flex flex-row w-full h-[84px] rounded-3xl pl-0 sm:pl-10 space-x-10 justify-center sm:justify-start items-center">
             <button onClick={() => setActiveButton("accountSettings")} className={`relative pb-2 focus:outline-none ${activeButton === "accountSettings" ? "border-b-4 border-primary" : ""}`}>
               <p className="text-black">Account Settings</p>
             </button>
             <button
-              onClick={() => {
-                setActiveButton("orderHistory");
-                toggleOrderHistory();
-              }}
-              className={`relative pb-2 focus:outline-none ${activeButton === "orderHistory" ? "border-b-4 border-primary" : ""}`}
+              onClick={() => {setActiveButton('orderHistory')}}
+              className={`relative pb-2 focus:outline-none ${activeButton === 'orderHistory' ? "border-b-4 border-primary" : ""}`}
             >
               <p className="text-black">Order History</p>
             </button>
           </div>
+          {activeButton === 'accountSettings' && 
+            <>
           <form onSubmit={onSubmitHandler}>
             <div className="bg-white w-full h-auto rounded-3xl px-10 py-10 sm:space-y-10">
               <div className="pb-4 mb-7 sm:mb-0 border-b border-gray-300">Details Information</div>
@@ -246,10 +240,11 @@ function Profile() {
               Update Changes
             </button>
           </form>
+            </>
+        }
+        {activeButton === "orderHistory" && <OrderHistory />}          
         </section>
-      </div>
-
-      {activeButton === "orderHistory" && <OrderHistory />}
+      </div>      
     </main>
   );
 }
