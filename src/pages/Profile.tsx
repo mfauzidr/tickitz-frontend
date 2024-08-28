@@ -26,6 +26,21 @@ function Profile() {
   const { token } = useStoreSelector((state) => state.auth);
   const [changeImage, setImage] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [activeButton, setActiveButton] = useState<string>('accountSettings');
+    const [passwordVisible1, setPasswordVisible1] = useState<boolean>(false);
+    const [passwordVisible2, setPasswordVisible2] = useState<boolean>(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+
+    const [firstName, setFirstName] = useState<string>('');
+    const [lastName, setLastName] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [phoneNumber, setPhoneNumber] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [profileImage, setProfileImage] = useState<string>(userIcon);
+    const [loyaltyPoints, setLoyaltyPoints] = useState<number>(0);
+    const [pointsNeeded, setPointsNeeded] = useState<number>(0);
 
   const Token = useSelector((state: RootState) => state.auth.token);
 
@@ -114,6 +129,13 @@ function Profile() {
   const toggleOrderHistory = () => {
     setIsOrderHistory(!isOrderHistory);
   };
+    const togglePasswordVisibility2 = () => {
+        setPasswordVisible2(!passwordVisible2);
+    };
+
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
+    };
 
   return (
     <main className="bg-neutral-100 px-5 sm:px-16 py-5 sm:py-12">
@@ -256,6 +278,193 @@ function Profile() {
       )}
     </main>
   );
+    return (
+        <main className="bg-neutral-100 px-5 sm:px-16 py-5 sm:py-12">
+            <div className="flex flex-col lg:flex-row justify-between lg:space-x-10">
+                <section className="w-full lg:w-[30%] pb-10 lg:pb-0">
+                    <div className="bg-white flex flex-col w-full h-[783px] rounded-3xl pt-10">
+                        <div className="flex flex-row justify-between pb-10 px-10">
+                            <p>INFO</p>
+                            <img src={threeDots} alt="Options" onClick={toggleModal} className="cursor-pointer" />
+                        </div>
+                        <div className="flex flex-col items-center pb-10">
+                            <img src={profileImage} width="150" alt="Profile" onClick={toggleModal} className="rounded-full cursor-pointer" />                            
+                        </div>
+                        <div className="flex flex-col items-center px-10">
+                            <p className="text-xl font-semibold">{firstName} {lastName}</p>
+                            <div className="pb-10 px-10">Moviegoers</div>
+                        </div>
+                        <div className="px-5">
+                            <div className="w-full border-[#DEDEDE] border-[1px] my-14"></div>
+                        </div>
+                        <div className="pb-5 px-10 font-semibold text-base">Loyalty Points</div>                        
+                        <div className="relative px-5 pb-5">
+                            <div className="bg-primary w-full h-[125px] rounded-3xl"></div>
+                            <img src={star} alt="" className="absolute top-1 right-4" />
+                            <div className="absolute top-4 left-8 font-bold">
+                                <p className="text-white pb-8 text-lg">Moviegoers</p>
+                                <p className="text-white font-semibold text-2xl">{loyaltyPoints}<span className="font-normal text-xs"> points</span></p>
+                            </div>                            
+                        </div>
+                        <div className="px-5">{pointsNeeded} points become a master</div>
+                        <div className="px-5">
+                            <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden mt-2">
+                                <div
+                                    className="bg-blue-500 h-full rounded-full px-10"
+                                    style={{ width: `${percentage}%` }}
+                                ></div>
+                            </div>
+                        </div>                        
+                    </div>
+                </section>
+                <section className="w-full lg:w-[70%] space-y-10">
+                    <div className="bg-white flex flex-row w-full h-[84px] rounded-3xl pl-0 sm:pl-10 space-x-10 justify-center sm:justify-start items-center">
+                        <button
+                            onClick={() => setActiveButton('accountSettings')}
+                            className={`relative pb-2 focus:outline-none ${activeButton === 'accountSettings' ? 'border-b-4 border-primary' : ''}`}
+                        >
+                            <p className="text-black">Account Settings</p>
+                        </button>
+                        <button
+                             onClick={() => setActiveButton('orderHistory')}                                
+                            className={`relative pb-2 focus:outline-none ${activeButton === 'orderHistory' ? 'border-b-4 border-primary' : ''}`}
+                        >
+                            <p className="text-black">Order History</p>
+                        </button>
+                    </div>
+                    
+                    {activeButton === 'accountSettings' &&
+                        <>
+                        <div className="bg-white w-full h-auto rounded-3xl px-10 py-10 sm:space-y-10">
+                            <div className="pb-4 mb-7 sm:mb-0 border-b border-gray-300">
+                                Details Information
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:space-x-8">
+                                <div className="flex flex-col w-full mb-7 sm:mb-0">
+                                    <label htmlFor="firstName" className="mb-2">First Name</label>
+                                    <input
+                                        type="text"
+                                        id="firstName"
+                                        value={firstName}
+                                        onChange={(e) => setFirstName(e.target.value)}
+                                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg"
+                                    />
+                                </div>
+                                <div className="flex flex-col w-full mb-7 sm:mb-0">
+                                    <label htmlFor="lastName" className="mb-2">Last Name</label>
+                                    <input
+                                        type="text"
+                                        id="lastName"
+                                        value={lastName}
+                                        onChange={(e) => setLastName(e.target.value)}
+                                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg"
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:space-x-8">
+                                <div className="flex flex-col w-full mb-7 sm:mb-0">
+                                    <label htmlFor="email" className="mb-2">E-mail</label>
+                                    <input
+                                        type="text"
+                                        id="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
+                                    />
+                                </div>
+                                <div className="flex flex-col w-full mb-7 sm:mb-0">
+                                    <label htmlFor="phoneNumber" className="mb-2">Phone Number</label>
+                                    <input
+                                        type="text"
+                                        id="phoneNumber"
+                                        value={phoneNumber}
+                                        onChange={(e) => setPhoneNumber(e.target.value)}
+                                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="bg-white w-full h-auto rounded-3xl px-10 py-10 space-y-10">
+                            <div className="pb-4 border-b border-gray-300">
+                                Account and Privacy
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:space-x-8">
+                                <div className="flex flex-col w-full relative mb-7 sm:mb-0">
+                                    <label htmlFor="password" className="mb-2">New Password</label>
+                                    <input
+                                        type={passwordVisible1 ? 'text' : 'password'}
+                                        id="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
+                                    />
+                                    <img
+                                        src={passwordVisible1 ? eyeIconOpen : eyeIconClose}
+                                        alt="Toggle password visibility"
+                                        onClick={togglePasswordVisibility1}
+                                        className="absolute bottom-0 transform -translate-y-1/2 right-4 cursor-pointer"
+                                    />
+                                </div>
+                                <div className="flex flex-col w-full relative">
+                                    <label htmlFor="confirmPassword" className="mb-2">Confirm Password</label>
+                                    <input
+                                        type={passwordVisible2 ? 'text' : 'password'}
+                                        id="confirmPassword"
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
+                                    />
+                                    <img
+                                        src={passwordVisible2 ? eyeIconOpen : eyeIconClose}
+                                        alt="Toggle password visibility"
+                                        onClick={togglePasswordVisibility2}
+                                        className="absolute bottom-0 transform -translate-y-1/2 right-4 cursor-pointer"
+                                    />
+                                </div>                            
+                            </div>                        
+                        </div>
+                        <button
+                                className="bg-primary text-white rounded-2xl py-3 px-10"
+                                onClick={handleUpdateProfile}
+                            >
+                                Update Changes
+                        </button>
+                        </>
+                    }
+                    {activeButton === 'orderHistory' && <OrderHistory />}
+                </section>
+            </div>
+
+            {/* Modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                        <h2 className="text-xl font-semibold mb-4">Profile Image</h2>
+                        <input 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={handleImageUpload} 
+                            className="mb-4" 
+                        />
+                        <div className="flex justify-end">
+                            <button
+                                className="bg-gray-500 text-white rounded-full py-2 px-6 mr-2"
+                                onClick={toggleModal}
+                            >
+                                Cancel
+                            </button>
+                            <button 
+                                className="bg-primary text-white rounded-full py-2 px-6"
+                                onClick={handleUpdateProfile}
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </main>
+    )
 }
 
 export default Profile;
