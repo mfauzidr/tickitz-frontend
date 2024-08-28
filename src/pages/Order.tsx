@@ -121,16 +121,6 @@ function Order() {
   };
 
   const handleConfirmOrder = () => {
-    if (
-      !moviesRedux.date ||
-      !moviesRedux.time ||
-      !movie?.title ||
-      !cinemasRedux.name ||
-      selectedSeats.length === 0
-    ) {
-      alert("Please fill in all required fields: Date, Time, Movie Title, Cinema, and select at least one seat.");
-      return;
-    }
   
     dispatch(setPayment({
       date: moviesRedux.date,

@@ -103,7 +103,7 @@ const generateDateRange = (startDate: string, endDate: string) => {
 
   while (start <= end) {
     dates.push(new Date(start).toISOString().split('T')[0]); // Format YYYY-MM-DD
-    start.setDate(start.getDate() + 1);
+    start.setDate(start.getDate()+ 2);
   }
 
   return dates;
@@ -158,12 +158,6 @@ const MovieTicketBooking = () => {
 
   const handleBookNow = () => {
     const idMovie = id;
-
-    // Validate required fields
-    if (!idMovie || !DateOrder || !TimeOrder || !LocOrder) {
-      alert("Please fill in all required fields: Movie ID, Date, Time, and Location.");
-      return;
-    }
 
     dispatch(setMovieOrder({ idMovie, DateOrder, TimeOrder, LocOrder }));
     Navi(`/order/${id}`);
