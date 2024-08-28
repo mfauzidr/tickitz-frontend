@@ -8,12 +8,14 @@ import userIcon from "../assets/images/user.webp";
 import star from "../assets/images/star.png";
 import eyeIconClose from "../assets/icons/eye-off-icon.svg";
 import eyeIconOpen from "../assets/icons/eye-icon.svg";
+import OrderHistory from "../components/OrderHistory";
 
 function Profile() {
     const [activeButton, setActiveButton] = useState<string>('accountSettings');
     const [passwordVisible1, setPasswordVisible1] = useState<boolean>(false);
     const [passwordVisible2, setPasswordVisible2] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isOrderHistory, setIsOrderHistory] = useState<boolean>(false);
     const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
     const [firstName, setFirstName] = useState<string>('');
@@ -152,10 +154,14 @@ function Profile() {
         setIsModalOpen(!isModalOpen);
     };
 
+    const toggleOrderHistory = () => {
+        setIsOrderHistory(!isOrderHistory);
+    };
+
     return (
-        <main className="bg-neutral-100 px-16 py-12">
-            <div className="flex flex-row justify-between space-x-10">
-                <section className="w-[30%]">
+        <main className="bg-neutral-100 px-5 sm:px-16 py-5 sm:py-12">
+            <div className="flex flex-col lg:flex-row justify-between lg:space-x-10">
+                <section className="w-full lg:w-[30%] pb-10 lg:pb-0">
                     <div className="bg-white flex flex-col w-full h-[783px] rounded-3xl pt-10">
                         <div className="flex flex-row justify-between pb-10 px-10">
                             <p>INFO</p>
@@ -191,8 +197,8 @@ function Profile() {
                         </div>                        
                     </div>
                 </section>
-                <section className="w-[70%] space-y-10">
-                    <div className="bg-white flex flex-row w-full h-[84px] rounded-3xl pl-10 space-x-10 items-center">
+                <section className="w-full lg:w-[70%] space-y-10">
+                    <div className="bg-white flex flex-row w-full h-[84px] rounded-3xl pl-0 sm:pl-10 space-x-10 justify-center sm:justify-start items-center">
                         <button
                             onClick={() => setActiveButton('accountSettings')}
                             className={`relative pb-2 focus:outline-none ${activeButton === 'accountSettings' ? 'border-b-4 border-primary' : ''}`}
@@ -200,19 +206,22 @@ function Profile() {
                             <p className="text-black">Account Settings</p>
                         </button>
                         <button
-                            onClick={() => setActiveButton('orderHistory')}
+                             onClick={() => {
+                                setActiveButton('orderHistory');
+                                toggleOrderHistory();
+                            }}                                
                             className={`relative pb-2 focus:outline-none ${activeButton === 'orderHistory' ? 'border-b-4 border-primary' : ''}`}
                         >
                             <p className="text-black">Order History</p>
                         </button>
                     </div>
-                    <div className="bg-white w-full h-auto rounded-3xl px-10 py-10 space-y-10">
-                        <div className="pb-4 border-b border-gray-300">
+                    <div className="bg-white w-full h-auto rounded-3xl px-10 py-10 sm:space-y-10">
+                        <div className="pb-4 mb-7 sm:mb-0 border-b border-gray-300">
                             Details Information
                         </div>
-                        <div className="flex flex-row space-x-8">
-                            <div className="flex flex-col w-full">
-                            <label htmlFor="firstName" className="mb-2">First Name</label>
+                        <div className="flex flex-col sm:flex-row sm:space-x-8">
+                            <div className="flex flex-col w-full mb-7 sm:mb-0">
+                                <label htmlFor="firstName" className="mb-2">First Name</label>
                                 <input
                                     type="text"
                                     id="firstName"
@@ -221,8 +230,8 @@ function Profile() {
                                     className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg"
                                 />
                             </div>
-                            <div className="flex flex-col w-full">
-                            <label htmlFor="lastName" className="mb-2">Last Name</label>
+                            <div className="flex flex-col w-full mb-7 sm:mb-0">
+                                <label htmlFor="lastName" className="mb-2">Last Name</label>
                                 <input
                                     type="text"
                                     id="lastName"
@@ -232,9 +241,9 @@ function Profile() {
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-row space-x-8">
-                            <div className="flex flex-col w-1/2">
-                            <label htmlFor="email" className="mb-2">E-mail</label>
+                        <div className="flex flex-col sm:flex-row sm:space-x-8">
+                            <div className="flex flex-col w-full mb-7 sm:mb-0">
+                                <label htmlFor="email" className="mb-2">E-mail</label>
                                 <input
                                     type="text"
                                     id="email"
@@ -243,8 +252,8 @@ function Profile() {
                                     className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
                                 />
                             </div>
-                            <div className="flex flex-col w-1/2">
-                            <label htmlFor="phoneNumber" className="mb-2">Phone Number</label>
+                            <div className="flex flex-col w-full mb-7 sm:mb-0">
+                                <label htmlFor="phoneNumber" className="mb-2">Phone Number</label>
                                 <input
                                     type="text"
                                     id="phoneNumber"
@@ -259,8 +268,8 @@ function Profile() {
                         <div className="pb-4 border-b border-gray-300">
                             Account and Privacy
                         </div>
-                        <div className="flex flex-row space-x-8">
-                            <div className="flex flex-col w-full relative">
+                        <div className="flex flex-col sm:flex-row sm:space-x-8">
+                            <div className="flex flex-col w-full relative mb-7 sm:mb-0">
                                 <label htmlFor="password" className="mb-2">New Password</label>
                                 <input
                                     type={passwordVisible1 ? 'text' : 'password'}
@@ -295,7 +304,7 @@ function Profile() {
                         </div>                        
                     </div>
                     <button
-                            className="bg-primary text-white rounded-full py-3 px-10"
+                            className="bg-primary text-white rounded-2xl py-3 px-10"
                             onClick={handleUpdateProfile}
                         >
                             Update Changes
@@ -330,6 +339,12 @@ function Profile() {
                         </div>
                     </div>
                 </div>
+            )}
+
+            {isOrderHistory && (
+                <>
+                    <OrderHistory />
+                </>                
             )}
         </main>
     )
