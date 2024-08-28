@@ -596,6 +596,10 @@ video {
   bottom: 0px;
 }
 
+.left-8{
+  left: 2rem;
+}
+
 .right-0{
   right: 0px;
 }
