@@ -25,7 +25,7 @@ const loginThunk = createAsyncThunk<
   { rejectValue: { error: Error; status?: number } } // Rejected payload type
 >("auth/login", async (form, { rejectWithValue }) => {
   try {
-    const url = `c/user/login`;
+    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/user/login`;
     const result: AxiosResponse<IAuthResponse> = await axios.post(url, form);
     return {
       token: result.data.data.token,

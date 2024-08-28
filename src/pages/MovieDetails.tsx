@@ -132,7 +132,7 @@ const MovieTicketBooking = () => {
 
   const handleCinemaSelect = (cinemaId: string, cinemaName: string, logo: string, time?: string) => {
     const name = cinemaName;
-    setTime(time);
+    TimeOrder(time);
     setSelectedCinemaId(cinemaId);
     dispatch(setCinema({ logo, name }));
     console.log(TimeOrder);
