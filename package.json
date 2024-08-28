@@ -17,6 +17,7 @@
     "daisyui": "^4.12.10",
     "dotenv": "^16.4.5",
     "feather-icons-react": "^0.7.0",
+    "flatpickr": "^4.6.13",
     "html-to-image": "^1.11.11",
     "jwt-decode": "^4.0.0",
     "primereact": "^10.8.2",

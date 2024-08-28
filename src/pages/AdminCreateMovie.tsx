@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
-import dropdown from "../assets/icons/DropdownArrow.svg";
-import calendar from "../assets/icons/Calendar.svg";
+import { useEffect, useState, useRef } from "react";
+// import dropdown from "../assets/icons/DropdownArrow.svg";
+// import calendar from "../assets/icons/Calendar.svg";
 import plus from "../assets/icons/PurplePlus.svg";
 // import { Movie } from "../types/moviesData";
 import axios from "axios";
 // import { IAuthResponse } from "../types/response";
 import { useStoreSelector } from "../redux/hooks";
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
+
 
 export default function AdminCreateMovie() {
-  const [form, setForm] = useState<{ title?: string; category?: string; release_date?: string; duration?: string; director?: string; casts?: string; synopsis?: string; location?: string; airing_date?: string[]; airing_time?: string }>({
+  const [form, setForm] = useState<{ title?: string; category?: string; release_date?: string; duration?: string; director?: string; casts?: string; synopsis?: string; location?: string; airing_date?: string; airing_time?: string }>({
     title: "",
     category: "",
     release_date: "",
@@ -17,7 +20,7 @@ export default function AdminCreateMovie() {
     casts: "",
     synopsis: "",
     location: "",
-    airing_date: [""],
+    airing_date: "",
     airing_time: "",
   });
 
@@ -26,43 +29,18 @@ export default function AdminCreateMovie() {
   const [genreId, setGenreId] = useState<number[]>([]);
   const [inputGenreNama, setInputGenreNama] = useState<string[]>([]);
 
-  const toggleGenreId = (id: number, name: string) => {
-    setGenreId((prevGenreIds) => (prevGenreIds.includes(id) ? prevGenreIds.filter((genreId) => genreId !== id) : [...prevGenreIds, id]));
+  const [locations, setLocations] = useState<{ id: number; name: string }[]>([]);
+  const [locationId, setLocationId] = useState<number[]>([]);
+  const [inputLocation, setInputLocation] = useState<string[]>([]);
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-    setInputGenreNama((prevGenreNames) => (prevGenreNames.includes(name) ? prevGenreNames.filter((genreName) => genreName !== name) : [...prevGenreNames, name]));
-  };
+  const [selectedDateRange, setSelectedDateRange] = useState<string>("");
 
-  useEffect(() => {
-    setForm((prevForm) => ({
-      ...prevForm,
-      category: genreId.join(", "),
-    }));
-  }, [genreId]);
+  const [times, setTimes] = useState<{ id: number; time: string }[]>([]);
+  const [selectedTimes, setSelectedTimes] = useState<{ id: number, time: string }[]>([]);
+  const [showDropTime, setShowDropTime] = useState<boolean>(false);
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((form) => {
-      return {
-        ...form,
-        [e.target.name]: e.target.value,
-      };
-    });
-  };
-
-  const handleCreateMovie = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/order/new`;
-    try {
-      const result = await axios.post(url, form, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(result.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   useEffect(() => {
     const getGenres = async () => {
@@ -76,6 +54,142 @@ export default function AdminCreateMovie() {
     };
     getGenres();
   }, []);
+
+  const toggleGenreId = (id: number, name: string) => {
+    setGenreId((prevGenreIds) => (prevGenreIds.includes(id) ? prevGenreIds.filter((genreId) => genreId !== id) : [...prevGenreIds, id]));
+
+    setInputGenreNama((preLocName) => (preLocName.includes(name) ? preLocName.filter((locName) => locName !== name) : [...preLocName, name]));
+  };
+
+  useEffect(() => {
+    const getLocations = async () => {
+      try {
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/locations`;
+        const result = await axios.get(url);
+        setLocations(result.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getLocations();
+  }, []);
+
+  const toggleLocId = (id: number, name: string) => {
+    setLocationId((prevLocId) => (prevLocId.includes(id) ? prevLocId.filter((locationId) => locationId !== id) : [...prevLocId, id]));
+
+    setInputLocation((PrevLocName) => (PrevLocName.includes(name) ? PrevLocName.filter((loationName) => loationName !== name) : [...PrevLocName, name]));
+  };
+
+  useEffect(() => {
+    if (datepickerRef.current) {
+      flatpickr(datepickerRef.current, {
+        dateFormat: "Y-m-d",
+        mode: "range",
+        onChange: (selectedDates) => {
+          if (datepickerRef.current) {
+            let dateRange = "";
+            if (selectedDates.length === 1) {
+              dateRange = flatpickr.formatDate(selectedDates[0], "Y-m-d");
+            } else if (selectedDates.length === 2) {
+              dateRange = `${flatpickr.formatDate(selectedDates[0], "Y-m-d")} -${flatpickr.formatDate(selectedDates[1], "Y-m-d")}`;
+            }
+            setSelectedDateRange(dateRange);
+            datepickerRef.current.value = dateRange; // Update the input field value
+          }
+        },
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchTimes = async () => {
+      try {
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/times`;
+        const result = await axios.get(url);
+        setTimes(result.data.data);
+      } catch (error) {
+        console.error('Error fetching times:', error);
+      }
+    };
+
+    fetchTimes();
+  }, []);
+
+  const handleToggleDropTime = () => {
+    setShowDropTime((prev) => !prev);
+  };
+
+  const handleSelectTime = (time: { id: number; time: string }) => {
+    setSelectedTimes((prev) => [...prev, time]);
+    setTimes((prev) => prev.filter((t) => t.id !== time.id));
+    setShowDropTime(false);  // Hide dropdown after selection
+  };
+
+  const handleRemoveTime = (time: { id: number; time: string }) => {
+    setSelectedTimes((prev) => prev.filter((t) => t.id !== time.id));
+    setTimes((prev) => [...prev, time].sort((a, b) => a.time.localeCompare(b.time)));
+  };
+
+  useEffect(() => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      category: genreId.join(","),
+      location: locationId.join(","),
+      airing_date: selectedDateRange.split(" - ").join(","),
+      airing_time: selectedTimes.map(time => time.id).join(","),
+    }));
+  }, [genreId, locationId, selectedDateRange, selectedTimes]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+        setShowDropTime(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const datepickerRef = useRef<HTMLInputElement>(null);
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((form) => {
+      return {
+        ...form,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
+
+  const handleCreateMovie = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/order/new`;
+    try {
+      const result = await axios.post(url, form, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(result.data);
+    } catch (err) {
+      console.error('Error creating movie:', err);
+    }
+  };
+
+
+
+
+  useEffect(() => {
+    console.log('Updated Form:', form);
+  }, [form]);
 
   return (
     <main className="pt-16 pb-20 px-4 tbt:px-10 md:px-52 lg:px-[450px] bg-neutral-100 font-mulish">
@@ -131,31 +245,110 @@ export default function AdminCreateMovie() {
           <label className="mt-6 text-gray-600">Synopsis</label>
           <input name="synopsis" className="pt-3 text-wrap px-3 pb-10 mt-3 tracking-wider leading-8 text-gray-600 bg-white rounded border border-solid border-neutral-200" value={form.synopsis} onChange={onChangeHandler} />
 
-          <label className="mt-6 text-gray-600">Add Location</label>
-          <input type="text" name="location" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" onChange={onChangeHandler} />
+          <div className="relative" ref={dropdownRef}>
+            <label className="mt-6 text-gray-600">Add Location</label>
+            <div
+              className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full cursor-pointer"
+              onClick={() => setShowDropdown((prevShow) => !prevShow)}
+            >
+              {inputLocation.length > 0
+                ? inputLocation.join(", ")
+                : "Select locations..."}
+            </div>
+
+            {showDropdown && (
+              <ul className="absolute z-10 border border-neutral-200 rounded bg-white mt-1 max-h-60 w-full overflow-auto">
+                {locations.map((location) => (
+                  <li
+                    key={location.id}
+                    className={`px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 ${locationId.includes(location.id) ? "bg-gray-200" : ""
+                      }`}
+                    onClick={() => toggleLocId(location.id, location.name)}
+                  >
+                    {location.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
 
           <div className="mt-6">
-            <label className="text-gray-600">Set Date & Time</label>
-            <div className="flex justify-between mt-3 tbt:justify-center gap-7 px-3 py-2 items-center bg-gray-100 rounded-md tbt:w-fit">
-              <img loading="lazy" width="18" src={calendar} alt="Calendar Icon" />
-              <span>Set a date</span>
-              <img loading="lazy" src={dropdown} alt="Dropdown Icon" className="object-contain self-stretch my-auto w-10" />
+            <label className="text-gray-600" >Set Date & Time</label>
+            <div className="relative max-w-sm">
+              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg
+                  className="w-4 h-4 text-gray-600"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                </svg>
+              </div>
+              <input
+                id="datepicker-format"
+                ref={datepickerRef}
+                type="text"
+                className=" border text-sm rounded-lg text-gray-600 block w-full ps-10 p-2.5 "
+                placeholder="Select date"
+                readOnly
+                value={selectedDateRange}
+              />
             </div>
           </div>
 
-          <div className="flex gap-8 justify-between tbt:justify-normal items-center mt-6 text-sm font-semibold text-center text-gray-600">
-            <button>
-              <img src={plus} className="px-4 border-violet-800 text-3xl border rounded-lg justify-center items-center" />
-            </button>
-            <span className="self-stretch my-auto">08:30am</span>
-            <span className="self-stretch my-auto">10:30pm</span>
+
+          <div className="relative">
+            <div className="flex gap-2 flex-wrap justify-between items-center mt-6 text-sm font-semibold text-center text-gray-600">
+              <button type="button" onClick={handleToggleDropTime} className="relative">
+                <img
+                  src={plus}
+                  className="px-4 border-violet-800 text-3xl border rounded-lg"
+                  alt="Add Time"
+                />
+                {showDropTime && (
+                  <div
+                    ref={dropdownRef}
+                    className="absolute top-full left-0 mt-2 border border-gray-300 bg-white shadow-lg rounded-lg max-w-xs max-h-48 overflow-scroll z-10"
+                  >
+                    <ul>
+                      {times.map((time) => (
+                        <li
+                          key={time.id}
+                          className="flex p-2 hover:bg-gray-200 cursor-pointer w-full"
+                          onClick={() => handleSelectTime(time)}
+                        >
+                          {time.time}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </button>
+              <div className="flex gap-2 flex-wrap">
+                {selectedTimes.map((time) => (
+                  <span
+                    key={time.id}
+                    className="cursor-pointer px-2 py-1 border rounded bg-gray-200"
+                    onClick={() => handleRemoveTime(time)}
+                  >
+                    {time.time}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
 
           <hr className="shrink-0 mt-6 w-full h-px border border-solid border-neutral-200" />
 
-          <button type="submit" className="px-5 py-2 mt-6 text-sm font-semibold tracking-wider leading-loose text-center bg-primary rounded active:bg-blue-800 text-slate-50">
+          <button
+            type="submit"
+            className="px-5 py-2 mt-6 text-sm font-semibold tracking-wider leading-loose text-center bg-primary rounded active:bg-blue-800 text-slate-50"
+          >
             Save Movie
           </button>
+
         </form>
       </section>
     </main>

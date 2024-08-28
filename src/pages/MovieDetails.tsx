@@ -130,9 +130,8 @@ const MovieTicketBooking = () => {
 
   // const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const handleCinemaSelect = (cinemaId: string, cinemaName: string, logo: string, time?: string) => {
+  const handleCinemaSelect = (cinemaId: string, cinemaName: string, logo: string) => {
     const name = cinemaName;
-    TimeOrder(time);
     setSelectedCinemaId(cinemaId);
     dispatch(setCinema({ logo, name }));
     console.log(TimeOrder);
