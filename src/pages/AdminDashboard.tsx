@@ -135,7 +135,7 @@ function AdminDashboard() {
   // const Token = useSelector((state: RootState) => state.auth.token);
 
   // const [salesData, setSalesData ] = useState<movie[]>([])
-  console.log(salesData)
+  console.log(salesData);
 
   const [selectedMovie, setSelectedMovie] = useState(salesData.movie[0]);
   const [interval, setInterval] = useState("Daily");

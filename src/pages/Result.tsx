@@ -5,23 +5,37 @@ import download from "../assets/icons/download-icon.svg";
 
 import QRCode from "react-qr-code";
 import { toPng } from "html-to-image";
-import { Link } from "react-router-dom";
-import { useRef } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useStoreSelector } from "../redux/hooks";
+import axios from "axios";
+import { IOrder } from "../types/order";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 function Result() {
-  interface Movie {
-    title: string;
-    date: string;
-    count: number;
-    time: string;
-  }
+  const { token } = useStoreSelector((state) => state.auth);
+  const { id } = useParams<{ id: string }>();
+  const [orders, setOrders] = useState<IOrder | undefined>(undefined);
+  const seatsRedux = useSelector((state: RootState) => state.order.seats);
 
-  const movie: Movie = {
-    title: "The Great Adventure",
-    date: "07 Jul",
-    count: 3,
-    time: "2:00pm",
-  };
+  useEffect(() => {
+    const getDetailOrder = async () => {
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/order`;
+      try {
+        const result = await axios.get(`${url}/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        setOrders(result.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getDetailOrder();
+  }, [id, token]);
 
   const layoutRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +55,16 @@ function Result() {
         console.error("Failed to download image", err);
       });
   };
+
+  // const formattedDate = new Intl.DateTimeFormat("en-US", {
+  //   // weekday: "long",
+  //   year: "numeric",
+  //   month: "long",
+  //   day: "2-digit",
+  //   // hour: "numeric",
+  //   // minute: "2-digit",
+  //   // hour12: true,
+  // }).format(new Date(`${orders?.date}`));
 
   return (
     <section className="font-mulish md:flex">
@@ -63,42 +87,42 @@ function Result() {
       <div className="pt-16 pb-20 px-8 tbt:px-48 md:px-28 lg:px-32 bg-neutral-100 md:w-1/2">
         <div ref={layoutRef}>
           <div className="self-center px-5 md:px-10 py-10 bg-white border-b-2 border-dashed rounded-t-lg rounded-b-2xl grid place-items-center">
-            <QRCode value="https://example.com" size={135} />
+            <QRCode value={orders?.id.toString() || "Default Value"} size={135} />
           </div>
           <div className="pt-10 pb-5 px-8 md:px-10 py-10 bg-white rounded-t-2xl rounded-b-lg">
             <div className="flex justify-between">
               <div className="w-fit">
                 <div>
                   <h1 className="text-gray-400 text-start text-xs">Movie</h1>
-                  <p className="font-semibold text-sm mt-1">{movie.title}</p>
+                  <p className="font-semibold text-sm mt-1">{orders?.movie_title}</p>
                 </div>
                 <div className="mt-5">
                   <h1 className="text-gray-400 text-start text-xs">Date</h1>
-                  <p className="font-semibold text-sm mt-1">{movie.date}</p>
+                  <p className="font-semibold text-sm mt-1">{orders?.date}</p>
                 </div>
                 <div className="mt-5">
                   <h1 className="text-gray-400 text-start text-xs">Count</h1>
-                  <p className="font-semibold text-sm mt-1">{movie.count} pcs</p>
+                  <p className="font-semibold text-sm mt-1">{orders?.seat_count} pcs</p>
                 </div>
               </div>
               <div className="w-fit">
                 <div>
                   <h1 className="text-gray-400 text-start text-xs">Category</h1>
-                  <p className="font-semibold text-sm mt-1">Action, Adventure</p>
+                  <p className="font-semibold text-sm mt-1">{orders?.genres}</p>
                 </div>
                 <div className="mt-5">
                   <h1 className="text-gray-400 text-start text-xs">Time</h1>
-                  <p className="font-semibold text-sm mt-1">{movie.time}</p>
+                  <p className="font-semibold text-sm mt-1">{orders?.time}</p>
                 </div>
                 <div className="mt-5">
                   <h1 className="text-gray-400 text-start text-xs">Seats</h1>
-                  <p className="font-semibold text-sm mt-1">C4, C5, C6</p>
+                  <p className="font-semibold text-sm mt-1">{seatsRedux.seat}</p>
                 </div>
               </div>
             </div>
             <div className="flex mt-10 px-5 tbt:px-10 md:px-5 py-2 justify-between border-2 border-solid border-neutral-100">
               <h1>Total</h1>
-              <p className="font-bold">Rp 75000</p>
+              <p className="font-bold">Rp {orders?.total}</p>
             </div>
           </div>
         </div>

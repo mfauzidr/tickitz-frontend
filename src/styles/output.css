@@ -596,10 +596,6 @@ video {
   bottom: 0px;
 }
 
-.left-8{
-  left: 2rem;
-}
-
 .right-0{
   right: 0px;
 }
@@ -769,6 +765,10 @@ video {
 
 .mt-\[14px\]{
   margin-top: 14px;
+}
+
+.mb-7{
+  margin-bottom: 1.75rem;
 }
 
 .inline-block{
@@ -1807,6 +1807,10 @@ video {
   padding-top: 1.5rem;
 }
 
+.pl-0{
+  padding-left: 0px;
+}
+
 .text-left{
   text-align: left;
 }
@@ -2308,8 +2312,32 @@ video {
     margin-top: 1.25rem;
   }
 
+  .sm\:mb-0{
+    margin-bottom: 0px;
+  }
+
   .sm\:grid-cols-3{
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sm\:flex-row{
+    flex-direction: row;
+  }
+
+  .sm\:justify-start{
+    justify-content: flex-start;
+  }
+
+  .sm\:space-x-8 > :not([hidden]) ~ :not([hidden]){
+    --tw-space-x-reverse: 0;
+    margin-right: calc(2rem * var(--tw-space-x-reverse));
+    margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  .sm\:space-y-10 > :not([hidden]) ~ :not([hidden]){
+    --tw-space-y-reverse: 0;
+    margin-top: calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(2.5rem * var(--tw-space-y-reverse));
   }
 
   .sm\:px-10{
@@ -2342,8 +2370,22 @@ video {
     padding-bottom: 9rem;
   }
 
+  .sm\:px-16{
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  .sm\:py-12{
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
   .sm\:pt-28{
     padding-top: 7rem;
+  }
+
+  .sm\:pl-10{
+    padding-left: 2.5rem;
   }
 
   .sm\:leading-\[70px\]{
@@ -2595,8 +2637,26 @@ video {
     width: 50%;
   }
 
+  .lg\:w-\[30\%\]{
+    width: 30%;
+  }
+
+  .lg\:w-\[70\%\]{
+    width: 70%;
+  }
+
   .lg\:grid-cols-4{
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .lg\:flex-row{
+    flex-direction: row;
+  }
+
+  .lg\:space-x-10 > :not([hidden]) ~ :not([hidden]){
+    --tw-space-x-reverse: 0;
+    margin-right: calc(2.5rem * var(--tw-space-x-reverse));
+    margin-left: calc(2.5rem * calc(1 - var(--tw-space-x-reverse)));
   }
 
   .lg\:px-32{
@@ -2611,6 +2671,10 @@ video {
 
   .lg\:pl-32{
     padding-left: 8rem;
+  }
+
+  .lg\:pb-0{
+    padding-bottom: 0px;
   }
 
   .lg\:text-2xl{

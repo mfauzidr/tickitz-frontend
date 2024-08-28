@@ -8,8 +8,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Movie } from "../types/moviesData";
-import { setPayment } from "../redux/slices/MovieOrder";
-
+import { setPayment, setSeats } from "../redux/slices/MovieOrder";
 
 const seatAlphabets = [
   { id: 1, name: "A" },
@@ -52,7 +51,6 @@ const fright: string[] = Array.from({ length: 7 }, (_, index) => `F${index + 8}`
 const gleft: string[] = Array.from({ length: 7 }, (_, index) => `G${index + 1}`);
 const gright: string[] = Array.from({ length: 7 }, (_, index) => `G${index + 8}`);
 
-
 function Order() {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -90,19 +88,19 @@ function Order() {
   useEffect(() => {
     const asyncFunctest = async () => {
       try {
-        const url = `http://localhost:8080/movie/${id}`
+        const url = `http://localhost:8080/movie/${id}`;
         var result = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${Token}`,
           },
         });
-        setMovies(result.data.data)
+        setMovies(result.data.data);
       } catch (error) {
         console.log(error);
       }
-    }
+    };
     asyncFunctest();
-  }, [id])
+  }, [id]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -153,8 +151,8 @@ function Order() {
       setShowModal(false);
     }
   };
-  
-  const genres = movie?.genres ? movie.genres.split(',').map(g => g.trim()) : [];
+
+  const genres = movie?.genres ? movie.genres.split(",").map((g) => g.trim()) : [];
 
   return (
     <section className="pt-5 pb-20 px-4 tbt:px-10 lg:px-32 bg-neutral-100 font-mulish">
@@ -300,11 +298,6 @@ function Order() {
                   <p className="text-sm">Available</p>
                 </div>
                 <div className="flex gap-3.5 items-center">
-                  <div className="bg-gray-500 p-2 rounded-sm"></div>
-                  <p className="text-sm">Sold</p>
-                </div>
-
-                <div className="flex gap-3.5 items-center">
                   <div className="bg-primary p-2 rounded-sm"></div>
                   <p className="text-sm">Selected</p>
                 </div>
@@ -368,11 +361,10 @@ function Order() {
               <div className="flex justify-between text-xs mt-3">
                 <p className="text-gray-400">Seat Choosed</p>
                 <div className="flex flex-wrap">
-                  {selectedSeats.map((Seats)=>(
+                  {selectedSeats.map((Seats) => (
                     <p className="font-semibold text-right">{Seats},</p>
-                  ))
-                  }
-                </div>                
+                  ))}
+                </div>
               </div>
             </div>
             <div className="flex justify-between text-sm py-3 mt-3">
@@ -380,9 +372,9 @@ function Order() {
               <p className="text-primary font-bold text-right">Rp.{selectedSeats.length * 25000}</p>
             </div>
           </div>
-            <button type="submit" className="px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5" onClick={handleConfirmOrder}>
-              Checkout Now
-            </button>
+          <button type="submit" className="px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5" onClick={handleConfirmOrder}>
+            Checkout Now
+          </button>
         </div>
       </div>
       <button onClick={handleSubmit} type="submit" className="md:hidden px-5 py-4 w-full text-sm leading-6 text-center bg-blue-700 rounded-md text-white mt-5">
@@ -411,11 +403,10 @@ function Order() {
               <div className="flex justify-between text-xs mt-3">
                 <p className="text-gray-400">Seat Choosed</p>
                 <div className="flex flex-wrap">
-                  {selectedSeats.map((Seats)=>(
+                  {selectedSeats.map((Seats) => (
                     <p className="font-semibold text-right">{Seats},</p>
-                  ))
-                  }
-                </div> 
+                  ))}
+                </div>
               </div>
             </div>
             <div className="flex justify-between text-sm py-3 mt-3">
