@@ -1196,6 +1196,10 @@ video {
   gap: 2.25rem;
 }
 
+.gap-16{
+  gap: 4rem;
+}
+
 .gap-x-1\.5{
   -moz-column-gap: 0.375rem;
        column-gap: 0.375rem;
@@ -2701,6 +2705,10 @@ video {
     flex-direction: row;
   }
 
+  .lg\:gap-10{
+    gap: 2.5rem;
+  }
+
   .lg\:space-x-10 > :not([hidden]) ~ :not([hidden]){
     --tw-space-x-reverse: 0;
     margin-right: calc(2.5rem * var(--tw-space-x-reverse));
@@ -2734,6 +2742,11 @@ video {
   .lg\:text-2xl{
     font-size: 1.5rem;
     line-height: 2rem;
+  }
+
+  .lg\:text-xl{
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 }
 

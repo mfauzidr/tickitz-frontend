@@ -87,7 +87,7 @@ function Result() {
       <div className="pt-16 pb-20 px-8 tbt:px-48 md:px-28 lg:px-32 bg-neutral-100 md:w-1/2">
         <div ref={layoutRef}>
           <div className="self-center px-5 md:px-10 py-10 bg-white border-b-2 border-dashed rounded-t-lg rounded-b-2xl grid place-items-center">
-            <QRCode value={orders?.id.toString() || "Default Value"} size={135} />
+            <QRCode value={orders?.id || "Default Value"} size={135} />
           </div>
           <div className="pt-10 pb-5 px-8 md:px-10 py-10 bg-white rounded-t-2xl rounded-b-lg">
             <div className="flex justify-between">
