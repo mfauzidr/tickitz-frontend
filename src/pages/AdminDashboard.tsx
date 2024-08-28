@@ -1,8 +1,5 @@
 import { Chart } from "primereact/chart";
 import { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../redux/store";
-// import axios from "axios";
 
 interface chartJsData {
   labels: string[];
@@ -103,15 +100,6 @@ const salesData = {
     },
   ],
 };
-
-interface movie {
-  id: number;
-  title: string;
-  daily_sales: {
-    date: string;
-    sales: number;
-  }[];
-}
 
 const options = {
   maintainAspectRatio: false,
