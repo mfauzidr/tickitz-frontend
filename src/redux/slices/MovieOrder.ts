@@ -21,10 +21,15 @@ interface PaymentInfo {
   Total: number;
 }
 
+interface Seats {
+  seat: string[];
+}
+
 export interface MovieOrderState {
   movie: Movie;
   cinema: Cinema;
   payment: PaymentInfo;
+  seats: Seats;
 }
 
 const initialState: MovieOrderState = {
@@ -45,6 +50,9 @@ const initialState: MovieOrderState = {
     cinema: "",
     TiketsCount: 0,
     Total: 0,
+  },
+  seats: {
+    seat: [""],
   },
 };
 
@@ -70,12 +78,15 @@ const MovieOrder = createSlice({
       state.payment.TiketsCount = action.payload.TiketsCount;
       state.payment.Total = action.payload.Total;
     },
-    setMovieOrder(state, action: PayloadAction<{
-      idMovie?: string;
-      DateOrder: string;
-      TimeOrder: string;
-      LocOrder: string;
-    }>) {
+    setMovieOrder(
+      state,
+      action: PayloadAction<{
+        idMovie?: string;
+        DateOrder: string;
+        TimeOrder: string;
+        LocOrder: string;
+      }>
+    ) {
       state.movie.id = action.payload.idMovie;
       state.movie.date = action.payload.DateOrder;
       state.movie.time = action.payload.TimeOrder;
@@ -91,8 +102,16 @@ const MovieOrder = createSlice({
       state.cinema.logo = action.payload.logo;
       state.cinema.name = action.payload.name;
     },
+    setSeats: (
+      state,
+      action: PayloadAction<{
+        seats: string[];
+      }>
+    ) => {
+      state.seats.seat = action.payload.seats;
+    },
   },
 });
 
-export const { setMovieOrder, setCinema, setPayment } = MovieOrder.actions;
+export const { setMovieOrder, setCinema, setPayment, setSeats } = MovieOrder.actions;
 export default MovieOrder.reducer;

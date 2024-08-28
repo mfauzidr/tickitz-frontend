@@ -12,6 +12,8 @@ import AdminPage from "./pages/AdminPage";
 import Payment from "./pages/Payment";
 import Result from "./pages/Result";
 import ProfileIndex from "./pages/ProfileIndex";
+import PrivateRouteAdmin from "./components/PrivateRouteAdmin";
+import PrivateRouteUser from "./components/PrivateRouteUser";
 
 function Error() {
   return <div>Error</div>;
@@ -24,7 +26,11 @@ function NotFound() {
 const routerWithChildren = createBrowserRouter([
   {
     path: "/admin",
-    element: <AdminIndex />,
+    element: (
+      <PrivateRouteAdmin to={"/"}>
+        <AdminIndex />
+      </PrivateRouteAdmin>
+    ),
     errorElement: <Error />,
     children: [
       {
@@ -39,66 +45,6 @@ const routerWithChildren = createBrowserRouter([
         path: "movie",
         element: <AdminPage />,
       },
-      //   {
-      //     path: "checkoutproduct",
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <CheckoutProduct />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'orderdetails',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <OrderDetails />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'detailsproduct',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <DetailProduct />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: '/detailsproduct/:id',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <DetailProduct />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: '/ordersdetail/:id',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <OrderDetails />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'historyorder',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <HistoryOrder />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'profile',
-      //     element: (
-      //       <PrivateRoute to={"/login"}>
-      //         <Profile />
-      //       </PrivateRoute>
-      //     ),
-      //   },
-      //   {
-      //     path: 'axios',
-      //     element: <AxiosTry/>
-      //   },
       {
         path: "*",
         element: <NotFound />,
@@ -120,27 +66,27 @@ const routerWithChildren = createBrowserRouter([
       },
       {
         path: "order/:id",
-        element: <Order />,
+        element: (
+          <PrivateRouteUser to={"/login"}>
+            <Order />
+          </PrivateRouteUser>
+        ),
       },
       {
         path: "payment",
-        element: <Payment />,
+        element: (
+          <PrivateRouteUser to={"/login"}>
+            <Payment />
+          </PrivateRouteUser>
+        ),
       },
       {
-        path: "result",
-        element: <Result />,
-      },
-      {
-        path: "payment",
-        element: <Payment />,
-      },
-      {
-        path: "result",
-        element: <Result />,
-      },
-      {
-        path: "*",
-        element: <NotFound />,
+        path: "result/:id",
+        element: (
+          <PrivateRouteUser to={"/login"}>
+            <Result />
+          </PrivateRouteUser>
+        ),
       },
     ],
   },
@@ -156,21 +102,11 @@ const routerWithChildren = createBrowserRouter([
   {
     path: "/profile",
     element: <ProfileIndex />,
-  }
-  //   {
-  //     path: '/forgot',
-  //     element: <ForgotPass/>
-  //   },
-  //   {
-  //     path: "*",
-  //     element: <NotFound />,
-  //   },
-  //   {
-  //     path: "/admin-toko-kopi",
-  //     element: <AdminDashboard />,
-  //     errorElement: <Error />,
-  //     children: []
-  //   }
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
 ]);
 
 export default routerWithChildren;

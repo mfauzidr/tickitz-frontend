@@ -18,7 +18,7 @@ function Input(props: InputProps) {
 
   return (
     <input
-      className="w-full h-10 border border-solid border-gray-200 rounded-lg pl-4 mb-3 text-gray-300 text-xs"
+      className="w-full h-10 border border-solid border-gray-200 rounded-lg pl-4 mb-3  text-xs"
       type={input.type}
       id={input.name}
       name={input.name}

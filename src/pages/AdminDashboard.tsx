@@ -1,8 +1,5 @@
 import { Chart } from "primereact/chart";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import axios from "axios";
 
 interface chartJsData {
   labels: string[];
@@ -104,16 +101,6 @@ const salesData = {
   ],
 };
 
-    interface movie {
-      id: number;
-      title: string;
-      daily_sales: {
-          date: string;
-          sales: number;
-      }[];
-    }
-
-
 const options = {
   maintainAspectRatio: false,
   aspectRatio: 0.6,
@@ -148,7 +135,7 @@ function AdminDashboard() {
   // const Token = useSelector((state: RootState) => state.auth.token);
 
   // const [salesData, setSalesData ] = useState<movie[]>([])
-  console.log(salesData)
+  console.log(salesData);
 
   const [selectedMovie, setSelectedMovie] = useState(salesData.movie[0]);
   const [interval, setInterval] = useState("Daily");
