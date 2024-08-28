@@ -378,7 +378,7 @@ function Order() {
       </button>
       {showModal && (
         <div ref={modalBgRef} onClick={handleBackgroundClick} className="show fixed z-50 inset-0 bg-black bg-opacity-50 modal-bg justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md uw:max-w-2xl w-3/4 tbt:w-full">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-3/4 tbt:w-full">
             <div className="grid place-items-center">
               <img width="100" src={cinemasRedux.logo} alt="" />
             </div>

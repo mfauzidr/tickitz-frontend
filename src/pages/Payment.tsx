@@ -221,7 +221,7 @@ function Payment() {
         </button>
         {showModal && (
           <div ref={modalBgRef} onClick={handleBackgroundClick} className="show fixed z-50 inset-0 bg-black bg-opacity-50 modal-bg justify-center items-center">
-            <div className="bg-white pb-5 px-6 rounded-lg shadow-lg max-w-md uw:max-w-2xl w-3/4 tbt:w-full">
+            <div className="bg-white pb-5 px-6 rounded-lg shadow-lg max-w-md w-3/4 tbt:w-full">
               <h1 className="text-xl text-center font-bold mt-1">Payment Info</h1>
               <div className="py-5">
                 <div className="inline-block md:flex justify-between w-full">
