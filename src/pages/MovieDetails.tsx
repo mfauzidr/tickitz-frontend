@@ -130,10 +130,12 @@ const MovieTicketBooking = () => {
 
   // const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const handleCinemaSelect = (cinemaId: string, cinemaName: string, logo: string) => {
+  const handleCinemaSelect = (cinemaId: string, cinemaName: string, logo: string, time?: string) => {
     const name = cinemaName;
+    setTime(time)
     setSelectedCinemaId(cinemaId);
     dispatch(setCinema( {logo , name} ))
+    console.log(TimeOrder)
   };
 
   useEffect(() => {
@@ -156,10 +158,15 @@ const MovieTicketBooking = () => {
 
   const handleBookNow = () => {
     const idMovie = id;
-    dispatch(setMovieOrder({ idMovie, DateOrder, TimeOrder, LocOrder }));
-    console.log(DateOrder ," date order")
 
-    Navi(`/order/${id}`)
+    // Validate required fields
+    if (!idMovie || !DateOrder || !TimeOrder || !LocOrder) {
+      alert("Please fill in all required fields: Movie ID, Date, Time, and Location.");
+      return;
+    }
+
+    dispatch(setMovieOrder({ idMovie, DateOrder, TimeOrder, LocOrder }));
+    Navi(`/order/${id}`);
   };
 
   return (
