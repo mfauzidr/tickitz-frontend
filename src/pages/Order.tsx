@@ -121,20 +121,26 @@ function Order() {
   };
 
   const handleConfirmOrder = () => {
-  
-    dispatch(setPayment({
-      date: moviesRedux.date,
-      time: moviesRedux.time,
-      title: movie?.title,
-      cinema: cinemasRedux.name,
-      TiketsCount: selectedSeats.length,
-      Total: selectedSeats.length * 25000
-    }));
-  
+    dispatch(
+      setPayment({
+        date: moviesRedux.date,
+        time: moviesRedux.time,
+        title: movie?.title,
+        cinema: cinemasRedux.name,
+        TiketsCount: selectedSeats.length,
+        Total: selectedSeats.length * 25000,
+      })
+    );
+
+    dispatch(
+      setSeats({
+        seats: selectedSeats,
+      })
+    );
+
     setShowModal(false);
     navigate("/payment");
   };
-  
 
   const handleBackgroundClick = (event: React.MouseEvent) => {
     if (event.target === modalBgRef.current) {
