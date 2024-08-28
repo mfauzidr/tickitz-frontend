@@ -130,13 +130,6 @@ const MovieTicketBooking = () => {
 
   // const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const handleCinemaSelect = (cinemaId: string, cinemaName: string, logo: string) => {
-    const name = cinemaName;
-    setSelectedCinemaId(cinemaId);
-    dispatch(setCinema({ logo, name }));
-    console.log(TimeOrder);
-  };
-
   useEffect(() => {
     const asyncFunctest = async () => {
       try {
@@ -159,6 +152,14 @@ const MovieTicketBooking = () => {
 
     dispatch(setMovieOrder({ idMovie, DateOrder, TimeOrder, LocOrder }));
     Navi(`/order/${id}`);
+  };
+
+  const handleCinemaSelect = (cinemaId: string, cinemaName: string, logo: string, time?: string) => {
+    const name = cinemaName;
+    setTime(time);
+    setSelectedCinemaId(cinemaId);
+    dispatch(setCinema({ logo, name }));
+    console.log(TimeOrder);
   };
 
   return (
