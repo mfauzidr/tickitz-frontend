@@ -237,7 +237,15 @@ function Profile() {
                       <label htmlFor="email" className="mb-2">
                         E-mail
                       </label>
-                      <input type="text" id="email" name="email" placeholder="Enter Your Email" value={form?.email} onChange={onChangeHandler} className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full pl-5" />
+                      <input
+                        type="text"
+                        id="email"
+                        name="email"
+                        placeholder="Enter Your Email"
+                        value={form?.email}
+                        onChange={onChangeHandler}
+                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
+                      />
                     </div>
                     <div className="flex flex-col w-full mb-7 sm:mb-0">
                       <label htmlFor="phone_number" className="mb-2">
@@ -262,8 +270,20 @@ function Profile() {
                       <label htmlFor="password" className="mb-2">
                         New Password
                       </label>
-                      <input type={passwordVisible1 ? "text" : "password"} id="password" name="password" value={form?.password} onChange={onChangeHandler} className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full pl-5" />
-                      <img src={passwordVisible1 ? eyeIconOpen : eyeIconClose} alt="Toggle password visibility" onClick={togglePasswordVisibility1} className="absolute bottom-0 transform -translate-y-1/2 right-4 cursor-pointer" />
+                      <input
+                        type={passwordVisible1 ? "text" : "password"}
+                        id="password"
+                        name="password"
+                        value={form?.password}
+                        onChange={onChangeHandler}
+                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
+                      />
+                      <img
+                        src={passwordVisible1 ? eyeIconOpen : eyeIconClose}
+                        alt="Toggle password visibility"
+                        onClick={togglePasswordVisibility1}
+                        className="absolute bottom-0 transform -translate-y-1/2 right-4 cursor-pointer"
+                      />
                     </div>
                     <div className="flex flex-col w-full relative">
                       <label htmlFor="confirmPassword" className="mb-2">
@@ -276,7 +296,12 @@ function Profile() {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full pl-5"
                       />
-                      <img src={passwordVisible2 ? eyeIconOpen : eyeIconClose} alt="Toggle password visibility" onClick={togglePasswordVisibility2} className="absolute bottom-0 transform -translate-y-1/2 right-4 cursor-pointer" />
+                      <img
+                        src={passwordVisible2 ? eyeIconOpen : eyeIconClose}
+                        alt="Toggle password visibility"
+                        onClick={togglePasswordVisibility2}
+                        className="absolute bottom-0 transform -translate-y-1/2 right-4 cursor-pointer"
+                      />
                     </div>
                   </div>
                 </div>
