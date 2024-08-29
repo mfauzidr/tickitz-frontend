@@ -19,7 +19,7 @@ const tailwindConfig = {
       fontFamily: {
         mulish: ["Mulish", "sans-serif"],
       },
-      colors: {
+      colors: { 
         primary: "#1D4ED8",
       },
     },
