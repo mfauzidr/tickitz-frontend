@@ -5,16 +5,38 @@ import { useStoreDispatch, useStoreSelector } from "../redux/hooks";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { logout } from "../redux/slices/auth";
+import axios from "axios";
+import { IProfileBody } from "../types/profile";
 
 function AdminProfileButton() {
-  const { user } = useStoreSelector((state) => state.auth);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const modalBgRef = useRef<HTMLDivElement>(null);
+  const [profile, setProfile] = useState<IProfileBody>();
+  const { token } = useStoreSelector((state) => state.auth);
+
   const navigate = useNavigate();
   const dispatch = useStoreDispatch();
+
+  const getProfile = async () => {
+    try {
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/user/profile`;
+      var result = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setProfile(result.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   const dropDown = () => {
     setIsDropdownOpen((prevState) => !prevState);
@@ -68,7 +90,7 @@ function AdminProfileButton() {
         <img width="15" src={search} />
       </button>
       <button ref={buttonRef} onClick={dropDown} type="button">
-        <img src={user?.image || userIcon} width="50" className="rounded-full" />
+        <img src={profile?.image || userIcon} width="50" className="rounded-full" />
       </button>
       <div
         ref={dropdownRef}

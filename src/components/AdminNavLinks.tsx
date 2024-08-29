@@ -6,7 +6,7 @@ function AdminNavLinks() {
       <Link to="/admin" className="hover:underline">
         Dashboard
       </Link>
-      <Link to="/admin/page-movielist" className="hover:underline">
+      <Link to="/admin/movie" className="hover:underline">
         Movie
       </Link>
       <Link to="/admin/movie-create" className="hover:underline">

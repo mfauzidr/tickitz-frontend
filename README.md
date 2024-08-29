@@ -1,50 +1,75 @@
-# React + TypeScript + Vite
+# Tickitz
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tickitz is a simple website for managing a online cinema ticket booking. This application makes it easier for users if they want to create a online cinema ticket booking business.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. [About](#about)
+   - [Features](#features)
+   - [Technologies](#Technologies)
+2. [Start](#start)
+   - [Prerequisite](#Prerequisite)
+   - [Installation](#Installation)
+   - [Configuration](#Configuration)
+   - [Run](#Run)
+   - [Run via Container](#RunViaContainer)
+3. [Contact](#Contact)
 
-## Expanding the ESLint configuration
+## About
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Tickitz was built with the aim of making it easier for users to manage a online online cinema ticket booking business. This website is made using React JS & Redux on the FrontEnd, Golang with the Gin Gonic framework on the Backend, and the database uses PostgreSQL.
 
-- Configure the top-level `parserOptions` property like this:
+### Features
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- User Registration and Login
+- Ticket Selection
+- E-Ticket and Purchase Confirmation
+- Order History
+- Security and Privacy
+
+### Technologies
+
+- React JS
+- TypeScript
+- Gin Gonic
+- Golang
+- PostgreSQL
+
+## Start
+
+### Prerequisite
+
+To get started, you need to have Golang installed on your system. If it's not installed yet, download and install it from the official Golang website.
+
+### Installation
+
+1. Clone the repository
+
+```sh
+$ git clone https://github.com/khalifgfrz/tickitz-fe.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. Download the dependencies:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+FrontEnd
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```sh
+$ npm install
 ```
+
+### Configuration
+
+you can create a .env file according to the .env.example in the root directory
+
+### Run
+
+Run the following command to start the server:
+
+```sh
+$ npm run dev
+```
+
+## Contact
+
+Khalif Gaffarezka Auliasoma - kgaffarezka@gmail.com
+Project Links: https://github.com/khalifgfrz/coffee-shop-be-go
