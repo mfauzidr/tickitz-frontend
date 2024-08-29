@@ -1,5 +1,5 @@
 export interface IProfileBody {
-  id?: number;
+  id?: string;
   email?: string;
   image?: string;
   first_name?: string;

@@ -55,6 +55,7 @@ function Payment() {
   const [showModal, setShowModal] = useState(false);
   const modalBgRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const [errors, setErrors] = useState<string | null>(null);
   const paymentRedux = useSelector((state: RootState) => state.order.payment);
   const MovieRedux = useSelector((state: RootState) => state.order.movie);
   const Token = useSelector((state: RootState) => state.auth.token);
@@ -91,6 +92,15 @@ function Payment() {
   };
 
   const handleSubmit = () => {
+    if (!form?.first_name || !form.email || !form.phone_number) {
+      setErrors("All fields are required."); // Set error message
+      return;
+    }
+    if (Method.id === 0) {
+      setErrors("Please select a payment method."); // Set error message if payment method is not selected
+      return;
+    }
+    setErrors(null);
     setShowModal(true);
   };
 
@@ -163,16 +173,16 @@ function Payment() {
 
           <h1 className="text-xl font-bold tracking-wide text-slate-900 mt-6">Personal Information</h1>
 
-          <label htmlFor="full_name" className="text-gray-600 mt-6 text-sm">
+          <label htmlFor="first_name" className="text-gray-600 mt-6 text-sm">
             Full Name
           </label>
           <input
             type="text"
-            id="full_name"
-            name="full_name"
+            id="first_name"
+            name="first_name"
             placeholder="Enter Your Full Name"
             autoComplete="name"
-            value={form?.first_name && form?.last_name}
+            value={form?.first_name}
             onChange={onChangeHandler}
             className="pl-3 py-3 text-sm mt-3 tracking-wider bg-white rounded border-b-[2px] border-solid border-neutral-200"
           ></input>
@@ -194,8 +204,8 @@ function Payment() {
           <label className="text-gray-600 mt-6 text-sm">Phone Number</label>
           <input
             type="text"
-            id="phone"
-            name="phone"
+            id="phone_number"
+            name="phone_number"
             placeholder="Enter Your Phone"
             autoComplete="off"
             value={form?.phone_number}
@@ -216,6 +226,7 @@ function Payment() {
             </button>
           ))}
         </div>
+        {errors && <div className="text-red-500 text-sm">{errors}</div>}
         <button onClick={handleSubmit} type="submit" className="w-full px-5 py-2 mt-6 text-sm font-semibold tracking-wider leading-loose text-center bg-primary rounded active:bg-blue-800 text-slate-50">
           Pay your order
         </button>
