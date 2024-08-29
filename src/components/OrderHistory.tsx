@@ -43,28 +43,28 @@ function OrderHistory() {
     <>
       {getHistory.map((history) => (
         <div className="bg-white w-full h-auto rounded-3xl py-10">
-          <div className="flex justify-between items-center pb-10 border-b border-gray-300 px-10 mb-7">
+          <div className="flex justify-between items-center pb-10 border-b border-gray-300 px-5 tbt:px-10 mb-7">
             <div>
-              <p className="text-[#AAAAAA] font-normal text-sm">
+              <p className="text-[#AAAAAA] font-normal text-[10px] tbt:text-sm">
                 {moment(history.date).format("dddd, D MMMM YYYY")} - {moment(history.time).format("LT")}
               </p>
-              <p className="font-semibold text-2xl">{history.movie_title}</p>
+              <p className="font-semibold text-base sm:text-2xl mr-10 sm:mr-0">{history.movie_title}</p>
             </div>
             <div>
               <img src={cineone21} width="100" alt="" />
             </div>
           </div>
-          <div className="flex flex-row justify-between items-center px-10">
+          <div className="flex flex-row justify-between items-center px-5 tbt:px-10 space-x-2">
             <div className="flex flex-col md:flex-row md:space-x-5 space-y-5 md:space-y-0">
-              <div className="bg-[#00BA8833] flex justify-center items-center w-40 rounded-sm">
-                <p className="text-[#00BA88] text-sm font-bold">Ticket in active</p>
+              <div className="bg-[#00BA8833] flex justify-center items-center w-28 tbt:w-40 rounded-sm">
+                <p className="text-[#00BA88] text-[10px] tbt:text-sm font-bold">Ticket in active</p>
               </div>
-              <div className="bg-[#1D4ED833] flex justify-center items-center w-40 rounded-sm">
-                <p className="text-[#1D4ED8] text-sm font-bold">{history.ticket_status}</p>
+              <div className="bg-[#1D4ED833] flex justify-center items-center w-28 tbt:w-40 rounded-sm">
+                <p className="text-[#1D4ED8] text-[10px] tbt:text-sm font-bold">{history.ticket_status}</p>
               </div>
             </div>
-            <div onClick={() => toggleDropdown(history.id)} className="flex flex-row space-x-5">
-              <p>Show Details</p>
+            <div onClick={() => toggleDropdown(history.id)} className="flex flex-row items-center space-x-5 cursor-pointer">
+              <p className="text-[10px] tbt:text-base">Show Details</p>
               <img src={openDropdownId === history.id ? openDropdown : closeDropdown} width="20" alt="" />
             </div>
           </div>
@@ -101,7 +101,7 @@ function OrderHistory() {
                       </div>
                     </div>
                   </div>
-                  <div>
+                  <div className="flex flex-col items-center">
                     <p className="font-semibold text-sm text-[#000000]">Total</p>
                     <p className="font-semibold text-[#000000]">Rp {history.total}</p>
                   </div>
