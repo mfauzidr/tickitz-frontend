@@ -1,4 +1,5 @@
 import { Movie } from "../types/moviesData";
+import moment from "moment";
 
 interface MovieBannerAndDetailsProps {
   movie: Movie; // Properti movie harus memiliki tipe Movie
@@ -6,6 +7,8 @@ interface MovieBannerAndDetailsProps {
 
 export default function MovieBannerAndDetails({ movie }: MovieBannerAndDetailsProps) {
   const genres = movie.genres ? movie.genres.split(",").map((g) => g.trim()) : [];
+
+  const formattedReleaseDate = moment(movie.release_date).format("MMMM D, YYYY");
 
   return (
     <section className="relative font-mulish">
@@ -30,7 +33,7 @@ export default function MovieBannerAndDetails({ movie }: MovieBannerAndDetailsPr
             <div className="flex flex-wrap justify-around md:justify-normal md:gap-10 mt-5">
               <div className="leading-6">
                 <div className="text-sm text-gray-400">Release date</div>
-                <div>{movie.release_date}</div>
+                <div>{formattedReleaseDate}</div>
                 <div className="text-sm mt-4 text-gray-400">Duration</div>
                 <div>{movie.duration}</div>
               </div>

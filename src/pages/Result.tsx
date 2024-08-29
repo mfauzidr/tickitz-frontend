@@ -12,6 +12,7 @@ import axios from "axios";
 import { IOrder } from "../types/order";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import moment from "moment";
 
 function Result() {
   const { token } = useStoreSelector((state) => state.auth);
@@ -56,6 +57,9 @@ function Result() {
       });
   };
 
+  const formattedDate = moment(orders?.date).format("MMM D");
+  const formattedTime = moment(orders?.time).format("LT");
+
   return (
     <section className="font-mulish md:flex">
       <div className="bg-[url('/src/assets/images/auth.webp')] bg-cover md:w-1/2">
@@ -88,7 +92,7 @@ function Result() {
                 </div>
                 <div className="mt-5">
                   <h1 className="text-gray-400 text-start text-xs">Date</h1>
-                  <p className="font-semibold text-sm mt-1">{orders?.date}</p>
+                  <p className="font-semibold text-sm mt-1">{formattedDate}</p>
                 </div>
                 <div className="mt-5">
                   <h1 className="text-gray-400 text-start text-xs">Count</h1>
@@ -102,7 +106,7 @@ function Result() {
                 </div>
                 <div className="mt-5">
                   <h1 className="text-gray-400 text-start text-xs">Time</h1>
-                  <p className="font-semibold text-sm mt-1">{orders?.time}</p>
+                  <p className="font-semibold text-sm mt-1">{formattedTime}</p>
                 </div>
                 <div className="mt-5 ">
                   <h1 className="text-gray-400 text-start text-xs">Seats</h1>

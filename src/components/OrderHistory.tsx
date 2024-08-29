@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useStoreSelector } from "../redux/hooks";
 import { IHistory } from "../types/history";
+import moment from "moment";
 
 function OrderHistory() {
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
@@ -58,9 +59,9 @@ function OrderHistory() {
                 <p className="text-[#1D4ED8] text-sm font-bold">{history.ticket_status}</p>
               </div>
             </div>
-            <div className="flex flex-row space-x-5">
+            <div onClick={() => toggleDropdown(history.id)} className="flex flex-row space-x-5">
               <p>Show Details</p>
-              <img src={openDropdownId === history.id ? openDropdown : closeDropdown} width="20" alt="" onClick={() => toggleDropdown(history.id)} />
+              <img src={openDropdownId === history.id ? openDropdown : closeDropdown} width="20" alt="" />
             </div>
           </div>
 
@@ -78,7 +79,7 @@ function OrderHistory() {
                       </div>
                       <div>
                         <p className="font-semibold text-xs text-[#AAAAAA]">Time</p>
-                        <p className="font-semibold text-sm text-[#14142B]">{history.time}</p>
+                        <p className="font-semibold text-sm text-[#14142B]">{moment(history.time).format("LT")}</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-5">
@@ -88,7 +89,7 @@ function OrderHistory() {
                       </div>
                       <div>
                         <p className="font-semibold text-xs text-[#AAAAAA]">Date</p>
-                        <p className="font-semibold text-sm text-[#14142B]">{history.date}</p>
+                        <p className="font-semibold text-sm text-[#14142B]">{moment(history.date).format("MMM D")}</p>
                       </div>
                       <div>
                         <p className="font-semibold text-xs text-[#AAAAAA]">Count</p>

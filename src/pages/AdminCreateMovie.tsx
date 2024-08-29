@@ -9,7 +9,6 @@ import { useStoreSelector } from "../redux/hooks";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
-
 export default function AdminCreateMovie() {
   const [form, setForm] = useState<{ title?: string; category?: string; release_date?: string; duration?: string; director?: string; casts?: string; synopsis?: string; location?: string; airing_date?: string; airing_time?: string }>({
     title: "",
@@ -38,9 +37,8 @@ export default function AdminCreateMovie() {
   const [selectedDateRange, setSelectedDateRange] = useState<string>("");
 
   const [times, setTimes] = useState<{ id: number; time: string }[]>([]);
-  const [selectedTimes, setSelectedTimes] = useState<{ id: number, time: string }[]>([]);
+  const [selectedTimes, setSelectedTimes] = useState<{ id: number; time: string }[]>([]);
   const [showDropTime, setShowDropTime] = useState<boolean>(false);
-
 
   useEffect(() => {
     const getGenres = async () => {
@@ -108,7 +106,7 @@ export default function AdminCreateMovie() {
         const result = await axios.get(url);
         setTimes(result.data.data);
       } catch (error) {
-        console.error('Error fetching times:', error);
+        console.error("Error fetching times:", error);
       }
     };
 
@@ -122,7 +120,7 @@ export default function AdminCreateMovie() {
   const handleSelectTime = (time: { id: number; time: string }) => {
     setSelectedTimes((prev) => [...prev, time]);
     setTimes((prev) => prev.filter((t) => t.id !== time.id));
-    setShowDropTime(false);  // Hide dropdown after selection
+    setShowDropTime(false); // Hide dropdown after selection
   };
 
   const handleRemoveTime = (time: { id: number; time: string }) => {
@@ -136,7 +134,7 @@ export default function AdminCreateMovie() {
       category: genreId.join(","),
       location: locationId.join(","),
       airing_date: selectedDateRange.split(" - ").join(","),
-      airing_time: selectedTimes.map(time => time.id).join(","),
+      airing_time: selectedTimes.map((time) => time.id).join(","),
     }));
   }, [genreId, locationId, selectedDateRange, selectedTimes]);
 
@@ -148,10 +146,10 @@ export default function AdminCreateMovie() {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -166,11 +164,10 @@ export default function AdminCreateMovie() {
     });
   };
 
-
   const handleCreateMovie = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/order/new`;
+    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/insert`;
     try {
       const result = await axios.post(url, form, {
         headers: {
@@ -180,15 +177,12 @@ export default function AdminCreateMovie() {
       });
       console.log(result.data);
     } catch (err) {
-      console.error('Error creating movie:', err);
+      console.error("Error creating movie:", err);
     }
   };
 
-
-
-
   useEffect(() => {
-    console.log('Updated Form:', form);
+    console.log("Updated Form:", form);
   }, [form]);
 
   return (
@@ -247,24 +241,14 @@ export default function AdminCreateMovie() {
 
           <div className="relative" ref={dropdownRef}>
             <label className="mt-6 text-gray-600">Add Location</label>
-            <div
-              className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full cursor-pointer"
-              onClick={() => setShowDropdown((prevShow) => !prevShow)}
-            >
-              {inputLocation.length > 0
-                ? inputLocation.join(", ")
-                : "Select locations..."}
+            <div className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full cursor-pointer" onClick={() => setShowDropdown((prevShow) => !prevShow)}>
+              {inputLocation.length > 0 ? inputLocation.join(", ") : "Select locations..."}
             </div>
 
             {showDropdown && (
               <ul className="absolute z-10 border border-neutral-200 rounded bg-white mt-1 max-h-60 w-full overflow-auto">
                 {locations.map((location) => (
-                  <li
-                    key={location.id}
-                    className={`px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 ${locationId.includes(location.id) ? "bg-gray-200" : ""
-                      }`}
-                    onClick={() => toggleLocId(location.id, location.name)}
-                  >
+                  <li key={location.id} className={`px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 ${locationId.includes(location.id) ? "bg-gray-200" : ""}`} onClick={() => toggleLocId(location.id, location.name)}>
                     {location.name}
                   </li>
                 ))}
@@ -273,52 +257,26 @@ export default function AdminCreateMovie() {
           </div>
 
           <div className="mt-6">
-            <label className="text-gray-600" >Set Date & Time</label>
+            <label className="text-gray-600">Set Date & Time</label>
             <div className="relative max-w-sm">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg
-                  className="w-4 h-4 text-gray-600"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
+                <svg className="w-4 h-4 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                 </svg>
               </div>
-              <input
-                id="datepicker-format"
-                ref={datepickerRef}
-                type="text"
-                className=" border text-sm rounded-lg text-gray-600 block w-full ps-10 p-2.5 "
-                placeholder="Select date"
-                readOnly
-                value={selectedDateRange}
-              />
+              <input id="datepicker-format" ref={datepickerRef} type="text" className=" border text-sm rounded-lg text-gray-600 block w-full ps-10 p-2.5 " placeholder="Select date" readOnly value={selectedDateRange} />
             </div>
           </div>
-
 
           <div className="relative">
             <div className="flex gap-2 flex-wrap justify-between items-center mt-6 text-sm font-semibold text-center text-gray-600">
               <button type="button" onClick={handleToggleDropTime} className="relative">
-                <img
-                  src={plus}
-                  className="px-4 border-violet-800 text-3xl border rounded-lg"
-                  alt="Add Time"
-                />
+                <img src={plus} className="px-4 border-violet-800 text-3xl border rounded-lg" alt="Add Time" />
                 {showDropTime && (
-                  <div
-                    ref={dropdownRef}
-                    className="absolute top-full left-0 mt-2 border border-gray-300 bg-white shadow-lg rounded-lg max-w-xs max-h-48 overflow-scroll z-10"
-                  >
+                  <div ref={dropdownRef} className="absolute top-full left-0 mt-2 border border-gray-300 bg-white shadow-lg rounded-lg max-w-xs max-h-48 overflow-scroll z-10">
                     <ul>
                       {times.map((time) => (
-                        <li
-                          key={time.id}
-                          className="flex p-2 hover:bg-gray-200 cursor-pointer w-full"
-                          onClick={() => handleSelectTime(time)}
-                        >
+                        <li key={time.id} className="flex p-2 hover:bg-gray-200 cursor-pointer w-full" onClick={() => handleSelectTime(time)}>
                           {time.time}
                         </li>
                       ))}
@@ -328,11 +286,7 @@ export default function AdminCreateMovie() {
               </button>
               <div className="flex gap-2 flex-wrap">
                 {selectedTimes.map((time) => (
-                  <span
-                    key={time.id}
-                    className="cursor-pointer px-2 py-1 border rounded bg-gray-200"
-                    onClick={() => handleRemoveTime(time)}
-                  >
+                  <span key={time.id} className="cursor-pointer px-2 py-1 border rounded bg-gray-200" onClick={() => handleRemoveTime(time)}>
                     {time.time}
                   </span>
                 ))}
@@ -342,13 +296,9 @@ export default function AdminCreateMovie() {
 
           <hr className="shrink-0 mt-6 w-full h-px border border-solid border-neutral-200" />
 
-          <button
-            type="submit"
-            className="px-5 py-2 mt-6 text-sm font-semibold tracking-wider leading-loose text-center bg-primary rounded active:bg-blue-800 text-slate-50"
-          >
+          <button type="submit" className="px-5 py-2 mt-6 text-sm font-semibold tracking-wider leading-loose text-center bg-primary rounded active:bg-blue-800 text-slate-50">
             Save Movie
           </button>
-
         </form>
       </section>
     </main>
