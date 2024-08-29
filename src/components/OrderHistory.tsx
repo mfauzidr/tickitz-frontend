@@ -35,6 +35,10 @@ function OrderHistory() {
     getDetailOrder();
   }, [token]);
 
+  if (!getHistory || !Array.isArray(getHistory)) {
+    return <div className="justify-center items-center text-3xl text-center font-bold p-8">You don't have any order history.</div>;
+  }
+
   return (
     <>
       {getHistory.map((history) => (
@@ -42,7 +46,7 @@ function OrderHistory() {
           <div className="flex justify-between items-center pb-10 border-b border-gray-300 px-10 mb-7">
             <div>
               <p className="text-[#AAAAAA] font-normal text-sm">
-                {history.date} - {history.time}
+                {moment(history.date).format("dddd, D MMMM YYYY")} - {moment(history.time).format("LT")}
               </p>
               <p className="font-semibold text-2xl">{history.movie_title}</p>
             </div>
