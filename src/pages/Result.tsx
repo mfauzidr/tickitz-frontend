@@ -56,16 +56,6 @@ function Result() {
       });
   };
 
-  // const formattedDate = new Intl.DateTimeFormat("en-US", {
-  //   // weekday: "long",
-  //   year: "numeric",
-  //   month: "long",
-  //   day: "2-digit",
-  //   // hour: "numeric",
-  //   // minute: "2-digit",
-  //   // hour12: true,
-  // }).format(new Date(`${orders?.date}`));
-
   return (
     <section className="font-mulish md:flex">
       <div className="bg-[url('/src/assets/images/auth.webp')] bg-cover md:w-1/2">
@@ -90,7 +80,7 @@ function Result() {
             <QRCode value={orders?.id || "Default Value"} size={135} />
           </div>
           <div className="pt-10 pb-5 px-8 md:px-10 py-10 bg-white rounded-t-2xl rounded-b-lg">
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-4">
               <div className="w-fit">
                 <div>
                   <h1 className="text-gray-400 text-start text-xs">Movie</h1>
@@ -114,9 +104,13 @@ function Result() {
                   <h1 className="text-gray-400 text-start text-xs">Time</h1>
                   <p className="font-semibold text-sm mt-1">{orders?.time}</p>
                 </div>
-                <div className="mt-5">
+                <div className="mt-5 ">
                   <h1 className="text-gray-400 text-start text-xs">Seats</h1>
-                  <p className="font-semibold text-sm mt-1">{seatsRedux.seat}</p>
+                  <div className=" flex flex-wrap w-1/2">
+                    {seatsRedux.seat.map((seat)=> (
+                      <p className="font-semibold text-sm">{seat},</p>
+                    ) )}
+                  </div>
                 </div>
               </div>
             </div>

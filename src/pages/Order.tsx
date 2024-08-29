@@ -356,7 +356,7 @@ function Order() {
               </div>
               <div className="flex justify-between text-xs mt-3">
                 <p className="text-gray-400">Seat Choosed</p>
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap w-1/2 justify-end">
                   {selectedSeats.map((Seats) => (
                     <p className="font-semibold text-right">{Seats},</p>
                   ))}
@@ -398,7 +398,7 @@ function Order() {
               </div>
               <div className="flex justify-between text-xs mt-3">
                 <p className="text-gray-400">Seat Choosed</p>
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap w-1/2 justify-end">
                   {selectedSeats.map((Seats) => (
                     <p className="font-semibold text-right">{Seats},</p>
                   ))}
