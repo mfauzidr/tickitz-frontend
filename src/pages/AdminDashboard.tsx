@@ -88,12 +88,32 @@ function AdminDashboard() {
 
   useEffect(() => {
     if (selectedMovie) {
+      let labels: string[] = [];
+      let data: number[] = [];
+
+      if (interval === "Weekly") {
+        const weeklySales = selectedMovie.daily_sales.reduce((acc, curr) => {
+          const week = moment(curr.date).startOf("week").format("MMM D");
+          if (!acc[week]) {
+            acc[week] = 0;
+          }
+          acc[week] += curr.sales;
+          return acc;
+        }, {} as Record<string, number>);
+
+        labels = Object.keys(weeklySales);
+        data = Object.values(weeklySales);
+      } else {
+        labels = selectedMovie.daily_sales.map((s) => moment(s.date).format("MMM D"));
+        data = selectedMovie.daily_sales.map((s) => s.sales);
+      }
+
       setChartData({
-        labels: selectedMovie.daily_sales.map((s) => moment(s.date).format("MMM D")),
+        labels,
         datasets: [
           {
             label: selectedMovie.title,
-            data: selectedMovie.daily_sales.map((s) => s.sales),
+            data,
             fill: true,
             borderColor: documentStyle.getPropertyValue("--orange-500"),
             tension: 0.4,
@@ -102,7 +122,7 @@ function AdminDashboard() {
         ],
       });
     }
-  }, [selectedMovie]);
+  }, [selectedMovie, interval]);
 
   return (
     <main className="flex overflow-hidden flex-col pb-11 bg-neutral-100 font-mulish">
