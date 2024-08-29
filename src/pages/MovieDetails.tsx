@@ -99,23 +99,21 @@ const generateDateRange = (startDate: string, endDate: string) => {
   const start = new Date(startDate);
   const end = new Date(endDate);
   const dates: string[] = [];
-
   while (start <= end) {
     dates.push(new Date(start).toISOString().split("T")[0]); // Format YYYY-MM-DD
     start.setDate(start.getDate() + 1);
   }
-
   return dates;
 };
 
 const MovieTicketBooking = () => {
-  
+
   const { id } = useParams<{ id: string }>();
   const [selectedCinemaId, setSelectedCinemaId] = useState<string>("");
   const [movies, setMovies] = useState<Movie | undefined>(undefined);
   const Token = useSelector((state: RootState) => state.auth.token);
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
         const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/${id}`;
@@ -133,9 +131,8 @@ const MovieTicketBooking = () => {
         console.error(error);
       }
     };
-
     fetchMovieDetails();
-  },[])
+  }, [])
 
   const startDate = movies?.airing_dates?.split(" - ")[0] || "";
   const endDate = movies?.airing_dates?.split(" - ")[1] || "";
@@ -152,7 +149,7 @@ const MovieTicketBooking = () => {
   const [selectedTime, setSelectedTime] = useState<string>("");
 
   const handleBookNow = () => {
-    console.log( id,". date order :"+ DateOrder,". time order :"+ TimeOrder, ". location order :"+ LocOrder)
+    console.log(id, ". date order :" + DateOrder, ". time order :" + TimeOrder, ". location order :" + LocOrder)
     dispatch(setMovieOrder({ idMovie: id, DateOrder, TimeOrder, LocOrder }));
     navigate(`/order/${id}`);
   };
