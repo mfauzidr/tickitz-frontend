@@ -2,6 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { IAuthResponse } from "../../types/response";
 import { IUser } from "../../types/user";
+import Swal from "sweetalert2";
 
 export interface IAuthState {
   token: string | null;
@@ -19,11 +20,7 @@ const initialState = {
   isRejected: false,
 } satisfies IAuthState as IAuthState;
 
-const loginThunk = createAsyncThunk<
-  { token: string; user: IUser }, // Success payload type
-  { email: string; password: string }, // Argument type
-  { rejectValue: { error: Error; status?: number } } // Rejected payload type
->("auth/login", async (form, { rejectWithValue }) => {
+const loginThunk = createAsyncThunk<{ token: string; user: IUser }, { email: string; password: string }, { rejectValue: { error: Error; status?: number } }>("auth/login", async (form, { rejectWithValue }) => {
   try {
     const url = `${import.meta.env.VITE_REACT_APP_API_URL}/user/login`;
     const result: AxiosResponse<IAuthResponse> = await axios.post(url, form);
@@ -32,6 +29,18 @@ const loginThunk = createAsyncThunk<
       user: result.data.data.user,
     };
   } catch (error) {
+    Swal.fire({
+      title: "Failed!",
+      text: "Login Failed!",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 2000,
+      position: "top-end",
+      customClass: {
+        popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8",
+      },
+      toast: true,
+    });
     if (error instanceof AxiosError) {
       return rejectWithValue({ error: error, status: error.response?.status });
     }

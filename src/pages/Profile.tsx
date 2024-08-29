@@ -11,6 +11,7 @@ import eyeIconOpen from "../assets/icons/eye-icon.svg";
 import OrderHistory from "../components/OrderHistory";
 import { IProfileBody } from "../types/profile";
 import { useStoreSelector } from "../redux/hooks";
+import Swal from "sweetalert2";
 
 function Profile() {
   const [activeButton, setActiveButton] = useState<string>("accountSettings");
@@ -84,10 +85,33 @@ function Profile() {
           "Content-Type": "multipart/form-data",
         },
       });
+      Swal.fire({
+        title: "Success!",
+        text: "Update Success!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
       getProfile();
       console.log(result.data);
     } catch (err) {
-      console.error(err);
+      Swal.fire({
+        title: "Failed!",
+        text: "Update Failed!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
     }
   };
 
@@ -189,7 +213,7 @@ function Profile() {
                         autoComplete="name"
                         value={form?.first_name}
                         onChange={onChangeHandler}
-                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg"
+                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg pl-5"
                       />
                     </div>
                     <div className="flex flex-col w-full mb-7 sm:mb-0">
@@ -204,7 +228,7 @@ function Profile() {
                         autoComplete="name"
                         value={form?.last_name}
                         onChange={onChangeHandler}
-                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg"
+                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg pl-5"
                       />
                     </div>
                   </div>
@@ -234,7 +258,7 @@ function Profile() {
                         placeholder="Enter Your Phone Number"
                         value={form?.phone_number}
                         onChange={onChangeHandler}
-                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
+                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full pl-5"
                       />
                     </div>
                   </div>
@@ -270,7 +294,7 @@ function Profile() {
                         id="confirmPassword"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full"
+                        className="bg-[#FCFDFE] p-2 border border-gray-300 rounded-lg w-full pl-5"
                       />
                       <img
                         src={passwordVisible2 ? eyeIconOpen : eyeIconClose}
@@ -281,7 +305,7 @@ function Profile() {
                     </div>
                   </div>
                 </div>
-                <button type="submit" className="bg-primary text-white rounded-2xl py-3 px-28 mt-10">
+                <button type="submit" className="bg-primary text-white rounded-2xl py-3 px-5 md:px-28 mt-10">
                   Update Changes
                 </button>
               </form>
