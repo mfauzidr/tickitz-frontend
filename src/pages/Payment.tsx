@@ -72,6 +72,9 @@ function Payment() {
             Authorization: `Bearer ${Token}`,
           },
         });
+        if (!result.data.data.first_name || !result.data.data.last_name || !result.data.data.phone_number) {
+          navigate("/profile");
+        }
         setUserInfo(result.data.data);
         setForm(result.data.data);
       } catch (error) {

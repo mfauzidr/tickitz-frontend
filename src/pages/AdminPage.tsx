@@ -3,81 +3,99 @@ import eye from "../assets/icons/Eye.svg";
 import edit from "../assets/icons/Edit.svg";
 import deleteIcon from "../assets/icons/Delete.svg";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Movie } from "../types/moviesData";
 import axios from "axios";
-
-// const movieData = [
-//   {
-//     id: 1,
-//     name: "Spiderman HomeComing",
-//     thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/db8310b416dc4ba164fc7ef6d67b54affc36d71866943c15e954e5f6df649a70?apiKey=b75a55b5285647ecbff457fc782c7d82&",
-//     category: "Action, Adventure",
-//     releaseDate: "07/05/2023",
-//     duration: "2 Hours 15 Minute",
-//   },
-//   {
-//     id: 2,
-//     name: "Avengers End Game",
-//     thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/b0a1fc7cb47ac3f156a6be7bddc07d51158c99096efa04c42111672231545f93?apiKey=b75a55b5285647ecbff457fc782c7d82&",
-//     category: "Sci-fi, Adventure",
-//     releaseDate: "10/06/2023",
-//     duration: "2 Hours 15 Minute",
-//   },
-//   {
-//     id: 3,
-//     name: "Spiderman HomeComing",
-//     thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/af67c0e83dea01d6909c89371fe6143541a80a4296a7bc2a730b7be6f6d86355?apiKey=b75a55b5285647ecbff457fc782c7d82&",
-//     category: "Action, Adventure",
-//     releaseDate: "02/03/2023",
-//     duration: "2 Hours 15 Minute",
-//   },
-//   {
-//     id: 4,
-//     name: "Avengers End Game",
-//     thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/b0a1fc7cb47ac3f156a6be7bddc07d51158c99096efa04c42111672231545f93?apiKey=b75a55b5285647ecbff457fc782c7d82&",
-//     category: "Sci-fi, Adventure",
-//     releaseDate: "01/09/2023",
-//     duration: "2 Hours 15 Minute",
-//   },
-//   {
-//     id: 5,
-//     name: "Spiderman HomeComing",
-//     thumbnail: "https://cdn.builder.io/api/v1/image/assets/TEMP/af67c0e83dea01d6909c89371fe6143541a80a4296a7bc2a730b7be6f6d86355?apiKey=b75a55b5285647ecbff457fc782c7d82&",
-//     category: "Action, Adventure",
-//     releaseDate: "07/08/2023",
-//     duration: "2 Hours 15 Minute",
-//   },
-// ];
+import { useStoreSelector } from "../redux/hooks";
+import Swal from "sweetalert2";
 
 function MovieList() {
   const [movies, setMovies] = useState<Movie[] | undefined>(undefined);
+  const { token } = useStoreSelector((state) => state.auth);
+  const [showModal, setShowModal] = useState(false);
+  const modalBgRef = useRef<HTMLDivElement>(null);
+  const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
 
+  const getMovies = async () => {
+    try {
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/`;
+      const result = await axios.get(url);
+
+      const filteredMovies = result.data.data.filter((movie: Movie) => movie.is_deleted === false);
+
+      setMovies(filteredMovies);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const getMovies = async () => {
-      try {
-        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/`;
-        var result = await axios.get(url);
-        setMovies(result.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getMovies();
   }, []);
 
   const deleteMovie = async (id: string) => {
     try {
       const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/${id}`;
-      await axios.delete(url);
+      await axios.delete(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      Swal.fire({
+        title: "Success!",
+        text: "Delete Success",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
+      setShowModal(false);
+      getMovies();
       setMovies(movies?.filter((movie) => movie.id !== id));
-    } catch (error) {
-      console.log("Error saat menghapus film:", error);
+    } catch (err) {
+      Swal.fire({
+        title: "Failed!",
+        text: "Delete Failed!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
+      console.log(err);
     }
   };
 
+  const handleDelete = (id: string) => {
+    setSelectedMovieId(id);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedMovieId(null);
+  };
+
+  const handleBackgroundClick = (event: React.MouseEvent) => {
+    if (event.target === modalBgRef.current) {
+      setShowModal(false);
+      setSelectedMovieId(null);
+    }
+  };
+
+  if (!movies || !Array.isArray(movies)) {
+    return <div className="justify-center items-center text-3xl text-center font-bold p-8">No movies available</div>;
+  }
+
   return (
-    <main className="flex flex-col pb-16 px-4 tbt:px-10 lg:px-32 bg-neutral-100 font-mulish">
+    <main className="flex flex-col pb-16 px-4 tbt:px-10 lg:px-32 bg-neutral-100 font-mulish h-screen">
       <section className="flex flex-col self-center mt-16 w-full bg-white rounded-3xl max-w-[1105px] max-md:mt-10 max-md:max-w-full">
         <div className="flex flex-col px-14 pt-6 pb-10 w-full bg-white rounded-3xl max-md:px-5 max-md:max-w-full">
           <div className="flex flex-wrap gap-5 justify-between w-full max-md:max-w-full">
@@ -99,10 +117,10 @@ function MovieList() {
               </Link>
             </div>
           </div>
-          <div className="overflow-x-auto mt-5">
+          <div className="overflow-x-auto mt-5 tbt:self-center">
             <table className="bg-white">
               <thead>
-                <tr className="text-left text-xs font-bold text-sky-900">
+                <tr className="text-left text-xs md:text-base font-bold text-sky-900">
                   <th className="px-4 py-2">No</th>
                   <th className="px-4 py-2">Thumbnail</th>
                   <th className="px-4 py-2">Movie Name</th>
@@ -113,36 +131,66 @@ function MovieList() {
                 </tr>
               </thead>
               <tbody>
-                {movies?.map((movie, index) => (
-                  <tr key={movie.id} className="border-t">
-                    <td className="px-4 py-2">{index + 1}</td>
-                    <td className="px-4 py-2">
-                      <img src={movie.image} alt={movie.title} className="w-16 h-16 object-cover rounded-2xl" />
-                    </td>
-                    <td className="px-4 py-2 text-sm text-primary">{movie.title}</td>
-                    <td className="px-4 py-2 text-sm">{movie.genres}</td>
-                    <td className="px-4 py-2 text-sm">{movie.release_date}</td>
-                    <td className="px-4 py-2 text-sm">{movie.duration}</td>
-                    <td className="p-4">
-                      <div className="flex gap-2">
-                        <button className="bg-blue-500 text-white p-2 rounded w-8 h-8">
-                          <img src={eye} alt="" />
-                        </button>
-                        <button className="bg-[#5D5FEF] text-white p-2  rounded w-8 h-8">
-                          <img src={edit} alt="" />
-                        </button>
-                        <button onClick={() => deleteMovie(movie.id)} className="bg-red-500 text-white p-2 rounded w-8 h-8">
-                          <img src={deleteIcon} alt="" />
-                        </button>
-                      </div>
+                {movies.length > 0 ? (
+                  movies?.map((movie, index) => (
+                    <tr key={movie.id} className="border-t">
+                      <td className="px-4 py-2">{index + 1}</td>
+                      <td className="px-4 py-2">
+                        <img src={movie.image} alt={movie.title} className="w-16 md:w-20 h-16 md:h-20 object-cover rounded-2xl" />
+                      </td>
+                      <td className="px-4 py-2 text-sm md:text-base text-primary">{movie.title}</td>
+                      <td className="px-4 py-2 text-sm md:text-base">{movie.genres}</td>
+                      <td className="px-4 py-2 text-sm md:text-base">{movie.release_date}</td>
+                      <td className="px-4 py-2 text-sm md:text-base">{movie.duration}</td>
+                      <td className="p-4">
+                        <div className="flex gap-2">
+                          <button className="bg-blue-500 text-white p-2 rounded w-8 md:w-10 h-8 md:h-10">
+                            <div className="grid place-items-center">
+                              <img src={eye} alt="" />
+                            </div>
+                          </button>
+                          <button className="bg-[#5D5FEF] text-white p-2 rounded w-8 md:w-10 h-8 md:h-10">
+                            <div className="grid place-items-center">
+                              <img src={edit} alt="" />
+                            </div>
+                          </button>
+                          <button onClick={() => handleDelete(movie.id)} className="bg-red-500 text-white p-2 rounded w-8 md:w-10 h-8 md:h-10">
+                            <div className="grid place-items-center">
+                              <img src={deleteIcon} alt="" />
+                            </div>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={7} className="justify-center items-center text-3xl text-center font-bold p-8">
+                      No movies available
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
         </div>
       </section>
+      {showModal && (
+        <div ref={modalBgRef} onClick={handleBackgroundClick} className="show fixed z-50 inset-0 bg-black bg-opacity-50 modal-bg justify-center items-center">
+          <div className="bg-white p-6 rounded shadow-lg max-w-md w-3/4 tbt:w-full text-center">
+            <h2 className="text-sm tbt:text-2xl font-semibold mb-4">Confirm Delete</h2>
+            <p className="text-xs xsm:text-sm tbt:text-base mb-6">Are you sure you want to delete?</p>
+            <div className="flex justify-center">
+              <button onClick={() => deleteMovie(selectedMovieId!)} className="text-xs tbt:text-base bg-red-500 hover:bg-red-600 active:bg-red-700 text-white px-4 py-2 rounded mr-2">
+                Delete
+              </button>
+              <button onClick={handleCloseModal} className="text-xs tbt:text-base bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white px-4 py-2 rounded">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

@@ -49,9 +49,19 @@ To get started, you need to have Golang installed on your system. If it's not in
 $ git clone https://github.com/khalifgfrz/tickitz-fe.git
 ```
 
-2. Download the dependencies:
+2. Go to folder repository
 
-FrontEnd
+```sh
+$ cd [name]
+```
+
+3. Open folder
+
+```sh
+$ code .
+```
+
+4. Download the dependencies:
 
 ```sh
 $ npm install
