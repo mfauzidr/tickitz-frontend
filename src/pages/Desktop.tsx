@@ -5,38 +5,42 @@ import MovieCard from "../components/MovieCard";
 import Newsletter from "../components/NewsLetter";
 import axios from "axios";
 import { Movie } from "../types/moviesData";
-// import axios from "axios";
 
-interface genresType {
-  genre: string;
-}
 
 function Home() {
   const [movies, setMovies] = useState<Movie[] | undefined>(undefined);
+  const genreListes = ["Thriller", "Horror", "Romantic", "Adventure", "Sci-Fi"];
+  const [genresSelected, setGenres] = useState<{genre: string}[]>([]);
+  const [Search, setSearch] = useState("")
 
   useEffect(() => {
     const asyncFunctest = async () => {
       try {
         const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/`;
-        var result = await axios.get(url);
+        const genreNames = genresSelected.map(g => g.genre).join(",");
+        const params = {
+          ...(genreNames ? { genres: genreNames } : {}),
+          ...(Search ? { name: Search } : {}),
+        };
+        const result = await axios.get(url, { params });
+        console.log(params)
         setMovies(result.data.data);
       } catch (error) {
-        console.log(error);
+        setMovies(undefined);
       }
     };
-    asyncFunctest();
-  }, []);
 
-  const genreListes = ["Thriller", "Horror", "Romantic", "Adventure", "Sci-Fi"];
-  var [genres, setGenres] = useState<genresType[]>([]);
-  // genres bakal dikrim jadi parameter
+    asyncFunctest();
+  }, [genresSelected, Search]);
+
 
   const SetgenreMoviecards = (genre: string) => {
-    if (genres.some((g) => g.genre === genre)) {
-      setGenres(genres.filter((g) => g.genre !== genre));
+    if (genresSelected.some((g) => g.genre === genre)) {
+      setGenres(genresSelected.filter((g) => g.genre !== genre));
     } else {
-      setGenres([...genres, { genre }]);
+      setGenres([...genresSelected, { genre }]);
     }
+    console.log(genresSelected.join(","))
   };
 
   return (
@@ -62,7 +66,11 @@ function Home() {
           <div className=" flex-wrap gap-5 mt-3">
             <div className="flex gap-4 p-3 tracking-wider bg-white rounded border border-solid border-neutral-200 text-slate-400">
               <img loading="lazy" src={searchLight} alt="" className="object-contain shrink-0 w-6 aspect-square" />
-              <input type="text" className="flex-auto" placeholder="New Born Expert" />
+              <input type="text" className="flex-auto" placeholder="New Born Expert" onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setSearch((e.target as HTMLInputElement).value);
+                }
+              }}/>
             </div>
           </div>
         </div>
@@ -71,7 +79,7 @@ function Home() {
           <div className="flex flex-wrap mt-3 max-w-full w-full ">
             <div className="flex flex-wrap flex-auto gap-3 items-center my-auto text-xs font-medium leading-none text-gray-600 whitespace-nowrap">
               {genreListes.map((genre, index) => (
-                <button onClick={() => SetgenreMoviecards(genre)} key={index} className={`px-3 sm:px-6 py-2 sm:py-2.5 my-auto text-center ${genres.some((g) => g.genre === genre) ? "font-semibold text-white bg-blue-700 rounded-xl" : ""}`}>
+                <button onClick={() => SetgenreMoviecards(genre)} key={index} className={`px-3 sm:px-6 py-2 sm:py-2.5 my-auto text-center ${genresSelected.some((g) => g.genre === genre) ? "font-semibold text-white bg-blue-700 rounded-xl" : ""}`}>
                   {genre}
                 </button>
               ))}
