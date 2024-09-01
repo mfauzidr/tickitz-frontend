@@ -72,6 +72,9 @@ function Payment() {
             Authorization: `Bearer ${Token}`,
           },
         });
+        if (!result.data.data.first_name || !result.data.data.last_name || !result.data.data.phone_number) {
+          navigate("/profile");
+        }
         setUserInfo(result.data.data);
         setForm(result.data.data);
       } catch (error) {
@@ -182,7 +185,7 @@ function Payment() {
             name="first_name"
             placeholder="Enter Your Full Name"
             autoComplete="name"
-            value={form?.first_name}
+            value={form?.first_name && form?.last_name}
             onChange={onChangeHandler}
             className="pl-3 py-3 text-sm mt-3 tracking-wider bg-white rounded border-b-[2px] border-solid border-neutral-200"
           ></input>

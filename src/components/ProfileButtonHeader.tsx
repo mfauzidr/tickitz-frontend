@@ -1,11 +1,11 @@
 import ProfileButtons from "./AdminProfileButton";
-import HamburgerLogin from "./HamburgerLogin";
+import Hamburger from "./Hamburger";
 
 function AdminHeader() {
   return (
     <div>
       <ProfileButtons />
-      <HamburgerLogin />
+      <Hamburger />
     </div>
   );
 }

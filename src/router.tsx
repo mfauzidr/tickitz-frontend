@@ -101,7 +101,11 @@ const routerWithChildren = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <ProfileIndex />,
+    element: (
+      <PrivateRouteUser to={"/"}>
+        <ProfileIndex />
+      </PrivateRouteUser>
+    ),
   },
   {
     path: "*",
