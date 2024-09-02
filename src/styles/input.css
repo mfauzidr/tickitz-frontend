@@ -11,4 +11,12 @@
   .modal-bg.show {
     @apply flex;
   }
+
+  .truncate-text {
+  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  }
+  
+
 }

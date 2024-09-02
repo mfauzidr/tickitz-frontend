@@ -564,6 +564,12 @@ video {
   display: flex;
 }
 
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .sr-only{
   position: absolute;
   width: 1px;
