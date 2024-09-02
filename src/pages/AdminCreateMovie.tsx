@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, ChangeEvent } from "react";
 // import dropdown from "../assets/icons/DropdownArrow.svg";
 // import calendar from "../assets/icons/Calendar.svg";
 import plus from "../assets/icons/PurplePlus.svg";
@@ -6,22 +6,16 @@ import plus from "../assets/icons/PurplePlus.svg";
 import axios from "axios";
 // import { IAuthResponse } from "../types/response";
 import { useStoreSelector } from "../redux/hooks";
+import { useNavigate } from "react-router-dom";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import { ICreateMovies } from "../types/createMovie";
+import Swal from "sweetalert2";
+
 
 export default function AdminCreateMovie() {
-  const [form, setForm] = useState<{ title?: string; category?: string; release_date?: string; duration?: string; director?: string; casts?: string; synopsis?: string; location?: string; airing_date?: string; airing_time?: string }>({
-    title: "",
-    category: "",
-    release_date: "",
-    duration: "",
-    director: "",
-    casts: "",
-    synopsis: "",
-    location: "",
-    airing_date: "",
-    airing_time: "",
-  });
+  const [form, setForm] = useState<ICreateMovies>();
+  const [imageFile, setImageFile] = useState<File>();
 
   const { token } = useStoreSelector((state) => state.auth);
   const [genres, setGenres] = useState<{ id: number; name: string }[]>([]);
@@ -39,6 +33,8 @@ export default function AdminCreateMovie() {
   const [times, setTimes] = useState<{ id: number; time: string }[]>([]);
   const [selectedTimes, setSelectedTimes] = useState<{ id: number; time: string }[]>([]);
   const [showDropTime, setShowDropTime] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getGenres = async () => {
@@ -89,7 +85,7 @@ export default function AdminCreateMovie() {
             if (selectedDates.length === 1) {
               dateRange = flatpickr.formatDate(selectedDates[0], "Y-m-d");
             } else if (selectedDates.length === 2) {
-              dateRange = `${flatpickr.formatDate(selectedDates[0], "Y-m-d")} -${flatpickr.formatDate(selectedDates[1], "Y-m-d")}`;
+              dateRange = `${flatpickr.formatDate(selectedDates[0], "Y-m-d")} - ${flatpickr.formatDate(selectedDates[1], "Y-m-d")}`;
             }
             setSelectedDateRange(dateRange);
             datepickerRef.current.value = dateRange; // Update the input field value
@@ -128,15 +124,6 @@ export default function AdminCreateMovie() {
     setTimes((prev) => [...prev, time].sort((a, b) => a.time.localeCompare(b.time)));
   };
 
-  useEffect(() => {
-    setForm((prevForm) => ({
-      ...prevForm,
-      category: genreId.join(","),
-      location: locationId.join(","),
-      airing_date: selectedDateRange.split(" - ").join(","),
-      airing_time: selectedTimes.map((time) => time.id).join(","),
-    }));
-  }, [genreId, locationId, selectedDateRange, selectedTimes]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -167,23 +154,75 @@ export default function AdminCreateMovie() {
   const handleCreateMovie = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/insert`;
     try {
-      const result = await axios.post(url, form, {
+      const formData = new FormData()
+
+      formData.append("title", form?.title || "");
+      formData.append("genres", genreId.join(","));
+      formData.append("release_date", form?.release_date || "");
+      formData.append("duration", form?.duration || "");
+      formData.append("director", form?.director || "");
+      formData.append("casts", form?.casts || "");
+      formData.append("synopsis", form?.synopsis || "");
+      formData.append("locations", locationId.join(","));
+      formData.append("airing_date", selectedDateRange.split(" - ").join(","));
+      formData.append("airing_time", selectedTimes.map((time) => time.id).join(","));
+      if (imageFile) {
+        formData.append("image", imageFile);
+      }
+
+
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/movie/insert`;
+      const result = await axios.post(url, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       });
+      Swal.fire({
+        title: "Success!",
+        text: "Create Movie Success!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
       console.log(result.data);
+      setTimeout(() => {
+        navigate("/admin/movie");
+      }, 3000);
     } catch (err) {
+      Swal.fire({
+        title: "Failed!",
+        text: "Update Failed!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
       console.error("Error creating movie:", err);
     }
   };
 
-  useEffect(() => {
-    console.log("Updated Form:", form);
-  }, [form]);
+  const [fileName, setFileName] = useState('');
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFileName(file.name);
+      setImageFile(e.target.files?.[0])
+    } else {
+      setFileName('');
+    }
+  };
 
   return (
     <main className="pt-16 pb-20 px-4 tbt:px-10 md:px-52 lg:px-[450px] bg-neutral-100 font-mulish">
@@ -192,16 +231,36 @@ export default function AdminCreateMovie() {
         <form className="flex flex-col mt-7" onSubmit={handleCreateMovie}>
           <label className="text-base tracking-wide text-gray-500">Upload Image</label>
           <div className="flex flex-col mt-3.5 text-sm tracking-wider leading-loose text-center text-slate-50 w-[106px]">
-            <button type="button" className="px-8 py-2 bg-blue-700 rounded-lg fill-blue-700 max-md:px-5">
+            <input
+              type="file"
+              id="fileInput"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+            <button
+              type="button"
+              className="px-8 py-2 bg-blue-700 rounded-lg fill-blue-700 max-md:px-5"
+              onClick={() => {
+                const fileInput = document.getElementById('fileInput');
+                if (fileInput) {
+                  fileInput.click();
+                }
+              }}
+            >
               Upload
             </button>
           </div>
+          {fileName && (
+            <div className="flex w-full mt-2 border text-gray-600">
+              <p className="truncate-text tooltip">Selected file: {fileName}</p>
+            </div>
+          )}
 
           <label className="mt-6 text-gray-600">Movie Name</label>
-          <input type="text" name="title" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" value={form.title} onChange={onChangeHandler} />
+          <input type="text" name="title" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" value={form?.title} onChange={onChangeHandler} />
 
           <label className="mt-6 text-gray-600">Category</label>
-          <input type="text" name="category" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" value={inputGenreNama} readOnly />
+          <input type="text" name="genres" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200" value={inputGenreNama} readOnly />
 
           <div className="mt-4 flex flex-wrap gap-5">
             {genres.map((genre) => (
@@ -219,25 +278,25 @@ export default function AdminCreateMovie() {
           <div className="md:flex md:justify-between">
             <div className="mt-6 md:w-2/5">
               <label className="text-gray-600">Release Date</label>
-              <input type="text" name="release_date" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={form.release_date} onChange={onChangeHandler} />
+              <input type="text" name="release_date" className="pl-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={form?.release_date} onChange={onChangeHandler} />
             </div>
 
             <div className="mt-6 md:w-2/5">
               <label className="text-gray-600">
                 Duration <span className="font-semibold">(hour / minute)</span>
               </label>
-              <input type="text" name="duration" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={form.duration} onChange={onChangeHandler} />
+              <input type="text" name="duration" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={form?.duration} onChange={onChangeHandler} />
             </div>
           </div>
 
           <label className="text-gray-600 mt-6">Director Name</label>
-          <input type="text" name="director" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={form.director} onChange={onChangeHandler} />
+          <input type="text" name="director" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={form?.director} onChange={onChangeHandler} />
 
           <label className="text-gray-600 mt-6">Cast</label>
-          <input type="text" name="casts" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={form.casts} onChange={onChangeHandler} />
+          <input type="text" name="casts" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={form?.casts} onChange={onChangeHandler} />
 
           <label className="mt-6 text-gray-600">Synopsis</label>
-          <input name="synopsis" className="pt-3 text-wrap px-3 pb-10 mt-3 tracking-wider leading-8 text-gray-600 bg-white rounded border border-solid border-neutral-200" value={form.synopsis} onChange={onChangeHandler} />
+          <input name="synopsis" className="pt-3 text-wrap px-3 pb-10 mt-3 tracking-wider leading-8 text-gray-600 bg-white rounded border border-solid border-neutral-200" value={form?.synopsis} onChange={onChangeHandler} style={{ whiteSpace: "nowrap", overflowX: "auto" }} />
 
           <div className="relative" ref={dropdownRef}>
             <label className="mt-6 text-gray-600">Add Location</label>
