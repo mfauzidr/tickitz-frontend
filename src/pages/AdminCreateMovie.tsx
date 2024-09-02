@@ -6,9 +6,12 @@ import plus from "../assets/icons/PurplePlus.svg";
 import axios from "axios";
 // import { IAuthResponse } from "../types/response";
 import { useStoreSelector } from "../redux/hooks";
+import { useNavigate } from "react-router-dom";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import { ICreateMovies } from "../types/createMovie";
+import Swal from "sweetalert2";
+
 
 export default function AdminCreateMovie() {
   const [form, setForm] = useState<ICreateMovies>();
@@ -30,6 +33,8 @@ export default function AdminCreateMovie() {
   const [times, setTimes] = useState<{ id: number; time: string }[]>([]);
   const [selectedTimes, setSelectedTimes] = useState<{ id: number; time: string }[]>([]);
   const [showDropTime, setShowDropTime] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getGenres = async () => {
@@ -174,8 +179,35 @@ export default function AdminCreateMovie() {
           "Content-Type": "multipart/form-data",
         },
       });
+      Swal.fire({
+        title: "Success!",
+        text: "Create Movie Success!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
       console.log(result.data);
+      setTimeout(() => {
+        navigate("/admin/movie");
+      }, 3000);
     } catch (err) {
+      Swal.fire({
+        title: "Failed!",
+        text: "Update Failed!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
       console.error("Error creating movie:", err);
     }
   };
@@ -264,7 +296,7 @@ export default function AdminCreateMovie() {
           <input type="text" name="casts" className="px-3 py-3 text-sm mt-3 tracking-wider text-gray-600 bg-white rounded border border-solid border-neutral-200 w-full" value={form?.casts} onChange={onChangeHandler} />
 
           <label className="mt-6 text-gray-600">Synopsis</label>
-          <input name="synopsis" className="pt-3 text-wrap px-3 pb-10 mt-3 tracking-wider leading-8 text-gray-600 bg-white rounded border border-solid border-neutral-200" value={form?.synopsis} onChange={onChangeHandler} />
+          <input name="synopsis" className="pt-3 text-wrap px-3 pb-10 mt-3 tracking-wider leading-8 text-gray-600 bg-white rounded border border-solid border-neutral-200" value={form?.synopsis} onChange={onChangeHandler} style={{ whiteSpace: "nowrap", overflowX: "auto" }} />
 
           <div className="relative" ref={dropdownRef}>
             <label className="mt-6 text-gray-600">Add Location</label>
