@@ -83,4 +83,4 @@ $ npm run dev
 
 mfdr.fauzi97@gmail.com || Mochammad Fauzi Dwi R
 
-Github : https://github.com/mfauzidr/Coffee-Shop-Go-Backend
+Github : https://github.com/mfauzidr/tickitz-frontend
