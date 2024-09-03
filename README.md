@@ -1,4 +1,4 @@
-# Tickitz
+# Tickitz Frontend
 
 Tickitz is a simple website for managing a online cinema ticket booking. This application makes it easier for users if they want to create a online cinema ticket booking business.
 
@@ -46,7 +46,7 @@ To get started, you need to have Golang installed on your system. If it's not in
 1. Clone the repository
 
 ```sh
-$ git clone https://github.com/khalifgfrz/tickitz-fe.git
+$ git clone https://github.com/mfauzidr/tickitz-frontend.git
 ```
 
 2. Go to folder repository
@@ -81,5 +81,6 @@ $ npm run dev
 
 ## Contact
 
-Khalif Gaffarezka Auliasoma - kgaffarezka@gmail.com
-Project Links: https://github.com/khalifgfrz/coffee-shop-be-go
+mfdr.fauzi97@gmail.com || Mochammad Fauzi Dwi R
+
+Github : https://github.com/mfauzidr/Coffee-Shop-Go-Backend
